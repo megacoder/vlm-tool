@@ -74,6 +74,7 @@ class	VlmTool( object ):
 		self.rejected = 0
 		self.lines = []
 		self.filters = []
+		self.ruleno = 0
 		self.maxrules = 0
 		self.rules = []
 		self.mark = mark
@@ -101,22 +102,16 @@ class	VlmTool( object ):
 			self.add_filter( filter )
 		return
 
-	def each_filter( self ):
-		for f in self.filters:
-			yield f
-		return
-
-	def apply_filter( self, text, filter ):
-		if( filter.search( text ) ) is not None:
+	def filter_matches( self, text, ruleno ):
+		if( self.filters[ruleno].search( text ) ) is not None:
 			return True
 		return False
 
 	def apply_filters( self, line ):
-		ruleno = 0
-		for f in self.each_filter():
-			if self.apply_filter( line, f ):
-				return ruleno
-			ruleno += 1
+		for i in xrange( 0, self.maxrules ):
+			if self.filter_matches( line, self.ruleno ):
+				return self.ruleno
+			self.ruleno = (self.ruleno+1) % self.maxrules
 		return -1
 
 	def date_to_bin( self, ts ):
