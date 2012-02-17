@@ -100,8 +100,6 @@ class	VlmTool( object ):
 		return
 
 	def show_rule( self, ruleno ):
-		if self.colorize:
-			return '<colorized>'
 		if ruleno == -1:
 			return ''
 		if ruleno < self.maxrules:
@@ -207,10 +205,8 @@ class	VlmTool( object ):
 		except Exception, e:
 			print >>sys.stderr, "File '%s' not writable." % fn
 			raise e
-		set = self.rules
-		set.sort()
-		for i in xrange( 0, self.maxrules ):
-			print >>f, "%s" % set[ i ]
+		for filter in self.filters:
+			print >>f, "%s" % filter.pattern
 		f.close()
 		return
 
@@ -240,12 +236,20 @@ if __name__ == '__main__':
 		help = 'Load bulk filters from here, one per line.'
 	)
 	p.add_option(
-		'-o',
-		'--out',
-		dest='ofile',
-		metavar='FILE',
+		'-c',
+		'--colorize',
+		dest='colorize',
+		default = False,
+		action='store_true',
+		help = 'Use colors (implies -m).'
+	)
+	p.add_option(
+		'-d',
+		'--dump',
+		dest='dump_rules',
 		default = None,
-		help = 'Write output here, else to stdout.'
+		metavar = 'FILE',
+		help = 'Write rule set to FILE.'
 	)
 	p.add_option(
 		'-m',
@@ -264,6 +268,14 @@ if __name__ == '__main__':
 		help = 'Do not populate standard filters.'
 	)
 	p.add_option(
+		'-o',
+		'--out',
+		dest='ofile',
+		metavar='FILE',
+		default = None,
+		help = 'Write output here, else to stdout.'
+	)
+	p.add_option(
 		'-r',
 		'--rules',
 		dest='show_rule',
@@ -279,27 +291,12 @@ if __name__ == '__main__':
 		action = 'store_true',
 		help = 'Show counts of filter hits.'
 	)
-	p.add_option(
-		'-d',
-		'--dump',
-		dest='dump_rules',
-		default = None,
-		metavar = 'FILE',
-		help = 'Write rule set to FILE.'
-	)
-	p.add_option(
-		'-c',
-		'--colorize',
-		dest='colorize',
-		default = False,
-		action='store_true',
-		help = 'Use colors (implies -m).'
-	)
 	(opts,args) = p.parse_args()
 	if opts.ofile is not None:
 		out = open( opts.ofile, 'wt' )
 	else:
 		out = sys.stdout
+	opts.mark |= opts.colorize
 	vt = VlmTool(
 		dont_populate = opts.no_filters,
 		mark = opts.mark,
@@ -316,7 +313,7 @@ if __name__ == '__main__':
 			bulk.append( line.strip() )
 		f.close()
 		vt.add_filter_set( bulk )
-	if( opts.dump_rules is not None ):
+	if( opts.dump_rules ):
 		vt.dump_filter_set( opts.dump_rules )
 	if len(args) == 0:
 		for f in os.listdir( '/var/log' ):
