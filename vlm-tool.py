@@ -8,7 +8,7 @@ import	sys
 import	re
 import	datetime
 
-LIBDIR	= u'/opt/vlm-tool/lib'
+LIBDIR	= u'/opt/lib/vlm-tool'
 
 sys.path.append( LIBDIR )
 sys.path.append( os.path.dirname( sys.argv[0] ) )
