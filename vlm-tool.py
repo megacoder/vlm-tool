@@ -1,10 +1,17 @@
 #!/usr/bin/python
 # vim: noet sw=4 ts=4
 
+# Allow loading modules from our locations
+
 import	os
 import	sys
 import	re
 import	datetime
+
+LIBDIR	= u'/opt/vlm-tool/lib'
+
+sys.path.append( LIBDIR )
+sys.path.append( os.path.dirname( sys.argv[0] ) )
 
 class	VlmTool( object ):
 
@@ -69,21 +76,23 @@ class	VlmTool( object ):
 		r'watchdog',
 	]
 
-	def __init__( self, dont_populate = True, mark = False ):
+	def __init__( self, dont_populate = True, mark = False, colorize = False ):
+		self.colorize = colorize
 		self.accepted = 0
 		self.rejected = 0
 		self.lines = []
 		self.filters = []
 		self.ruleno = 0
 		self.maxrules = 0
-		self.rules = []
 		self.mark = mark
 		if not dont_populate:
 			self.add_filter_set( VlmTool.FILTERS )
 		return
 
 	def add_filter( self, pattern ):
-		self.rules.append( pattern )
+		if self.colorize:
+			pattern = r'^(.*)(%s)(.*)$' % pattern
+			# print >>sys.stderr, 'pattern %s' % pattern
 		self.filters.append(
 			re.compile( pattern, re.IGNORECASE )
 		)
@@ -91,10 +100,12 @@ class	VlmTool( object ):
 		return
 
 	def show_rule( self, ruleno ):
+		if self.colorize:
+			return '<colorized>'
 		if ruleno == -1:
 			return ''
 		if ruleno < self.maxrules:
-			return self.rules[ ruleno ]
+			return str(self.filters[ ruleno ])
 		return 'Unknown rule %d' % ruleno
 
 	def add_filter_set( self, filters ):
@@ -103,16 +114,30 @@ class	VlmTool( object ):
 		return
 
 	def filter_matches( self, text, ruleno ):
-		if( self.filters[ruleno].search( text ) ) is not None:
-			return True
-		return False
+		matchObject = self.filters[ruleno].search( text )
+		if matchObject is not None:
+			return matchObject
+		return None
 
 	def apply_filters( self, line ):
+		mo = None
 		for i in xrange( 0, self.maxrules ):
-			if self.filter_matches( line, self.ruleno ):
-				return self.ruleno
+			mo = self.filter_matches( line, self.ruleno )
+			if mo is not None:
+				break
 			self.ruleno = (self.ruleno+1) % self.maxrules
-		return -1
+		return mo
+
+	def	get_parts( self, mo ):
+		if mo is None:
+			l = '???'
+			m = '???'
+			r = '???'
+		else:
+			l = mo.group( 1 )
+			m = mo.group( 2 )
+			r = mo.group( 3 )
+		return (l, m, r)
 
 	def date_to_bin( self, ts ):
 		return datetime.datetime.strptime(
@@ -129,13 +154,15 @@ class	VlmTool( object ):
 		for line in f:
 			line = line.rstrip()
 			ts = self.date_to_bin( line[0:14] )
-			n = self.apply_filters( line )
-			if n > -1:
-				self.lines.append( (ts, n, line) )
+			mo = self.apply_filters( line )
+			if mo is not None:
+				# Rule hits are always accepted
+				self.lines.append( (ts, mo, line) )
 				self.accepted += 1
 			else:
 				if self.mark:
-					self.lines.append( (ts, n, line) )
+					# Non-hits are only kept if we are marking or colorizing
+					self.lines.append( (ts, mo, line) )
 				self.rejected += 1
 		f.close()
 		return
@@ -163,12 +190,16 @@ class	VlmTool( object ):
 		return
 
 	def every( self ):
-		for (t,n,r) in self.lines:
-			yield (t,n,r)
+		for (t,mo,r) in self.lines:
+			yield (t,mo,r)
 		return
 
-	def is_marked( self, n ):
-		return n > -1
+	def is_marked( self, mo ):
+		if mo is None:
+			retval = False
+		else:
+			retval = True
+		return retval
 
 	def	dump_filter_set( self, fn ):
 		try:
@@ -178,11 +209,8 @@ class	VlmTool( object ):
 			raise e
 		set = self.rules
 		set.sort()
-		# print >>f, 'FILTERS = ['
 		for i in xrange( 0, self.maxrules ):
-			# print >>f, "\tr'%s'," % set[ i ]
 			print >>f, "%s" % set[ i ]
-		# print >>f, ']'
 		f.close()
 		return
 
@@ -259,6 +287,14 @@ if __name__ == '__main__':
 		metavar = 'FILE',
 		help = 'Write rule set to FILE.'
 	)
+	p.add_option(
+		'-c',
+		'--colorize',
+		dest='colorize',
+		default = False,
+		action='store_true',
+		help = 'Use colors (implies -m).'
+	)
 	(opts,args) = p.parse_args()
 	if opts.ofile is not None:
 		out = open( opts.ofile, 'wt' )
@@ -266,7 +302,8 @@ if __name__ == '__main__':
 		out = sys.stdout
 	vt = VlmTool(
 		dont_populate = opts.no_filters,
-		mark = opts.mark
+		mark = opts.mark,
+		colorize = opts.colorize
 	)
 	vt.add_filter_set( opts.filters )
 	if( opts.from_here is not None ):
@@ -289,16 +326,30 @@ if __name__ == '__main__':
 		for f in args:
 			vt.ingest( f )
 	vt.sort()
-	for (t,ruleno,line) in vt.every():
+	mark = '*'
+	nomark = ' '
+	if opts.colorize:
+		opts.mark = True
+		import	ansicolors
+		ac = ansicolors.AnsiColors()
+	for (t,mo,line) in vt.every():
 		if opts.mark:
-			is_marked = vt.is_marked( ruleno )
-			if opts.show_rule:
-				print >>out, '%15.15s ' % vt.show_rule( ruleno ),
-			if is_marked:
-				mark = '*'
+			if vt.is_marked( mo ):
+				if opts.colorize:
+					l,m,r = vt.get_parts( mo )
+					line = '%s%s%s%s%s%s' % (
+						ac.reset(),
+						l,
+						ac.emphasis(),
+						m,
+						ac.reset(),
+						r
+					)
+				elif opts.show_rule:
+					print >>out, '%15.15s ' % vt.show_rule( ruleno ),
+				print >>out, '%1.1s ' % mark,
 			else:
-				mark = ' '
-			print >>out, '%1.1s ' % mark,
+				print >>out, '%1.1s ' % nomark,
 		print >>out, '%s' % line
 	if opts.show_stats:
 		vt.dump_stats( out )
