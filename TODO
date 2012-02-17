@@ -1,0 +1,1 @@
+1)	Add year processing.  Currently it does not gracefully handle /var/log/messages files for different years.
