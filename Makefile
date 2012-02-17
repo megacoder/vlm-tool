@@ -25,6 +25,7 @@ install:: vlm-tool.py ansicolors.py
 
 uninstall::
 	${RM} ${BINDIR}/vlm-tool
+	${RM} ${LIBDIR}/ansicolors.py
 
 ifneq	(,${SUBDIRS})
 ${TARGETS}::
