@@ -103,7 +103,7 @@ class	VlmTool( object ):
 		if ruleno == -1:
 			return ''
 		if ruleno < self.maxrules:
-			return str(self.filters[ ruleno ])
+			return self.filters[ ruleno ].pattern
 		return 'Unknown rule %d' % ruleno
 
 	def add_filter_set( self, filters ):
@@ -155,12 +155,12 @@ class	VlmTool( object ):
 			mo = self.apply_filters( line )
 			if mo is not None:
 				# Rule hits are always accepted
-				self.lines.append( (ts, mo, line) )
+				self.lines.append( (ts, self.ruleno, mo, line) )
 				self.accepted += 1
 			else:
 				if self.mark:
 					# Non-hits are only kept if we are marking or colorizing
-					self.lines.append( (ts, mo, line) )
+					self.lines.append( (ts, self.ruleno, mo, line) )
 				self.rejected += 1
 		f.close()
 		return
@@ -184,12 +184,12 @@ class	VlmTool( object ):
 		)
 
 	def sort( self ):
-		self.lines.sort( key = lambda (t,n,r): t )
+		self.lines.sort( key = lambda (ts,num,mo,rule): ts )
 		return
 
 	def every( self ):
-		for (t,mo,r) in self.lines:
-			yield (t,mo,r)
+		for (t,num,mo,r) in self.lines:
+			yield (t,num,mo,r)
 		return
 
 	def is_marked( self, mo ):
@@ -281,7 +281,7 @@ if __name__ == '__main__':
 		dest='show_rule',
 		default = False,
 		action = 'store_true',
-		help = 'Show matching rule for line.'
+		help = 'Show matching rule for line (implies -m).'
 	)
 	p.add_option(
 		'-s',
@@ -329,24 +329,31 @@ if __name__ == '__main__':
 		opts.mark = True
 		import	ansicolors
 		ac = ansicolors.AnsiColors()
-	for (t,mo,line) in vt.every():
+	for (ts,num,mo,line) in vt.every():
 		if opts.mark:
-			if vt.is_marked( mo ):
-				if opts.colorize:
-					l,m,r = vt.get_parts( mo )
-					line = '%s%s%s%s%s%s' % (
-						ac.reset(),
-						l,
-						ac.emphasis(),
-						m,
-						ac.reset(),
-						r
-					)
-				elif opts.show_rule:
-					print >>out, '%15.15s ' % vt.show_rule( ruleno ),
-				print >>out, '%1.1s ' % mark,
+			# Will get both marked and unmarked lines here
+			marked = vt.is_marked( mo )
+			if marked is False:
+				leadin = nomark
 			else:
-				print >>out, '%1.1s ' % nomark,
+				leadin = mark
+			print >>out, '%s ' % leadin,
+			if opts.show_rule:
+				if not marked:
+					rule = ''
+				else:
+					rule = vt.show_rule( num )
+				print >>out, '%-15.15s ' % rule,
+			if marked and opts.colorize:
+				l,m,r = vt.get_parts( mo )
+				line = '%s%s%s%s%s%s' % (
+					ac.reset(),
+					l,
+					ac.emphasis(),
+					m,
+					ac.reset(),
+					r
+				)
 		print >>out, '%s' % line
 	if opts.show_stats:
 		vt.dump_stats( out )
