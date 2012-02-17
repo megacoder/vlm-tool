@@ -295,10 +295,10 @@ if __name__ == '__main__':
 			if opts.show_rule:
 				print >>out, '%15.15s ' % vt.show_rule( ruleno ),
 			if is_marked:
-				mark = '* '
+				mark = '*'
 			else:
-				mark = '  '
-			print >>out, '%3.3s ' % mark,
+				mark = ' '
+			print >>out, '%1.1s ' % mark,
 		print >>out, '%s' % line
 	if opts.show_stats:
 		vt.dump_stats( out )
