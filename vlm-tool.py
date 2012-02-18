@@ -111,11 +111,10 @@ class	VlmTool( object ):
 		if self.colorize:
 			pattern = r'^(.*)(%s)(.*)$' % pattern
 			# print >>sys.stderr, 'pattern %s' % pattern
-		self.filters.append(
-			re.compile( pattern, re.IGNORECASE )
-		)
+		mo = re.compile( pattern, re.IGNORECASE )
+		self.filters.append( mo )
 		self.maxrules += 1
-		return
+		return	mo
 
 	def show_rule( self, ruleno ):
 		if ruleno == -1:
@@ -238,8 +237,8 @@ class	VlmTool( object ):
 		return
 
 	def	postprocess( self ):
-		begin = re.compile( r'kernel: bug:', re.IGNORECASE )
-		body  = re.compile( r'kernel:', re.IGNORECASE )
+		begin = self.add_filter( r'kernel: bug:' )
+		body  = self.add_filter( r'kernel:' )
 		i = 0
 		n = len( self.lines )
 		while i < n:
@@ -252,7 +251,7 @@ class	VlmTool( object ):
 			# Begin a matching clause
 			i += 1
 			while i < n:
-				self.lines[ i ] = (ts,ruleno,mo,line)
+				(ts, ruleno, mo, line) = self.lines[i]
 				mo = body.search( line )
 				if mo is None:
 					break
