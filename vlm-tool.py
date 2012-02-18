@@ -82,11 +82,12 @@ class	VlmTool( object ):
 		self.colorize = colorize
 		self.accepted = 0
 		self.rejected = 0
-		self.lines = []
-		self.filters = []
-		self.ruleno = 0
+		self.ignored  = 0
+		self.lines    = []
+		self.filters  = []
+		self.ruleno   = 0
 		self.maxrules = 0
-		self.mark = mark
+		self.mark     = mark
 		if not dont_populate:
 			self.add_filter_set( VlmTool.FILTERS )
 		return
@@ -148,7 +149,13 @@ class	VlmTool( object ):
 	def ingest_from( self, fyle ):
 		for line in fyle:
 			line = line.rstrip()
-			ts = self.date_to_bin( line[0:14] )
+			if len(line) == 0: continue
+			try:
+				ts = self.date_to_bin( line[0:14] )
+			except:
+				# Silently ignore badly-formatted line
+				self.ignored += 1
+				continue
 			mo = self.apply_filters( line )
 			if mo is not None:
 				# Rule hits are always accepted
@@ -172,11 +179,12 @@ class	VlmTool( object ):
 		return
 
 	def dump_stats( self, out = sys.stdout ):
-		total = self.accepted + self.rejected
+		total = self.accepted + self.rejected + self.ignored
 		l = len( '%u' % total )
 		u_fmt = '%' + str(l) + 'u %s'
 		print >>out, '%s' % '-' * l
 		print >>out, u_fmt % ( self.accepted, 'lines accepted' )
+		print >>out, u_fmt % ( self.ignored,  'lines ignored' )
 		print >>out, u_fmt % ( self.rejected, 'lines rejected' )
 		print >>out, '%s' % '=' * l
 		print >>out, u_fmt % ( total, 'all lines' ),
