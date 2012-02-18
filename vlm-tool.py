@@ -40,6 +40,7 @@ class	VlmTool( object ):
 		r'blocked for more',
 		r'becomes',
 		r'bond',
+		r'bug',
 		r'call trace:',
 		r'clocksource',
 		r'conflict',
@@ -52,6 +53,7 @@ class	VlmTool( object ):
 		r'error',
 		r'fail',
 		r'fenc(e,ing)',
+		r'fsck',
 		r'\bh[au]ng',
 		r'illegal:',
 		r'init:',
@@ -416,8 +418,7 @@ if __name__ == '__main__':
 				print >>out, '%-15.15s ' % rule,
 			if marked and opts.colorize:
 				l,m,r = vt.get_parts( mo )
-				line = '%s%s%s%s%s%s' % (
-					ac.reset(),
+				line = '%s%s%s%s%s' % (
 					l,
 					ac.emphasis(),
 					m,
