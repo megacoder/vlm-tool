@@ -143,13 +143,8 @@ class	VlmTool( object ):
 			'%b %d %H:%M:%S'
 		)
 
-	def ingest( self, fn ):
-		try:
-			f = open( fn, 'rt' )
-		except Exception, e:
-			print >>sys.stderr, "Cannot open '%s' for reading." % fn
-			raise e
-		for line in f:
+	def ingest_from( self, fyle ):
+		for line in fyle:
 			line = line.rstrip()
 			ts = self.date_to_bin( line[0:14] )
 			mo = self.apply_filters( line )
@@ -162,6 +157,15 @@ class	VlmTool( object ):
 					# Non-hits are only kept if we are marking or colorizing
 					self.lines.append( (ts, self.ruleno, mo, line) )
 				self.rejected += 1
+		return
+
+	def ingest( self, fn ):
+		try:
+			f = open( fn, 'rt' )
+		except Exception, e:
+			print >>sys.stderr, "Cannot open '%s' for reading." % fn
+			raise e
+		self.ingest_from( f )
 		f.close()
 		return
 
@@ -210,7 +214,8 @@ if __name__ == '__main__':
 	p = optparse.OptionParser(
 		prog = prog,
 		usage = 'usage: %prog [options] [messages..]',
-		description = """Read and filter groups of /var/log/messages files."""
+		description = """Read and filter groups of /var/log/messages files.""",
+		epilog="""Use a filename of '-' to read from stdin; otherwise the "/var/log/messages*" files will be read; note that you must have superuser priviledge to do this."""
 	)
 	p.add_option(
 		'-a',
@@ -316,7 +321,10 @@ if __name__ == '__main__':
 				vt.ingest( os.path.join( '/var/log', f ) )
 	else:
 		for f in args:
-			vt.ingest( f )
+			if f == '-':
+				vt.ingest_from( sys.stdin )
+			else:
+				vt.ingest( f )
 	vt.sort()
 	mark = '*'
 	nomark = ' '
