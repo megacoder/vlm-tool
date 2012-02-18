@@ -142,10 +142,14 @@ class	VlmTool( object ):
 		return (l, m, r)
 
 	def date_to_bin( self, ts ):
-		return datetime.datetime.strptime(
-			ts,
-			'%b %d %H:%M:%S'
-		)
+		try:
+			retval = datetime.datetime.strptime(
+				ts,
+				'%b %d %H:%M:%S'
+			)
+		except:
+			raise ValueError
+		return retval
 
 	def ingest_from( self, fyle ):
 		for line in fyle:
