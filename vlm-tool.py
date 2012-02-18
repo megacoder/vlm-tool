@@ -199,15 +199,9 @@ class	VlmTool( object ):
 			retval = True
 		return retval
 
-	def	dump_filter_set( self, fn ):
-		try:
-			f = open( fn, 'wt' )
-		except Exception, e:
-			print >>sys.stderr, "File '%s' not writable." % fn
-			raise e
+	def	list_filter_set( self, out = sys.stdout ):
 		for filter in self.filters:
-			print >>f, "%s" % filter.pattern
-		f.close()
+			print >>out, "%s" % filter.pattern
 		return
 
 if __name__ == '__main__':
@@ -244,12 +238,12 @@ if __name__ == '__main__':
 		help = 'Use colors (implies -m).'
 	)
 	p.add_option(
-		'-d',
-		'--dump',
-		dest='dump_rules',
-		default = None,
-		metavar = 'FILE',
-		help = 'Write rule set to FILE.'
+		'-l',
+		'--list',
+		dest='list_rules',
+		default = False,
+		action = 'store_true',
+		help = 'Write rule set to stdout.'
 	)
 	p.add_option(
 		'-m',
@@ -313,8 +307,9 @@ if __name__ == '__main__':
 			bulk.append( line.strip() )
 		f.close()
 		vt.add_filter_set( bulk )
-	if( opts.dump_rules ):
-		vt.dump_filter_set( opts.dump_rules )
+	if( opts.list_rules ):
+		vt.list_filter_set()
+		sys.exit(0)
 	if len(args) == 0:
 		for f in os.listdir( '/var/log' ):
 			if f.startswith( 'messages' ):
