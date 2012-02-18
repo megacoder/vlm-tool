@@ -7,6 +7,8 @@ import	os
 import	sys
 import	re
 import	datetime
+import	gzip
+import	bz2
 
 class	AnsiColors( object ):
 
@@ -184,8 +186,14 @@ class	VlmTool( object ):
 		return
 
 	def ingest( self, fn ):
+		if fn.endswith( '.bz2' ):
+			openwith = bz2.open
+		elif fn.endswith( '.bz' ):
+			openwith = gzip.open
+		else:
+			openwith = open
 		try:
-			f = open( fn, 'rt' )
+			f = openwith( fn, 'rt' )
 		except Exception, e:
 			print >>sys.stderr, "Cannot open '%s' for reading." % fn
 			raise e
