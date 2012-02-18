@@ -38,6 +38,7 @@ class	VlmTool( object ):
 		r'end_request',
 		r'error',
 		r'fail',
+		r'fenc(e,ing)',
 		r'\bh[au]ng',
 		r'illegal:',
 		r'init:',
