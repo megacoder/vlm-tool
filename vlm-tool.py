@@ -217,12 +217,12 @@ class	VlmTool( object ):
 		)
 
 	def sort( self ):
-		self.lines.sort( key = lambda (ts,num,mo,rule): ts )
+		self.lines.sort( key = lambda (ts,num,mo,line): ts )
 		return
 
 	def every( self ):
-		for (t,num,mo,r) in self.lines:
-			yield (t,num,mo,r)
+		for (t,num,mo,line) in self.lines:
+			yield (t,num,mo,line)
 		return
 
 	def is_marked( self, mo ):
@@ -235,6 +235,9 @@ class	VlmTool( object ):
 	def	list_filter_set( self, out = sys.stdout ):
 		for filter in self.filters:
 			print >>out, "%s" % filter.pattern
+		return
+
+	def	postprocess( self ):
 		return
 
 if __name__ == '__main__':
@@ -360,8 +363,8 @@ if __name__ == '__main__':
 	nomark = ' '
 	if opts.colorize:
 		opts.mark = True
-		import	ansicolors
-		ac = ansicolors.AnsiColors()
+		ac = AnsiColors()
+	vt.postprocess()
 	for (ts,num,mo,line) in vt.every():
 		if opts.mark:
 			# Will get both marked and unmarked lines here
