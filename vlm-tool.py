@@ -195,7 +195,7 @@ class	VlmTool( object ):
 		try:
 			f = openwith( fn, 'rt' )
 		except Exception, e:
-			print >>sys.stderr, "Cannot open '%s' for reading." % fn
+			print >>sys.stderr, "Cannot open '%s' for injesting." % fn
 			raise e
 		self.ingest_from( f )
 		f.close()
