@@ -339,6 +339,15 @@ if __name__ == '__main__':
 		action = 'store_true',
 		help = 'Show counts of filter hits.'
 	)
+	def_thumb = '*'
+	p.add_option(
+		'-t',
+		'--thumb',
+		dest='thumb',
+		default = def_thumb,
+		metavar = 'THUMB',
+		help = 'Mark matching lines with this; default="%s".' % def_thumb
+	)
 	(opts,args) = p.parse_args()
 	if opts.ofile is not None:
 		out = open( opts.ofile, 'wt' )
@@ -375,8 +384,8 @@ if __name__ == '__main__':
 			else:
 				vt.ingest( f )
 	vt.sort()
-	mark = '*'
-	nomark = ' '
+	thumb = opts.thumb
+	nothumb = ' ' * len( thumb )
 	if opts.colorize:
 		opts.mark = True
 		ac = AnsiColors()
@@ -386,9 +395,9 @@ if __name__ == '__main__':
 			# Will get both marked and unmarked lines here
 			marked = vt.is_marked( mo )
 			if marked is False:
-				leadin = nomark
+				leadin = nothumb
 			else:
-				leadin = mark
+				leadin = thumb
 			print >>out, '%s ' % leadin,
 			if opts.show_rule:
 				if not marked:
