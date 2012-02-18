@@ -360,8 +360,7 @@ if __name__ == '__main__':
 	nomark = ' '
 	if opts.colorize:
 		opts.mark = True
-		import	ansicolors
-		ac = ansicolors.AnsiColors()
+		ac = AnsiColors()
 	for (ts,num,mo,line) in vt.every():
 		if opts.mark:
 			# Will get both marked and unmarked lines here
