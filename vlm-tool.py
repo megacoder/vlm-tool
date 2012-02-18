@@ -234,7 +234,7 @@ class	VlmTool( object ):
 		return
 
 	def	postprocess( self ):
-		begin = self.add_filter( r'kernel: bug:' )
+		begin = self.add_filter( r'kernel:.*unable to handle kernel' )
 		body  = self.add_filter( r'kernel:' )
 		i = 0
 		n = len( self.lines )
