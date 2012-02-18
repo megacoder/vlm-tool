@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # vim: noet sw=4 ts=4
 
+VERSION	= '1.0.0'
+
 # Allow loading modules from our locations
 
 import	os
@@ -213,6 +215,7 @@ if __name__ == '__main__':
 	prog = os.path.basename( sys.argv[0] )
 	p = optparse.OptionParser(
 		prog = prog,
+		version = '%%prog v%s' % VERSION,
 		usage = 'usage: %prog [options] [messages..]',
 		description = """Read and filter groups of /var/log/messages files.""",
 		epilog="""Use a filename of '-' to read from stdin; otherwise the "/var/log/messages*" files will be read; note that you must have superuser priviledge to do this."""
