@@ -238,6 +238,26 @@ class	VlmTool( object ):
 		return
 
 	def	postprocess( self ):
+		begin = re.compile( r'kernel: bug:', re.IGNORECASE )
+		body  = re.compile( r'kernel:', re.IGNORECASE )
+		i = 0
+		n = len( self.lines )
+		while i < n:
+			(ts, ruleno, mo, line) = self.lines[i]
+			mo = begin.search( line )
+			if mo is None:
+				i += 1
+				continue
+			self.lines[ i ] = (ts,ruleno,mo,line)
+			# Begin a matching clause
+			i += 1
+			while i < n:
+				self.lines[ i ] = (ts,ruleno,mo,line)
+				mo = body.search( line )
+				if mo is None:
+					break
+				self.lines[ i ] = (ts,ruleno,mo,line)
+				i += 1
 		return
 
 if __name__ == '__main__':
