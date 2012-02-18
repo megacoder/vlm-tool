@@ -3,7 +3,6 @@ TARGET=all
 
 PREFIX	=${DESTDIR}/opt
 BINDIR	=${PREFIX}/bin
-LIBDIR	=${PREFIX}/lib/vlm-tool
 SUBDIRS	=
 
 INSTALL=install
@@ -19,13 +18,11 @@ clobber distclean:: clean
 check::	vlm-tool.py
 	./vlm-tool.py ${ARGS}
 
-install:: vlm-tool.py ansicolors.py
+install:: vlm-tool.py
 	${INSTALL} -D vlm-tool.py ${BINDIR}/vlm-tool
-	${INSTALL} -D ansicolors.py ${LIBDIR}/ansicolors.py
 
 uninstall::
 	${RM} ${BINDIR}/vlm-tool
-	${RM} ${LIBDIR}/ansicolors.py
 
 ifneq	(,${SUBDIRS})
 ${TARGETS}::

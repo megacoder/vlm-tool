@@ -3,17 +3,28 @@
 
 VERSION	= '1.0.0'
 
-# Allow loading modules from our locations
-
 import	os
 import	sys
 import	re
 import	datetime
 
-LIBDIR	= u'/opt/lib/vlm-tool'
+class	AnsiColors( object ):
 
-sys.path.append( LIBDIR )
-sys.path.append( os.path.dirname( sys.argv[0] ) )
+	RESET_ALL      = '\033[0m';
+	FOREGROUND_RED = '\033[1;31m';
+	REVERSE_VIDEO  = '\033[7m';
+
+	def	__init__( self ):
+		return
+
+	def	reset( self ):
+		return AnsiColors.RESET_ALL
+
+	def	emphasis( self ):
+		return AnsiColors.FOREGROUND_RED
+
+	def	reverse( self ):
+		return AnsiColors.REVERSE_VIDEO
 
 class	VlmTool( object ):
 
