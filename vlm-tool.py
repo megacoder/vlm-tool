@@ -100,7 +100,7 @@ class	VlmTool( object ):
 		self.ignored  = 0
 		self.lines    = []
 		self.filters  = []
-		self.ruleno   = 0
+		self.ruleno   = 0		# State for incremental searches
 		self.maxrules = 0
 		self.mark     = mark
 		if not dont_populate:
@@ -116,12 +116,10 @@ class	VlmTool( object ):
 		self.maxrules += 1
 		return	mo
 
-	def show_rule( self, ruleno ):
-		if ruleno == -1:
+	def show_rule( self, mo ):
+		if mo is None:
 			return ''
-		if ruleno < self.maxrules:
-			return self.filters[ ruleno ].pattern
-		return 'Unknown rule %d' % ruleno
+		return mo.re.pattern
 
 	def add_filter_set( self, filters ):
 		for filter in filters:
@@ -135,13 +133,12 @@ class	VlmTool( object ):
 		return None
 
 	def apply_filters( self, line ):
-		mo = None
 		for i in xrange( 0, self.maxrules ):
 			mo = self.filter_matches( line, self.ruleno )
 			if mo is not None:
-				break
+				return mo
 			self.ruleno = (self.ruleno+1) % self.maxrules
-		return mo
+		return None
 
 	def	get_parts( self, mo ):
 		if mo is None:
@@ -177,12 +174,12 @@ class	VlmTool( object ):
 			mo = self.apply_filters( line )
 			if mo is not None:
 				# Rule hits are always accepted
-				self.lines.append( (ts, self.ruleno, mo, line) )
+				self.lines.append( (ts, mo, line) )
 				self.accepted += 1
 			else:
 				if self.mark:
 					# Non-hits are only kept if we are marking or colorizing
-					self.lines.append( (ts, self.ruleno, mo, line) )
+					self.lines.append( (ts, mo, line) )
 				self.rejected += 1
 		return
 
@@ -216,12 +213,12 @@ class	VlmTool( object ):
 		)
 
 	def sort( self ):
-		self.lines.sort( key = lambda (ts,num,mo,line): ts )
+		self.lines.sort( key = lambda (ts,mo,line): ts )
 		return
 
 	def every( self ):
-		for (t,num,mo,line) in self.lines:
-			yield (t,num,mo,line)
+		for (t,mo,line) in self.lines:
+			yield (t,mo,line)
 		return
 
 	def is_marked( self, mo ):
@@ -242,20 +239,20 @@ class	VlmTool( object ):
 		i = 0
 		n = len( self.lines )
 		while i < n:
-			(ts, ruleno, mo, line) = self.lines[i]
+			(ts, mo, line) = self.lines[i]
 			mo = begin.search( line )
 			if mo is None:
 				i += 1
 				continue
-			self.lines[ i ] = (ts,ruleno,mo,line)
+			self.lines[ i ] = (ts,mo,line)
 			# Begin a matching clause
 			i += 1
 			while i < n:
-				(ts, ruleno, mo, line) = self.lines[i]
+				(ts, mo, line) = self.lines[i]
 				mo = body.search( line )
 				if mo is None:
 					break
-				self.lines[ i ] = (ts,ruleno,mo,line)
+				self.lines[ i ] = (ts,mo,line)
 				i += 1
 		return
 
@@ -384,7 +381,7 @@ if __name__ == '__main__':
 		opts.mark = True
 		ac = AnsiColors()
 	vt.postprocess()
-	for (ts,num,mo,line) in vt.every():
+	for (ts,mo,line) in vt.every():
 		if opts.mark:
 			# Will get both marked and unmarked lines here
 			marked = vt.is_marked( mo )
@@ -397,7 +394,7 @@ if __name__ == '__main__':
 				if not marked:
 					rule = ''
 				else:
-					rule = vt.show_rule( num )
+					rule = vt.show_rule( mo )
 				print >>out, '%-15.15s ' % rule,
 			if marked and opts.colorize:
 				l,m,r = vt.get_parts( mo )
