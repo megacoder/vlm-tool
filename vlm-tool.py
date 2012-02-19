@@ -275,7 +275,36 @@ if __name__ == '__main__':
 		version = '%%prog v%s' % VERSION,
 		usage = 'usage: %prog [options] [messages..]',
 		description = """Read and filter groups of /var/log/messages files.""",
-		epilog="""Use a filename of '-' to read from stdin; otherwise the "/var/log/messages*" files will be read; note that you must have superuser priviledge to do this."""
+		epilog="""
+			Use a filename of '-' to read from stdin; otherwise the
+		"/var/log/messages*" files will be read; note that you must have
+		superuser priviledge to do this.
+
+			The default action is to output only those lines which match any of
+		the flag words.  This can actually be quite fast, since incoming lines
+		are checked for matches before the collected lines are sorted by date.
+
+			When marking (-m) a line, all lines are collected, ordered by date,
+		then output with either a space (for unmatched lines) or a thumb for
+		matched lines.  The default thumb is an asterisk (*) but can be changed
+		using the (-t thumb) switch; the thumb can be any string you like.
+
+			New matching flags can be added (-a regex) or bulk-load one-per-line
+		from a file (-b file).  To see which matching rule was found for a given
+		line, add the (-r) switch; the marking pattern will be displayed between
+		the thumb and the message content.  All matching patterns are always
+		checked (until a match is found) but the algorithm resumes checking the
+		patterns at the point where it found the last match.  Don't be surprised
+		by this.
+
+			Use the colorize mode (-c) to highlight the matched text in each
+		line.  ANSI color escapes are used.
+
+		As a bonus, using any of the marking modes (-c, -m, -r) enables a
+		postprocessing step.  Currently, this attempts to highlight kernel
+		BUG(), BUG_ON(), or OOPS() stack traces.
+
+		"""
 	)
 	p.add_option(
 		'-a',
