@@ -1,0 +1,46 @@
+%define	ver	@VERSION@
+%define	rel	1
+%define	prefix	/usr
+
+Prefix:	%{prefix}
+
+Summary       : Hightlight interesting /var/log/messages entries
+Name          : vlm-tool
+Version       : %{ver}
+Release       : %{rel}
+License       : GPLv2
+Group         : User Interface/Desktops
+Source        : %{name}-%{version}.tar.gz
+BuildRoot     : %{_tmppath}/%{name}-%{version}-root
+BuildRequires : autoconf,automake
+%Requires     : python >= 2.6
+%BuildArch    : noarch
+
+%description
+Wholesome goodness
+%prep
+%setup -q
+
+%build
+	./autogen.sh
+	./configure --prefix=%{prefix}
+	make
+
+%install
+	rm -rf %{buildroot}
+	make prefix=$RPM_BUILD_ROOT%{prefix} install
+
+%clean
+	rm -rf %{buildroot}
+
+%files
+%defattr(-, root, root)
+%doc AUTHORS
+%doc COPYING
+%doc ChangeLog
+%doc INSTALL
+%doc NEWS
+%doc README
+%{prefix}/bin/vlm-tool
+
+%changelog
