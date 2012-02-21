@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # vim: noet sw=4 ts=4
 
-VERSION	= '1.0.0'
+VERSION	= '@VERSION@'
 
 import	os
 import	sys
