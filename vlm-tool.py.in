@@ -48,6 +48,7 @@ class	VlmTool( object ):
 		r'device-mapper',
 		r'(de)?bug',
 		r'dlm'
+		r'disagrees.*symbol.*',
 		r'don\'t',
 		r'end_request',
 		r'error',
@@ -93,6 +94,7 @@ class	VlmTool( object ):
 		r'terminated',
 		r'time.*out',
 		r'unable',
+		r'unknown symbol.*',
 		r'unsupported',
 		r'vfs:',
 		r'warning',
