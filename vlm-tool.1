@@ -20,6 +20,10 @@ Reads the named
 \fI/var/log/messages\fR
 files, sorts them by the timestamp, and then filters the result.
 Recognizes and automatically expands \fB.bz2\fR and \fB.gz\fR compressed files.
+If no files are named, then the local
+\fI/var/log/messages\fR*
+files are read by default.
+This will require superuser privilege, so don't be surprised.
 .TP
 \fB\-a\fR
 ignore, for compatibility with other versions
