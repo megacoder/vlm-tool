@@ -14,7 +14,6 @@ vlm-tool \- coalesce /var/log/messages from different hosts and filter
 [\fI-t\fR THUMB]
 [\fI/var/log/messages\fR]...
 .SH DESCRIPTION
-.\" Add any additional description here
 .PP
 Reads the named
 \fI/var/log/messages\fR
@@ -24,60 +23,93 @@ If no files are named, then the local
 \fI/var/log/messages\fR*
 files are read by default.
 This will require superuser privilege, so don't be surprised.
-.TP
-\fB\-a\fR
-ignore, for compatibility with other versions
-.TP
-\fB\-Z\fR, \fB\-\-context\fR
-print only the security context of the current user
-.TP
-\fB\-g\fR, \fB\-\-group\fR
-print only the effective group ID
-.TP
-\fB\-G\fR, \fB\-\-groups\fR
-print all group IDs
-.TP
-\fB\-n\fR, \fB\-\-name\fR
-print a name instead of a number, for \fB\-ugG\fR
-.TP
-\fB\-r\fR, \fB\-\-real\fR
-print the real ID instead of the effective ID, with \fB\-ugG\fR
-.TP
-\fB\-u\fR, \fB\-\-user\fR
-print only the effective user ID
-.TP
-\fB\-\-help\fR
-display this help and exit
-.TP
-\fB\-\-version\fR
-output version information and exit
 .PP
-Without any OPTION, print some useful set of identified information.
+Program output is written to stdout by default; change this using the \fI-o\fR option.
+.PP
+With no selection options, \fIvlm-tool\fR will compare each message file entry
+against a built-in list of trigger words, which are really just python regular expressions.
+Additional trigger words can be added using the \fI-a\fR option.
+Triggers can be bulk loaded from a file, one per line, using the \fI-b\fR option.
+Avoid loading the built-in triggers by using the \fI-n\fR option.
+.PP
+Lines containing one or more trigger word may be \fImarked\fR.
+When output, the line will be prefixed by the \fIthumb\fR, which is an asterisk (*) by default.
+Use the \fI-r\fR option to identify which trigger was matched against the line.
+.PP
+The output may be colorized by using the \fI-c\fR option.
+Non-matched parts of the line are written normally;
+the matching segment is highlighted using a bright red color.
+ANSI color escapes are used for this.
+Currently, the colors may not be changed.
+.SH POSTPROCESSING
+.PP
+When any of the marking options (\fI-c\fR or \fI-m\fR) are used, all of the
+input lines are kept.
+A special post-processing phase is then enabled.
+\fIVLM-TOOL\fR attempts to highlight interesting stanzas of lines.
+What stanzas the tool considers to be interesting cannot be changed from the
+command line.
+.SH OPTIONS
+.IP "-a re" 10m
+Append the python regular expression \fBre\fR to the list of triggers.
+.IP "-b FILE" 10m
+Bulk-load a list of python regular expressions from \fBFILE\fR, one per line.
+.IP "-c" 10m
+Colorize the matching text in each entry, using ANSI escape codes.
+.IP "-m" 10m
+Mark those lines matching one or more triggers by prepending the \fBTHUMB\fR
+to the output line.
+An appropriate number of spaces are used for non-matching entries.
+.IP "-n" 10m
+Do not populate the built-in triggers before processing the command line
+or reading a bulk file.
+.IP "-o FILE" 10m
+Write output to \fBFILE\fR instead of to the standard output.
+.IP "-r" 10m
+Show the matching trigger rule which caused the entry to be marked.
+.IP "-s" 10m
+Output some statistics.
+Not really useful to anybody except the author and probably not even him.
 .SH AUTHOR
-Written by Arnold Robbins and David MacKenzie.
-.SH "REPORTING BUGS"
-Report id bugs to bug\-coreutils@gnu.org
-.br
-GNU coreutils home page: <http://www.gnu.org/software/coreutils/>
-.br
-General help using GNU software: <http://www.gnu.org/gethelp/>
-.br
-Report id translation bugs to <http://translationproject.org/team/>
+Tommy Reynolds <Tommy.Reynolds@Oracle.com>
 .SH COPYRIGHT
-Copyright \(co 2010 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
-.br
+Copyright \(co 2012 Tommy Reynolds
+.PP
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 .SH "SEE ALSO"
-The full documentation for
-.B id
-is maintained as a Texinfo manual.  If the
-.B info
-and
-.B id
-programs are properly installed at your site, the command
-.IP
-.B info coreutils \(aqid invocation\(aq
+Read about python regular expressions if your matches surprise you.
+.SH BUGS
 .PP
-should give you access to the complete manual.
+All of the \fI/var/log/messages\fR files must be from the same year.
+The tool does not handle lines from differing years very well.
+If could probably be modified to treat a timestamp of later in the year than
+the current time as being from the prior year, but this complicates things and
+slows things down as well.
+Since we typically receive 100,000 line logs, speed matters.
+.SH EXAMPLES
+.IP "\f(CR$ sudo vlm-tool\fP." 20m
+Output only those lines in \fI/var/log/messages*\fP which match one or
+more trigger patterns.
+.IP "\f(CR$ vlm-tool -a foo messages\fP" 20m
+Output only entries matching the built-in patterns and \fIfoo\fP.
+.IP "\f(CR$ vlm-tool -o results messages\fP" 20m
+Write matching lines into \fBresults\fP instead of to the standard output.
+.IP "\f(CR$ sudo vlm-tool -m\fP" 20m
+Ingest all the entries in the \fI/var/log/messages*\fP files.
+Output all lines, marking lines matching one or more triggers using the
+\fITHUMB\fP.
+Performs the postprocessing phase to highlight interesting stanzas.
+The default \fITHUMB\fP is an asterisk (*).
+.IP "\f(CR$ vlm-tool -mr -o myfile foo foo.1.gz\fP" 20m
+Ingest all entries in \fIfoo\fP and \fIfoo.1.gz\fP and sort by timestamp.
+Prefix any line matching one or more triggers with the \fITHUMB\fP and the
+text of the matching rule.
+Performs the postprocessing phase to highlight interesting stanzas.
+.IP "\f(CR$ vlm-tool -c messages | less\fP" 20m
+Ingest all entries from \fBmessages\fP and output all lines,
+highlighting lines with one or more matches.
+Performs the postprocessing phase to highlight interesting stanzas.
+.IP "\f(CR$ vlm-tool -n -a ocfs2 messages\fP" 20m
+Output only those entries matching the trigger of \fIocfs2\fP.
+Note the use of the \fI-n\fP option to disable loading of the built-in rules.
