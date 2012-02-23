@@ -14,6 +14,8 @@ class	AnsiColors( object ):
 
 	RESET_ALL      = '\033[0m';
 	FOREGROUND_RED = '\033[1;31m';
+	FOREGROUND_GREEN = '\033[1;32m';
+	FOREGROUND_YELLOW = '\033[1;33m';
 	REVERSE_VIDEO  = '\033[7m';
 
 	def	__init__( self ):
@@ -24,6 +26,12 @@ class	AnsiColors( object ):
 
 	def	emphasis( self ):
 		return AnsiColors.FOREGROUND_RED
+
+	def	normal( self ):
+		return AnsiColors.FOREGROUND_GREEN
+
+	def	timestamp( self ):
+		return AnsiColors.FOREGROUND_YELLOW
 
 	def	reverse( self ):
 		return AnsiColors.REVERSE_VIDEO
