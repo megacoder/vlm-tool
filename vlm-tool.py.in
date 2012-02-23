@@ -248,13 +248,18 @@ class	VlmTool( object ):
 		return
 
 	def	postprocess( self ):
-		begin = self.add_filter( r'kernel:.*unable to handle kernel' )
+		starters = []
+		starters.append(self.add_filter( r'kernel:.*unable to handle kernel' ))
+		starters.append(self.add_filter( r'call trace:' ))
 		body  = self.add_filter( r'kernel:' )
 		i = 0
 		n = len( self.lines )
 		while i < n:
 			(ts, mo, line) = self.lines[i]
-			mo = begin.search( line )
+			for starter in starters:
+				mo = starter.search( line )
+				if mo is not None:
+					break
 			if mo is None:
 				i += 1
 				continue
