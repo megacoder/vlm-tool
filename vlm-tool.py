@@ -447,7 +447,7 @@ if __name__ == '__main__':
 			if opts.colorize:
 				try:
 					color = hosts[ host ]
-				except ValueError, e:
+				except KeyError, e:
 					color = host_number
 					hosts[ host ] = host_number
 					host_number += 1
