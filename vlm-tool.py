@@ -449,7 +449,7 @@ if __name__ == '__main__':
 				)
 			if marked and opts.colorize:
 				l,m,r = vt.get_parts( mo )
-				line = '%s%s%s%s%s' % (
+				resid = '%s%s%s%s%s' % (
 					l,
 					ac.emphasis(),
 					m,
