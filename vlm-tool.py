@@ -36,6 +36,9 @@ class	AnsiColors( object ):
 	def	reverse( self ):
 		return AnsiColors.REVERSE_VIDEO
 
+	def	host_color( self, id ):
+		return '\033[1;%dm' % (id % 8)
+
 class	VlmTool( object ):
 
 	FILTERS =	[
@@ -114,7 +117,7 @@ class	VlmTool( object ):
 		self.accepted = 0
 		self.rejected = 0
 		self.ignored  = 0
-		self.lines    = []
+		self.entries  = []
 		self.filters  = []
 		self.ruleno   = 0		# State for incremental searches
 		self.maxrules = 0
@@ -181,21 +184,27 @@ class	VlmTool( object ):
 		for line in fyle:
 			line = line.rstrip()
 			if len(line) == 0: continue
+			timestamp = line[0:15]
 			try:
-				ts = self.date_to_bin( line[0:14] )
+				ts = self.date_to_bin( timestamp )
 			except:
 				# Silently ignore badly-formatted line
 				self.ignored += 1
 				continue
-			mo = self.apply_filters( line )
+			for i in xrange( 17, len(line) ):
+				if line[i].isspace():
+					host = line[16:i]
+					resid = line[i:]
+					break
+			mo = self.apply_filters( resid )
 			if mo is not None:
 				# Rule hits are always accepted
-				self.lines.append( (ts, mo, line) )
+				self.entries.append( (ts, mo, timestamp, host, resid) )
 				self.accepted += 1
 			else:
 				if self.mark:
 					# Non-hits are only kept if we are marking or colorizing
-					self.lines.append( (ts, mo, line) )
+					self.entries.append( (ts, mo, timestamp, host, resid) )
 				self.rejected += 1
 		return
 
@@ -220,11 +229,11 @@ class	VlmTool( object ):
 		l = len( '%u' % total )
 		u_fmt = '%' + str(l) + 'u %s'
 		print >>out, '%s' % '-' * l
-		print >>out, u_fmt % ( self.accepted, 'lines accepted' )
-		print >>out, u_fmt % ( self.ignored,  'lines ignored' )
-		print >>out, u_fmt % ( self.rejected, 'lines rejected' )
+		print >>out, u_fmt % ( self.accepted, 'entries accepted' )
+		print >>out, u_fmt % ( self.ignored,  'entries ignored' )
+		print >>out, u_fmt % ( self.rejected, 'entries rejected' )
 		print >>out, '%s' % '=' * l
-		print >>out, u_fmt % ( total, 'all lines' ),
+		print >>out, u_fmt % ( total, 'all entries' ),
 		print >>out, '(%.f%% flagged)' % ((self.accepted * 100.0) / total)
 		return
 
@@ -235,12 +244,12 @@ class	VlmTool( object ):
 		)
 
 	def sort( self ):
-		self.lines.sort( key = lambda (ts,mo,line): ts )
+		self.entries.sort( key = lambda (ts,mo,timestamp,host,resid): ts )
 		return
 
 	def every( self ):
-		for (t,mo,line) in self.lines:
-			yield (t,mo,line)
+		for (t,mo,timestamp,host,resid) in self.entries:
+			yield (t,mo,timestamp,host,resid)
 		return
 
 	def is_marked( self, mo ):
@@ -261,25 +270,25 @@ class	VlmTool( object ):
 		starters.append(self.add_filter( r'call trace:' ))
 		body  = self.add_filter( r'kernel:' )
 		i = 0
-		n = len( self.lines )
+		n = len( self.entries )
 		while i < n:
-			(ts, mo, line) = self.lines[i]
+			(ts, mo, timestamp, host, resid) = self.entries[i]
 			for starter in starters:
-				mo = starter.search( line )
+				mo = starter.search( resid )
 				if mo is not None:
 					break
 			if mo is None:
 				i += 1
 				continue
-			self.lines[ i ] = (ts,mo,line)
+			self.entries[ i ] = (ts,mo,timestamp,host,resid)
 			# Begin a matching clause
 			i += 1
 			while i < n:
-				(ts, mo, line) = self.lines[i]
+				(ts, mo, timestamp,host,resid) = self.entries[i]
 				mo = body.search( line )
 				if mo is None:
 					break
-				self.lines[ i ] = (ts,mo,line)
+				self.entries[ i ] = (ts,mo,timestamp,host,resid)
 				i += 1
 		return
 
@@ -291,36 +300,7 @@ if __name__ == '__main__':
 		version = '%%prog v%s' % VERSION,
 		usage = 'usage: %prog [options] [messages..]',
 		description = """Read and filter groups of /var/log/messages files.""",
-		epilog="""
-			Use a filename of '-' to read from stdin; otherwise the
-		"/var/log/messages*" files will be read; note that you must have
-		superuser priviledge to do this.
-
-			The default action is to output only those lines which match any of
-		the flag words.  This can actually be quite fast, since incoming lines
-		are checked for matches before the collected lines are sorted by date.
-
-			When marking (-m) a line, all lines are collected, ordered by date,
-		then output with either a space (for unmatched lines) or a thumb for
-		matched lines.  The default thumb is an asterisk (*) but can be changed
-		using the (-t thumb) switch; the thumb can be any string you like.
-
-			New matching flags can be added (-a regex) or bulk-load one-per-line
-		from a file (-b file).  To see which matching rule was found for a given
-		line, add the (-r) switch; the marking pattern will be displayed between
-		the thumb and the message content.  All matching patterns are always
-		checked (until a match is found) but the algorithm resumes checking the
-		patterns at the point where it found the last match.  Don't be surprised
-		by this.
-
-			Use the colorize mode (-c) to highlight the matched text in each
-		line.  ANSI color escapes are used.
-
-		As a bonus, using any of the marking modes (-c, -m, -r) enables a
-		postprocessing step.  Currently, this attempts to highlight kernel
-		BUG(), BUG_ON(), or OOPS() stack traces.
-
-		"""
+		epilog="""Consult the man(1) page for more information."""
 	)
 	p.add_option(
 		'-a',
@@ -446,7 +426,7 @@ if __name__ == '__main__':
 		opts.mark = True
 		ac = AnsiColors()
 	vt.postprocess()
-	for (ts,mo,line) in vt.every():
+	for (ts,mo,timestamp,host,resid) in vt.every():
 		if opts.mark:
 			# Will get both marked and unmarked lines here
 			marked = vt.is_marked( mo )
@@ -461,6 +441,12 @@ if __name__ == '__main__':
 				else:
 					rule = vt.show_rule( mo )
 				print >>out, '%-15.15s ' % rule,
+			if opts.colorize:
+				host = '%s%s%s' %	(
+					ac.host_color(5),
+					host,
+					ac.reset()
+				)
 			if marked and opts.colorize:
 				l,m,r = vt.get_parts( mo )
 				line = '%s%s%s%s%s' % (
@@ -470,7 +456,7 @@ if __name__ == '__main__':
 					ac.reset(),
 					r
 				)
-		print >>out, '%s' % line
+		print >>out, '%s %s %s' % (timestamp,host,resid)
 	if opts.show_stats:
 		vt.dump_stats( out )
 	sys.exit(0)
