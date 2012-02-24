@@ -376,7 +376,7 @@ if __name__ == '__main__':
 		action = 'store_true',
 		help = 'Show counts of filter hits.'
 	)
-	def_thumb = '*'
+	def_thumb = '+'
 	p.add_option(
 		'-t',
 		'--thumb',
