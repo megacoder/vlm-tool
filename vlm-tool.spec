@@ -1,4 +1,4 @@
-%define	ver	@VERSION@
+%define	ver	1.0.0
 %define	rel	1
 %define	prefix	/usr
 
@@ -10,7 +10,7 @@ Version       : %{ver}
 Release       : %{rel}
 License       : GPLv2
 Group         : User Interface/Desktops
-Source        : %{name}-%{version}.tar.gz
+Source        : %{name}-%{version}.tar.bz2
 BuildRoot     : %{_tmppath}/%{name}-%{version}-root
 BuildRequires : autoconf,automake
 Requires      : python >= 2.6
@@ -22,9 +22,6 @@ Wholesome goodness
 %setup -q
 
 %build
-	./autogen.sh
-	./configure --prefix=%{prefix}
-	make
 
 %install
 	rm -rf %{buildroot}
@@ -41,6 +38,7 @@ Wholesome goodness
 %doc INSTALL
 %doc NEWS
 %doc README
-%{prefix}/bin/vlm-tool
+%{_bindir}/vlm-tool
+%{_mandir}/man1/vlm-tool.1.gz
 
 %changelog
