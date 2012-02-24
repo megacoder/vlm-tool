@@ -95,7 +95,7 @@ class	VlmTool( object ):
 		r'qla.*loop',
 		r'rds/',
 		r'read-?only',
-		r'register',
+		r'register(ed)?',
 		r'require',
 		r'restart',
 		r'segfault',
