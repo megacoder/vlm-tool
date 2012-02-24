@@ -428,7 +428,7 @@ if __name__ == '__main__':
 		ac = AnsiColors()
 	vt.postprocess()
 	hosts = {}
-	host_number = 0
+	host_number = 1
 	for (ts,mo,timestamp,host,resid) in vt.every():
 		if opts.mark:
 			# Will get both marked and unmarked lines here
