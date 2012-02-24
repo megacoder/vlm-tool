@@ -42,7 +42,7 @@ install:: vlm-tool.py
 
 install:: vlm-tool.1
 	${INSTALL} -D -m 0644 vlm-tool.1 ${mandir}/vlm-tool.1
-	${GZIP} -9 ${mandir}/vlm-tool.1
+	${GZIP} -9 -f ${mandir}/vlm-tool.1
 
 uninstall::
 	${RM} ${bindir}/vlm-tool
