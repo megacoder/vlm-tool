@@ -30,6 +30,9 @@ With no selection options, \fIvlm-tool\fR will compare each message file entry
 against a built-in list of trigger words, which are really just python regular expressions.
 Additional trigger words can be added using the \fI-a\fR option.
 Triggers can be bulk loaded from a file, one per line, using the \fI-b\fR option.
+.PP
+All matching is case insensitive.
+.PP
 Avoid loading the built-in triggers by using the \fI-n\fR option.
 .PP
 Lines containing one or more trigger word may be \fImarked\fR.
@@ -41,6 +44,9 @@ Non-matched parts of the line are written normally;
 the matching segment is highlighted using a bright red color.
 ANSI color escapes are used for this.
 Currently, the colors may not be changed.
+As an aide to visually grouping related entries together, host names are
+highlighted using separate colors.
+Host name colors are recycled as needed.
 .SH POSTPROCESSING
 .PP
 When any of the marking options (\fI-c\fR or \fI-m\fR) are used, all of the

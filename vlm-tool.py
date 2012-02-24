@@ -37,7 +37,8 @@ class	AnsiColors( object ):
 		return AnsiColors.REVERSE_VIDEO
 
 	def	host_color( self, id ):
-		return '\033[1;%dm' % (id % 8)
+		sgr = '\033[1;%dm' % (31 + (id % 6))
+		return sgr
 
 class	VlmTool( object ):
 
@@ -426,6 +427,8 @@ if __name__ == '__main__':
 		opts.mark = True
 		ac = AnsiColors()
 	vt.postprocess()
+	hosts = {}
+	host_number = 0
 	for (ts,mo,timestamp,host,resid) in vt.every():
 		if opts.mark:
 			# Will get both marked and unmarked lines here
@@ -442,8 +445,12 @@ if __name__ == '__main__':
 					rule = vt.show_rule( mo )
 				print >>out, '%-15.15s ' % rule,
 			if opts.colorize:
+				if not (host in hosts):
+					hosts[host] = host_number
+					# DEBUG print 'hosts[%s]=%d' % (host, host_number)
+					host_number += 1
 				host = '%s%s%s' %	(
-					ac.host_color(5),
+					ac.host_color(host_number),
 					host,
 					ac.reset()
 				)
