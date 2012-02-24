@@ -286,7 +286,7 @@ class	VlmTool( object ):
 			i += 1
 			while i < n:
 				(ts, mo, timestamp,host,resid) = self.entries[i]
-				mo = body.search( line )
+				mo = body.search( resid )
 				if mo is None:
 					break
 				self.entries[ i ] = (ts,mo,timestamp,host,resid)
