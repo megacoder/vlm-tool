@@ -445,12 +445,14 @@ if __name__ == '__main__':
 					rule = vt.show_rule( mo )
 				print >>out, '%-15.15s ' % rule,
 			if opts.colorize:
-				if not (host in hosts):
-					hosts[host] = host_number
-					# DEBUG print 'hosts[%s]=%d' % (host, host_number)
+				try:
+					color = hosts[ host ]
+				except ValueError, e:
+					color = host_number
+					hosts[ host ] = host_number
 					host_number += 1
 				host = '%s%s%s' %	(
-					ac.host_color(host_number),
+					ac.host_color(color),
 					host,
 					ac.reset()
 				)
