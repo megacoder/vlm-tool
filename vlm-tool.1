@@ -36,7 +36,7 @@ All matching is case insensitive.
 Avoid loading the built-in triggers by using the \fI-n\fR option.
 .PP
 Lines containing one or more trigger word may be \fImarked\fR.
-When output, the line will be prefixed by the \fIthumb\fR, which is a plus (+) by default.
+When output, the line will be prefixed by the \fIthumb\fR, which is a minus (-) by default.
 Use the \fI-r\fR option to identify which trigger was matched against the line.
 .PP
 The output may be colorized by using the \fI-c\fR option.
@@ -106,7 +106,7 @@ Ingest all the entries in the \fI/var/log/messages*\fP files.
 Output all lines, marking lines matching one or more triggers using the
 \fITHUMB\fP.
 Performs the postprocessing phase to highlight interesting stanzas.
-The default \fITHUMB\fP is a plus (+).
+The default \fITHUMB\fP is a minus (-).
 .IP "\f(CR$ vlm-tool -mr -o myfile foo foo.1.gz\fP" 20m
 Ingest all entries in \fIfoo\fP and \fIfoo.1.gz\fP and sort by timestamp.
 Prefix any line matching one or more triggers with the \fITHUMB\fP and the
