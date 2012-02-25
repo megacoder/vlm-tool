@@ -80,6 +80,7 @@ class	VlmTool( object ):
 		r'netdev',
 		r'nfs:.*not responding',
 		r'nfsd:',
+		r'no space left',
 		r'not supported',
 		r'\bnmi',
 		r'o2',
