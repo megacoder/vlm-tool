@@ -168,9 +168,9 @@ class	VlmTool( object ):
 			m = '???'
 			r = '???'
 		else:
-			l = mo.group( 1 )
-			m = mo.group( 2 )
-			r = mo.group( 3 )
+			l = mo.string[mo.start(1):mo.end(1)]
+			m = mo.string[mo.start(2):mo.end(2)]
+			r = mo.string[mo.start(3):mo.end(3)]
 		return (l, m, r)
 
 	def date_to_bin( self, ts ):
