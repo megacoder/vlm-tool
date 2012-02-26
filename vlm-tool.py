@@ -59,7 +59,7 @@ class	VlmTool( object ):
 		r'css',
 		r'device-mapper',
 		r'(de)?bug',
-		r'dlm'
+		r'dlm',
 		r'disagrees.*symbol.*',
 		r'don\'t',
 		r'end_request',
