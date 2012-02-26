@@ -1,12 +1,13 @@
 #include <sys/types.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <regex.h>
+#include <ctype.h>
 #include <getopt.h>
-#include <string.h>
 #include <malloc.h>
 #include <regex.h>
+#include <regex.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 #include <builtins.h>
 
@@ -25,6 +26,95 @@ static	unsigned	colorize;
 static	regex_t*	triggers;
 static	size_t		triggerQty;
 static	size_t		triggerPos;
+
+static	void
+add_trigger(
+	char const * const	rule
+)
+{
+	char	buffer[ BUFSIZ ];
+	/* Wrap trigger for pre- and post-regions			 */
+	if( snprintf(
+		buffer,
+		sizeof( buffer ),
+		"^(.*)(%s)(.*)$",
+		rule
+	) > sizeof(buffer) )	{
+		fprintf(
+			stderr,
+			"%s: rule too long [%s]\n",
+			me,
+			rule
+		);
+		exit( 1 );
+		/* NOTREACHED						 */
+	}
+	/* Grow table if needed						 */
+	if( triggerPos >= triggerQty )	{
+		triggerQty += TRIGGER_INCR;
+		triggers = realloc(
+			triggers,
+			triggerQty * sizeof( triggers[0] )
+		);
+	}
+	/* Compile the resulting trigger				 */
+	if( regcomp(
+		triggers + triggerPos,
+		buffer,
+		(REG_EXTENDED|REG_ICASE)
+	) == -1 )	{
+		fprintf(
+			stderr,
+			"%s: trigger [%s] failed to compile.\n",
+			me,
+			buffer
+		);
+		exit( 1 );
+	}
+	++triggerPos;
+}
+
+static	void
+bulk_load(
+	char const * const	fn
+)
+{
+	FILE *		fyle;
+
+	fyle = fopen( fn, "rt" );
+	if( !fyle )	{
+		fprintf(
+			stderr,
+			"%s: cannot read bulk file [%s].\n",
+			me,
+			fn
+		);
+		exit(1);
+		/*NOTREACHED*/
+	}
+	for( ; ; )	{
+		char	buffer[ 256 ];
+		char *	bp;
+
+		/* Check for EOF					 */
+		if( !fgets( buffer, sizeof(buffer), fyle ) )	{
+			break;
+		}
+		/* Drop line terminator and trailing whitespace		 */
+		for(
+			bp = buffer + strlen(buffer);
+			(bp > buffer) && isspace(bp[-1]);
+			--bp
+		)	{
+			bp[-1] = '\0';
+		}
+		/* Step over leading whitespace				 */
+		for( bp = buffer; *bp && isspace( *bp ); ++bp );
+		/* What's left is a trigger				 */
+		add_trigger( bp );
+	}
+	fclose( fyle );
+}
 
 int
 main(
@@ -60,6 +150,12 @@ main(
 			);
 			++nonfatal;
 			break;
+		case 'a':
+			add_trigger( optarg );
+			break;
+		case 'b':
+			bulk_load( optarg );
+			break;
 		case 'c':
 			colorize = 1;
 			break;
@@ -91,50 +187,10 @@ main(
 		char const * *	builtin;
 
 		for( builtin = builtin_triggers; *builtin; ++builtin )	{
-			char		buffer[ BUFSIZ ];
-
 			/* Skip deleted builtin rules			 */
-			if( *builtin == (char *) -1 )	{
-				continue;
+			if( *builtin != (char *) -1 )	{
+				add_trigger( *builtin );
 			}
-			/* Wrap trigger for pre- and post-regions	 */
-			if( snprintf(
-				buffer,
-				sizeof(buffer),
-				"^(.*)(%s)(.*)$",
-				*builtin
-			) > sizeof(buffer) )	{
-				fprintf(
-					stderr,
-					"%s: rule too long [%s]\n",
-					me,
-					*builtin
-				);
-				exit( 1 );
-				/*NOTREACHED*/
-			}
-			/* Compile the resulting trigger		*/
-			if( triggerPos >= triggerQty )	{
-				triggerQty += TRIGGER_INCR;
-				triggers = realloc(
-					triggers,
-					triggerQty * sizeof( triggers[0] )
-				);
-			}
-			if( regcomp(
-				triggers + triggerPos,
-				buffer,
-				(REG_EXTENDED|REG_ICASE)
-			) == -1 )	{
-				fprintf(
-					stderr,
-					"%s: trigger [%s] failed to compile.\n",
-					me,
-					buffer
-				);
-				exit( 1 );
-			}
-			++triggerPos;
 		}
 	}
 	/* Get out of Dodge						 */
