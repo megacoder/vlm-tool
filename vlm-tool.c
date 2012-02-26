@@ -20,7 +20,7 @@ static	unsigned	list_triggers;
 static	unsigned	mark_entries;
 static	unsigned	load_builtin_rules;
 static	char const *	ofile;
-static	unsigned	show_rule;
+static	unsigned	show_rules;
 static	unsigned	show_stats;
 static	unsigned	colorize;
 static	regex_t*	triggers;
@@ -172,7 +172,7 @@ main(
 			ofile = optarg;
 			break;
 		case 'r':
-			show_rule = 1;
+			show_rules = 1;
 			break;
 		case 's':
 			show_stats = 1;
@@ -192,6 +192,22 @@ main(
 				add_trigger( *builtin );
 			}
 		}
+	}
+	/* Redirect stdout if asked					 */
+	if( ofile )	{
+		if( freopen( ofile, "wt", stdout ) != stdout )	{
+			fprintf(
+				stderr,
+				"%s: cannot redirect output [%s].\n",
+				me,
+				ofile
+			);
+			exit(1);
+		}
+	}
+	/* Show rules that we have					 */
+	if( show_rules )	{
+		puts( "Dunno how yet." );
 	}
 	/* Get out of Dodge						 */
 	return( nonfatal ? 1 : 0 );
