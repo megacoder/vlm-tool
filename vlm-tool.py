@@ -72,6 +72,7 @@ class	VlmTool( object ):
 		r'init:',
 		r'invalid:',
 		r'i?scsi',
+		r'kdump:?',
 		r'kill',
 		r'link',
 		r'linux version',
