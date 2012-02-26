@@ -15,9 +15,12 @@ BZIP2	=bzip2
 GZIP	=gzip
 
 CC	=gcc -std=gnu99
-CFLAGS	=-Os -Wall -Werror -pedantic -g
+CFLAGS	=-Os -Wall -Werror -pedantic -g -I.
 LDFLAGS	=-g
 LDLIBS	=
+
+CFILES	:=$(wildcard *.c)
+OBS	:=${CFILES:%.c=%.o}
 
 .PHONY: ${TARGETS} ${SUBDIRS}
 
@@ -25,7 +28,12 @@ all::	vlm-tool
 
 ${TARGETS}::
 
+vlm-tool:: ${OBS}
+	${CC} ${LDFLAGS} -o $@ ${OBS} ${LDLIBS}
+	@size $@
+
 clobber distclean:: clean
+	${RM} vlm-tool
 
 check::	vlm-tool
 	./vlm-tool ${ARGS}
