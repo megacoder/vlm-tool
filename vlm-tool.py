@@ -271,6 +271,7 @@ class	VlmTool( object ):
 		starters = []
 		starters.append(self.add_filter( r'kernel:.*unable to handle kernel' ))
 		starters.append(self.add_filter( r'call trace:' ))
+		starters.append(self.add_filter( r'kernel: eeek!' ))
 		body  = self.add_filter( r'kernel:' )
 		i = 0
 		n = len( self.entries )
