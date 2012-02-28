@@ -299,6 +299,21 @@ process(
 				0
 			) )	{
 				regmatch_t * const	mid = matches+2;
+				int			i;
+
+				for( i = 0; i < DIM(matches); ++i )	{
+					regmatch_t * const rm = matches+i;
+					if( rm->rm_so != -1 )	{
+						char const	eos = resid[rm->rm_eo];
+						resid[rm->rm_eo] = '\0';
+						printf(
+							"= %2d [%s]\n",
+							i,
+							resid+rm->rm_so
+						);
+						resid[rm->rm_eo] = eos;
+					}
+				}
 
 				e.marked = rule_no;
 				if( (mid->rm_so != -1) && colorize )	{
