@@ -8,10 +8,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <dirent.h>
+#include <limits.h>
+#include <time.h>
 
 #include <builtins.h>
 
 #define	TRIGGER_INCR	(256)		/* Grow table by this many	 */
+
+typedef	struct	entry_s	{
+	time_t		timestamp;
+	char *		line;
+	unsigned	matched;
+} entry_t;
 
 static	char const *	me = "vlm-tool";
 static	unsigned	nonfatal;
@@ -26,6 +35,7 @@ static	unsigned	colorize;
 static	regex_t*	triggers;
 static	size_t		triggerQty;
 static	size_t		triggerPos;
+static	int		year;
 
 static	void
 add_trigger(
@@ -130,7 +140,7 @@ main(
 		me = argv[0];
 	}
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "a:b:clmno:rst:" )) != EOF )	{
+	while( (c = getopt( argc, argv, "a:b:clmno:rst:y:" )) != EOF )	{
 		switch( c )	{
 		default:
 			fprintf(
@@ -180,8 +190,18 @@ main(
 		case 't':
 			thumb = optarg;
 			break;
+		case 'y':
+			year = strtol( optarg, NULL, 10 );
+			break;
 		}
 	}
+	/* Choose current year unless we've be told otherwise		 */
+	if( !year )	{
+		time_t const	now = time( NULL );
+		struct tm const *	tm = localtime(&now);
+		year = tm->tm_year + 1900;
+	}
+	printf( "The year is %d.\n", year );
 	/* Compile internal triggers unless we are forbidden		 */
 	if( load_builtin_rules )	{
 		char const * *	builtin;
@@ -208,6 +228,34 @@ main(
 	/* Show rules that we have					 */
 	if( show_rules )	{
 		puts( "Dunno how yet." );
+	}
+	/* Here we go							 */
+	if( optind < argc )	{
+		/* Named files						 */
+	} else	{
+		/* Nothing specified, read "/var/log/messages*" 	 */
+		static char const	vdir[] = "/var/log";
+		DIR *		dir;
+
+		dir = opendir( vdir );
+		if( dir )	{
+			struct dirent *	de;
+
+			while( (de = readdir( dir )) != NULL )	{
+				if( !strncmp( de->d_name, "messages", 8 ) ) {
+					char	path[ PATH_MAX ];
+					snprintf(
+						path,
+						sizeof( path ),
+						"%s/%s",
+						vdir,
+						de->d_name
+					);
+					printf( "pretend [%s]\n", path );
+				}
+			}
+			closedir( dir );
+		}
 	}
 	/* Get out of Dodge						 */
 	return( nonfatal ? 1 : 0 );
