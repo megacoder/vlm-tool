@@ -11,6 +11,7 @@
 #include <dirent.h>
 #include <limits.h>
 #include <time.h>
+#include <errno.h>
 
 #include <builtins.h>
 
@@ -126,6 +127,35 @@ bulk_load(
 	fclose( fyle );
 }
 
+static	void
+process(
+	FILE * const	fyle		/* Syslogd output to scan	 */
+)
+{
+	char		buf[ BUFSIZ ];	/* Incoming line goes here	 */
+
+	while( fgets( buf, sizeof(buf), fyle ) )	{
+		int const	l = strlen( buf );
+		char *		bp;
+		char *		ts;
+		char *		host;
+		char *		resid;
+
+		/* Drop trailing whitespace				 */
+		for( bp = buf + l; (bp > buf) && isspace(bp[-1]); --bp ) {
+			bp[-1] = '\0';
+		}
+		/* Isolate timestamp and hostname			 */
+		ts = buf;
+		buf[12] = '\0';
+		host = buf + 16;
+		for( bp = host+1; *bp && !isspace( *bp ); ++bp );
+		*bp = '\0';
+		resid = bp + 1;
+		printf( "%s|%s|%s\n", ts, host, resid );
+	}
+}
+
 int
 main(
 	int		argc,
@@ -232,6 +262,29 @@ main(
 	/* Here we go							 */
 	if( optind < argc )	{
 		/* Named files						 */
+		while( optind < argc )	{
+			optarg = argv[ optind++ ];
+			if( !strcmp( optarg, "-" ) )	{
+				process( stdin );
+			} else	{
+				FILE * const	fyle = fopen( optarg, "rt" );
+				if( !fyle )	{
+					fprintf(
+						stderr,
+						"%s: cannot read [%s].\n",
+						me,
+						optarg
+					);
+					++nonfatal;
+				} else	{
+					process( fyle );
+					if( fclose( fyle ) )	{
+						perror( optarg );
+						++nonfatal;
+					}
+				}
+			}
+		}
 	} else	{
 		/* Nothing specified, read "/var/log/messages*" 	 */
 		static char const	vdir[] = "/var/log";
