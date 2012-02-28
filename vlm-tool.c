@@ -13,6 +13,7 @@
 #include <time.h>
 #include <errno.h>
 
+#include <gcc-compat.h>
 #include <builtins.h>
 
 #define	TRIGGER_INCR	(256)		/* Grow table by this many	 */
@@ -37,6 +38,62 @@ static	regex_t*	triggers;
 static	size_t		triggerQty;
 static	size_t		triggerPos;
 static	int		year;
+
+static	int
+calc_timestamp(
+	char *		timestamp,
+	time_t *	t
+)
+{
+	static char const months[12][4] =	{
+		{ "Jan\0" },
+		{ "Feb\0" },
+		{ "Mar\0" },
+		{ "Apr\0" },
+		{ "Jun\0" },
+		{ "Jul\0" },
+		{ "Aug\0" },
+		{ "Sep\0" },
+		{ "Oct\0" },
+		{ "Nov\0" },
+		{ "Dec\0" },
+	};
+	int		retval;
+	char		mmddhhmmss[16];
+	struct tm	tm;
+
+	retval = -1;
+	do	{
+		/* 11111						 */
+		/* 012345678901234					 */
+		/* MMM DD HH:MM:SS					 */
+		memcpy( mmddhhmmss, timestamp, 15 );
+		mmddhhmmss[ 3] = '\0';
+		mmddhhmmss[ 6] = '\0';
+		mmddhhmmss[ 9] = '\0';
+		mmddhhmmss[12] = '\0';
+		tm.tm_sec      = strtoul( mmddhhmmss+13, NULL, 10 );
+		tm.tm_min      = strtoul( mmddhhmmss+10, NULL, 10 );
+		tm.tm_hour     = strtoul( mmddhhmmss+7, NULL, 10 );
+		tm.tm_mday     = strtoul( mmddhhmmss+4, NULL, 10 );
+		/* Pick the month out of the line-up			 */
+		for( tm.tm_mon = 0; tm.tm_mon < 12; tm.tm_mon += 1 )	{
+			if(!strcmp( mmddhhmmss, months[tm.tm_mon] ) )	{
+				break;
+			}
+		}
+		/* Fill in intuited year				 */
+		tm.tm_year = year - 1900;
+		tm.tm_isdst = -1;
+		/* Convert to time_t					 */
+		*t = mktime( &tm );
+		/* Tell if we've screwed up the date			 */
+		if( *t != (time_t) -1 )	{
+			retval = 0;
+		}
+	} while( 0 );
+	return( retval );
+}
 
 static	void
 add_trigger(
@@ -140,6 +197,7 @@ process(
 		char *		ts;
 		char *		host;
 		char *		resid;
+		time_t		t;
 
 		/* Drop trailing whitespace				 */
 		for( bp = buf + l; (bp > buf) && isspace(bp[-1]); --bp ) {
@@ -147,12 +205,17 @@ process(
 		}
 		/* Isolate timestamp and hostname			 */
 		ts = buf;
-		buf[12] = '\0';
+		buf[15] = '\0';
 		host = buf + 16;
 		for( bp = host+1; *bp && !isspace( *bp ); ++bp );
 		*bp = '\0';
 		resid = bp + 1;
-		printf( "%s|%s|%s\n", ts, host, resid );
+		/* Convert info to timestamp				 */
+		if( calc_timestamp( ts, &t ) )	{
+			/* Badly-formatted timestamp, ignore line	 */
+			continue;
+		}
+		printf( "[%.24s] %s %-15s %s\n", ctime(&t), ts, host, resid );
 	}
 }
 
