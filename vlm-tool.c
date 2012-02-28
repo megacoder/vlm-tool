@@ -17,11 +17,13 @@
 #include <builtins.h>
 
 #define	TRIGGER_INCR	(256)		/* Grow table by this many	 */
+#define	HOSTS_INCR	(4096/sizeof(char *))	/* Exactly one VM page	 */
 
 typedef	struct	entry_s	{
 	time_t		timestamp;
-	char *		line;
-	unsigned	matched;
+	unsigned	host_id;
+	int		marked;
+	char *		resid;
 } entry_t;
 
 static	char const *	me = "vlm-tool";
@@ -34,10 +36,34 @@ static	char const *	ofile;
 static	unsigned	show_rules;
 static	unsigned	show_stats;
 static	unsigned	colorize;
-static	regex_t*	triggers;
+static	regex_t *	triggers;
 static	size_t		triggerQty;
 static	size_t		triggerPos;
 static	int		year;
+static	unsigned	hostsQty;
+static	unsigned	hostsPos;
+static	char * *	hosts;
+
+static char const	sgr_red[] =	{
+	"\033[1;31m"
+};
+static char const	sgr_reset[] =	{
+	"\033[0m"
+};
+
+static	void *		_inline
+xstrdup(
+	char const * const	s
+)
+{
+	void * const	retval = strdup( s );
+
+	if( !retval )	{
+		fprintf( stderr, "%s: out of memory.\n", me );
+		exit(1);
+	}
+	return( retval );
+}
 
 static	int
 calc_timestamp(
@@ -91,6 +117,34 @@ calc_timestamp(
 		if( *t != (time_t) -1 )	{
 			retval = 0;
 		}
+	} while( 0 );
+	return( retval );
+}
+
+static	unsigned
+add_host(
+	char const * const	name
+)
+{
+	unsigned	retval;
+
+	do	{
+		/* See if we know this one already			 */
+		for( retval = 0; retval < hostsPos; ++retval )	{
+			if( !strcmp( name, hosts[retval] ) )	{
+				return( retval );
+			}
+		}
+		/* Add new host to table				 */
+		if( hostsPos >= hostsQty )	{
+			hostsQty += HOSTS_INCR;
+			hosts = realloc(
+				hosts,
+				sizeof(hosts[0]) * hostsQty
+			);
+		}
+		retval = hostsPos++;
+		hosts[ retval ] = xstrdup( name );
 	} while( 0 );
 	return( retval );
 }
@@ -185,6 +239,19 @@ bulk_load(
 }
 
 static	void
+add_entry(
+	entry_t *	e
+)
+{
+	if( e->marked == -1 )	{
+		printf( "  " );
+	} else	{
+		printf( "%s ", thumb );
+	}
+	printf( "%s\n", e->resid );
+}
+
+static	void
 process(
 	FILE * const	fyle		/* Syslogd output to scan	 */
 )
@@ -197,7 +264,9 @@ process(
 		char *		ts;
 		char *		host;
 		char *		resid;
-		time_t		t;
+		entry_t		e;
+		size_t		trigger;
+		char		color_buffer[ BUFSIZ * 3 ];
 
 		/* Drop trailing whitespace				 */
 		for( bp = buf + l; (bp > buf) && isspace(bp[-1]); --bp ) {
@@ -211,11 +280,53 @@ process(
 		*bp = '\0';
 		resid = bp + 1;
 		/* Convert info to timestamp				 */
-		if( calc_timestamp( ts, &t ) )	{
+		e.marked = -1;
+		if( calc_timestamp( ts, &e.timestamp ) )	{
 			/* Badly-formatted timestamp, ignore line	 */
 			continue;
 		}
-		printf( "[%.24s] %s %-15s %s\n", ctime(&t), ts, host, resid );
+		e.host_id = add_host( host );/* Remember host		 */
+		/* Pick a matching trigger				 */
+		for( trigger = 0; trigger < triggerPos; ++trigger )	{
+			static	size_t	rule_no;
+			regmatch_t	matches[ 10 ];
+
+			if( !regexec(
+				triggers+rule_no,
+				resid,
+				DIM( matches ),
+				matches,
+				0
+			) )	{
+				regmatch_t * const	mid = matches+2;
+
+				e.marked = rule_no;
+				if( (mid->rm_so != -1) && colorize )	{
+					char *	bp;
+
+					bp = memcpy(
+						color_buffer,
+						resid,
+						mid->rm_so
+					);
+					bp += mid->rm_so;
+					strcpy( bp, sgr_red );
+					bp += strlen( sgr_red );
+					memcpy( bp, resid+mid->rm_so, mid->rm_eo - mid->rm_so );
+					bp += (mid->rm_eo - mid->rm_so);
+					strcpy( bp, sgr_reset );
+					bp += strlen( sgr_reset );
+					strcpy( bp, resid + mid->rm_eo );
+					resid = color_buffer;
+				}
+				break;
+			}
+			rule_no = (rule_no + 1) % triggerPos;
+		}
+		if( (e.marked > -1) | mark_entries )	{
+			e.resid = xstrdup( resid );
+			add_entry( &e );
+		}
 	}
 }
 
