@@ -1,7 +1,7 @@
 # Note: this version must match that in the .spec file
 VERSION	=1.0.0
 #
-TARGETS=all check clean clobber dist distclean install uninstall
+TARGETS=all check clean clobber dist distclean install tags uninstall
 TARGET=all
 
 SUBDIRS=
@@ -31,6 +31,9 @@ ${TARGETS}::
 vlm-tool:: ${OBS}
 	${CC} ${LDFLAGS} -o $@ ${OBS} ${LDLIBS}
 	@size $@
+
+clean::
+	${RM} *.o a.out core.* lint tags
 
 clobber distclean:: clean
 	${RM} vlm-tool
@@ -62,6 +65,9 @@ uninstall::
 
 uninstall::
 	${RM} ${mandir}/vlm-tool.1.gz
+
+tags::
+	ctags -R .
 
 ifneq	(,${SUBDIRS})
 ${TARGETS}::

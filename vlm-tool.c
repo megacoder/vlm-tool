@@ -18,6 +18,7 @@
 
 #define	TRIGGER_INCR	(256)		/* Grow table by this many	 */
 #define	HOSTS_INCR	(4096/sizeof(char *))	/* Exactly one VM page	 */
+#define	ENTRIES_INCR	(102400)	/* Entries table increment	 */
 
 typedef	struct	entry_s	{
 	time_t		timestamp;
@@ -28,7 +29,7 @@ typedef	struct	entry_s	{
 
 static	char const *	me = "vlm-tool";
 static	unsigned	nonfatal;
-static	char const *	thumb = "+";
+static	char const *	thumb = "-";
 static	unsigned	list_triggers;
 static	unsigned	mark_entries;
 static	unsigned	load_builtin_rules;
@@ -43,6 +44,9 @@ static	int		year;
 static	unsigned	hostsQty;
 static	unsigned	hostsPos;
 static	char * *	hosts;
+static	unsigned	entriesQty;
+static	unsigned	entriesPos;
+static	entry_t *	entries;
 
 static char const	sgr_red[] =	{
 	"\033[1;31m"
@@ -154,23 +158,6 @@ add_trigger(
 	char const * const	rule
 )
 {
-	char	buffer[ BUFSIZ ];
-	/* Wrap trigger for pre- and post-regions			 */
-	if( snprintf(
-		buffer,
-		sizeof( buffer ),
-		"^(.*)(%s)(.*)$",
-		rule
-	) > sizeof(buffer) )	{
-		fprintf(
-			stderr,
-			"%s: rule too long [%s]\n",
-			me,
-			rule
-		);
-		exit( 1 );
-		/* NOTREACHED						 */
-	}
 	/* Grow table if needed						 */
 	if( triggerPos >= triggerQty )	{
 		triggerQty += TRIGGER_INCR;
@@ -182,14 +169,14 @@ add_trigger(
 	/* Compile the resulting trigger				 */
 	if( regcomp(
 		triggers + triggerPos,
-		buffer,
+		rule,
 		(REG_EXTENDED|REG_ICASE)
 	) == -1 )	{
 		fprintf(
 			stderr,
 			"%s: trigger [%s] failed to compile.\n",
 			me,
-			buffer
+			rule
 		);
 		exit( 1 );
 	}
@@ -243,12 +230,25 @@ add_entry(
 	entry_t *	e
 )
 {
-	if( e->marked == -1 )	{
-		printf( "  " );
-	} else	{
-		printf( "%s ", thumb );
+	/* Grow table if needed						 */
+	if( entriesPos >= entriesQty )	{
+		/* Realloc can get expensive, so grab much gusto	 */
+		entriesQty += ENTRIES_INCR;
+		entries = realloc(
+			entries,
+			entriesQty * sizeof(entries[0])
+		);
+		if( !entries )	{
+			fprintf(
+				stderr,
+				"%s: out of entry memory.\n",
+				me
+			);
+			exit(1);
+			/*NOTREACHED*/
+		}
 	}
-	printf( "%s\n", e->resid );
+	*(entries + entriesPos++) = *e;
 }
 
 static	void
@@ -298,22 +298,7 @@ process(
 				matches,
 				0
 			) )	{
-				regmatch_t * const	mid = matches+2;
-				int			i;
-
-				for( i = 0; i < DIM(matches); ++i )	{
-					regmatch_t * const rm = matches+i;
-					if( rm->rm_so != -1 )	{
-						char const	eos = resid[rm->rm_eo];
-						resid[rm->rm_eo] = '\0';
-						printf(
-							"= %2d [%s]\n",
-							i,
-							resid+rm->rm_so
-						);
-						resid[rm->rm_eo] = eos;
-					}
-				}
+				regmatch_t * const	mid = matches+0;
 
 				e.marked = rule_no;
 				if( (mid->rm_so != -1) && colorize )	{
@@ -345,6 +330,79 @@ process(
 	}
 }
 
+static	int
+compar(
+	const void *	l,
+	const void *	r
+)
+{
+	const entry_t *	le = l;
+	const entry_t *	re = r;
+	int		retval;
+
+	/* Order by time then by host					 */
+	if( le->timestamp < re->timestamp )	{
+		retval = -1;
+	} else if( le->timestamp == re->timestamp )	{
+		retval = strcmp( hosts[le->host_id], hosts[re->host_id] );
+	} else	{
+		retval = 1;
+	}
+	return( retval );
+}
+
+static	void
+sgr_host(
+	unsigned	host_id
+)
+{
+	printf( "\033[1;%dm", (31 + (host_id % 6)) );
+}
+
+static	void
+print_entries(
+	void
+)
+{
+	entry_t * const	Lentry = entries + entriesPos;
+	entry_t *	e;
+	size_t		hlen;
+	unsigned	host_id;
+	char *		no_thumb;
+
+	/* Calculate a blank thumb for un-marked entries		 */
+	no_thumb = xstrdup( thumb );
+	memset( no_thumb, ' ', strlen(no_thumb) );
+	/* Find longest host name we've kept				 */
+	hlen = 0;
+	for( host_id = 0; host_id < hostsPos; ++host_id )	{
+		hlen = max( hlen, strlen( hosts[host_id] ) );
+	}
+	/* Output the retained lines					 */
+	for( e = entries; e < Lentry; ++e )	{
+		static const char	fmt[] = "%-*s ";
+		struct tm *	tm;
+
+		/* First, the thumb (if marked)				 */
+		if( mark_entries )	{
+			printf( "%s ", e->marked == -1 ? no_thumb : thumb );
+		}
+		/* Second, the date					 */
+		tm = gmtime( &e->timestamp );
+		printf( "%.15s ", asctime(tm)+4 );
+		/* Third, the host name					 */
+		if( colorize )	{
+			sgr_host( e->host_id );
+			printf( fmt, (int) hlen, hosts[e->host_id] );
+			printf( "%s", sgr_reset );
+		} else	{
+			printf( fmt, (int) hlen, hosts[e->host_id] );
+		}
+		/* Now, the remainder of the text			 */
+		printf( "%s\n", e->resid );
+	}
+}
+
 int
 main(
 	int		argc,
@@ -359,7 +417,7 @@ main(
 		me = argv[0];
 	}
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "a:b:clmno:rst:y:" )) != EOF )	{
+	while( (c = getopt( argc, argv, "a:b:clmno:st:y:" )) != EOF )	{
 		switch( c )	{
 		default:
 			fprintf(
@@ -387,6 +445,7 @@ main(
 			break;
 		case 'c':
 			colorize = 1;
+			mark_entries = 1;
 			break;
 		case 'l':
 			list_triggers = 1;
@@ -399,9 +458,6 @@ main(
 			break;
 		case 'o':
 			ofile = optarg;
-			break;
-		case 'r':
-			show_rules = 1;
 			break;
 		case 's':
 			show_stats = 1;
@@ -420,7 +476,6 @@ main(
 		struct tm const *	tm = localtime(&now);
 		year = tm->tm_year + 1900;
 	}
-	printf( "The year is %d.\n", year );
 	/* Compile internal triggers unless we are forbidden		 */
 	if( load_builtin_rules )	{
 		char const * *	builtin;
@@ -499,6 +554,15 @@ main(
 			closedir( dir );
 		}
 	}
+	/* Sort retained entries					 */
+	qsort(
+		entries,
+		entriesPos,
+		sizeof(entries[0]),
+		compar
+	);
+	/* Print results						 */
+	print_entries();
 	/* Get out of Dodge						 */
 	return( nonfatal ? 1 : 0 );
 }
