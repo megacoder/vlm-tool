@@ -54,10 +54,10 @@ dist::
 	${RM} -r vlm-tool-${VERSION}
 
 install:: vlm-tool
-	${INSTALL} -D vlm-tool ${bindir}/vlm-tool
+	${INSTALL} -D -s vlm-tool ${bindir}/vlm-tool
 
 install:: vlm-tool.1
-	${INSTALL} -D -m 0644 -s vlm-tool.1 ${mandir}/vlm-tool.1
+	${INSTALL} -D -m 0644 vlm-tool.1 ${mandir}/vlm-tool.1
 	${GZIP} -9 -f ${mandir}/vlm-tool.1
 
 uninstall::
