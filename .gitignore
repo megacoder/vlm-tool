@@ -1,5 +1,9 @@
 .*.swp
 *.o
-vlm-tool
+vlm_tool
 tags
 Makefile
+missing
+stamp-h1
+Makefile.in
+*.log
