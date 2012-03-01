@@ -3,7 +3,7 @@
 
 VERSION=v1.0.0
 AC_PREREQ([2.66])
-AC_INIT([vlm_tool], VERSION, [Tommy.Reynolds@MegaCoder.com])
+AC_INIT([vlm-tool], VERSION, [Tommy.Reynolds@MegaCoder.com])
 AC_CONFIG_SRCDIR([gcc-compat.h])
 AC_CONFIG_HEADERS([config.h])
 
@@ -30,6 +30,6 @@ AC_CHECK_FUNCS([memset regcomp strdup strrchr strtol strtoul])
 
 AC_CONFIG_FILES([
 	 Makefile
-	 vlm_tool.spec
+	 vlm-tool.spec
 ])
 AC_OUTPUT

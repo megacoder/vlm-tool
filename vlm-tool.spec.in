@@ -5,12 +5,12 @@
 Prefix:	%{prefix}
 
 Summary       : Hightlight interesting /var/log/messages entries
-Name          : vlm_tool
+Name          : vlm-tool
 Version       : %{ver}
 Release       : %{rel}
 License       : GPLv2
 Group         : User Interface/Desktops
-Source        : %{name}-%{version}.tar.bz2
+Source        : %{name}-%{version}.tar.gz
 BuildRoot     : %{_tmppath}/%{name}-%{version}-root
 BuildRequires : autoconf,automake
 Requires      : python >= 2.6
@@ -38,7 +38,7 @@ Wholesome goodness
 %doc INSTALL
 %doc NEWS
 %doc README
-%{_bindir}/vlm_tool
-%{_mandir}/man1/vlm_tool.1.gz
+%{_bindir}/vlm-tool
+%{_mandir}/man1/vlm-tool.1.gz
 
 %changelog
