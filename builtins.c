@@ -22,7 +22,7 @@ char const *	builtin_triggers[] =	{
 	"don't",
 	"end_request",
 	"erro",
-	"fail",
+	"fail(ed|ure|ing)?",
 	"fenc(e,ing)",
 	"fsck",
 	"h[au]ng",
