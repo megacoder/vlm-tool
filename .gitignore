@@ -2,3 +2,4 @@
 *.o
 vlm-tool
 tags
+Makefile
