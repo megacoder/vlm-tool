@@ -1,11 +1,11 @@
-%define	ver	1.0.0
+%define	ver	@VERSION@
 %define	rel	1
 %define	prefix	/usr
 
 Prefix:	%{prefix}
 
 Summary       : Hightlight interesting /var/log/messages entries
-Name          : vlm-tool
+Name          : vlm_tool
 Version       : %{ver}
 Release       : %{rel}
 License       : GPLv2
@@ -38,7 +38,7 @@ Wholesome goodness
 %doc INSTALL
 %doc NEWS
 %doc README
-%{_bindir}/vlm-tool
-%{_mandir}/man1/vlm-tool.1.gz
+%{_bindir}/vlm_tool
+%{_mandir}/man1/vlm_tool.1.gz
 
 %changelog
