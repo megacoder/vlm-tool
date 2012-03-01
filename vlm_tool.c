@@ -20,11 +20,17 @@
 #define	HOSTS_INCR	(4096/sizeof(char *))	/* Exactly one VM page	 */
 #define	ENTRIES_INCR	(102400)	/* Entries table increment	 */
 
+typedef	struct	trigger_s	{
+	char const *	s;		/* Original rule string		 */
+	regex_t		re;		/* Compiled regex		 */
+} trigger_t;
+
 typedef	struct	entry_s	{
 	time_t		timestamp;
 	unsigned	host_id;
 	int		marked;
 	char *		resid;
+	trigger_t *	trigger;
 } entry_t;
 
 static	char const *	me = "vlm_tool";
@@ -32,12 +38,12 @@ static	unsigned	nonfatal;
 static	char const *	thumb = "-";
 static	unsigned	list_triggers;
 static	unsigned	mark_entries;
-static	unsigned	load_builtin_rules;
+static	unsigned	load_builtin_rules = 1;
 static	char const *	ofile;
 static	unsigned	show_rules;
 static	unsigned	show_stats;
 static	unsigned	colorize;
-static	regex_t *	triggers;
+static	trigger_t *	triggers;
 static	size_t		triggerQty;
 static	size_t		triggerPos;
 static	int		year;
@@ -47,6 +53,7 @@ static	char * *	hosts;
 static	unsigned	entriesQty;
 static	unsigned	entriesPos;
 static	entry_t *	entries;
+static	unsigned	debug;
 
 static char const	sgr_red[] =	{
 	"\033[1;31m"
@@ -167,8 +174,12 @@ add_trigger(
 		);
 	}
 	/* Compile the resulting trigger				 */
+	if( debug > 0 )	{
+		printf( "Adding rule '%s'.\n", rule );
+	}
+	triggers[triggerPos].s = xstrdup( rule );
 	if( regcomp(
-		triggers + triggerPos,
+		&triggers[triggerPos].re,
 		rule,
 		(REG_EXTENDED|REG_ICASE)
 	) == -1 )	{
@@ -285,6 +296,7 @@ process(
 			/* Badly-formatted timestamp, ignore line	 */
 			continue;
 		}
+		e.trigger = NULL;
 		e.host_id = add_host( host );/* Remember host		 */
 		/* Pick a matching trigger				 */
 		for( trigger = 0; trigger < triggerPos; ++trigger )	{
@@ -292,7 +304,7 @@ process(
 			regmatch_t	matches[ 10 ];
 
 			if( !regexec(
-				triggers+rule_no,
+				&triggers[rule_no].re,
 				resid,
 				DIM( matches ),
 				matches,
@@ -300,6 +312,7 @@ process(
 			) )	{
 				regmatch_t * const	mid = matches+0;
 
+				e.trigger = triggers+rule_no;
 				e.marked = rule_no;
 				if( (mid->rm_so != -1) && colorize )	{
 					char *	bp;
@@ -387,6 +400,9 @@ print_entries(
 		if( mark_entries )	{
 			printf( "%s ", e->marked == -1 ? no_thumb : thumb );
 		}
+		/* Special case: show rule if asked			 */
+		if( show_rules )	{
+		}
 		/* Second, the date					 */
 		tm = gmtime( &e->timestamp );
 		printf( "%.15s ", asctime(tm)+4 );
@@ -427,6 +443,19 @@ do_file(
 	}
 }
 
+static	void
+dump_rules(
+	void
+)
+{
+	trigger_t * const	last = triggers + triggerPos;
+	trigger_t *		trigger;
+
+	for( trigger = triggers; trigger < last; ++trigger )	{
+		printf( "%s\n", trigger->s );
+	}
+}
+
 int
 main(
 	int		argc,
@@ -441,7 +470,7 @@ main(
 		me = argv[0];
 	}
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "a:b:clmno:st:y:" )) != EOF )	{
+	while( (c = getopt( argc, argv, "Xa:b:clmno:rt:y:" )) != EOF )	{
 		switch( c )	{
 		default:
 			fprintf(
@@ -460,6 +489,9 @@ main(
 				c
 			);
 			++nonfatal;
+			break;
+		case 'X':
+			++debug;
 			break;
 		case 'a':
 			add_trigger( optarg );
@@ -482,6 +514,9 @@ main(
 			break;
 		case 'o':
 			ofile = optarg;
+			break;
+		case 'r':
+			show_rules = 1;
 			break;
 		case 's':
 			show_stats = 1;
@@ -511,6 +546,16 @@ main(
 			}
 		}
 	}
+	/* List our rules						 */
+	if( debug > 0 )	{
+		trigger_t * const	last = triggers+triggerPos;
+		trigger_t *		trigger;
+
+		printf( "%u Triggers:\n", triggerPos );
+		for( trigger = triggers; trigger < last; ++trigger )	{
+			puts( trigger->s );
+		}
+	}
 	/* Redirect stdout if asked					 */
 	if( ofile )	{
 		if( freopen( ofile, "wt", stdout ) != stdout )	{
@@ -522,10 +567,6 @@ main(
 			);
 			exit(1);
 		}
-	}
-	/* Show rules that we have					 */
-	if( show_rules )	{
-		puts( "Dunno how yet." );
 	}
 	/* Here we go							 */
 	if( optind < argc )	{
