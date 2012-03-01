@@ -402,6 +402,10 @@ print_entries(
 		}
 		/* Special case: show rule if asked			 */
 		if( show_rules )	{
+			printf(
+				"%-15.15s ",
+				e->trigger ? e->trigger->s : ""
+			);
 		}
 		/* Second, the date					 */
 		tm = gmtime( &e->timestamp );
