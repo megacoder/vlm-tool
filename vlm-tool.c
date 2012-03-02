@@ -521,6 +521,7 @@ main(
 			break;
 		case 'r':
 			show_rules = 1;
+			mark_entries = 1;
 			break;
 		case 's':
 			show_stats = 1;

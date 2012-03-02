@@ -3,7 +3,7 @@
 
 char const *	builtin_triggers[] =	{
 	"abnormal",
-	"abo?rt",
+	"abo?rt(d)?",
 	"access[[:space:]]beyond",
 	"asked[[:space:]]fo",
 	"bcm5709",
@@ -56,12 +56,12 @@ char const *	builtin_triggers[] =	{
 	"qla.*loop",
 	"rds/(ib)?",
 	"read-?only",
-	"register(ed)?",
+	"register(ed|ing)?",
 	"require",
 	"restart",
 	"segfault",
 	"selinux",
-	"signal",
+	"signal([[:space:]]*[0-9]*)",
 	"sysrq.*:",
 	"taint",
 	"terminated",
