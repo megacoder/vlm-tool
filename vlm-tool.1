@@ -1,4 +1,4 @@
-.TH VLM-TOOL "1" "February 2012" "Tommy.Reynolds@Oracle.com" "User Commands"
+.TH VLM-TOOL "1" "February 2012" "Tommy.Reynolds@MegaCoder.com" "User Commands"
 .SH NAME
 vlm-tool \- coalesce /var/log/messages from different hosts and filter
 .SH SYNOPSIS
@@ -12,6 +12,7 @@ vlm-tool \- coalesce /var/log/messages from different hosts and filter
 [\fI-r\fR]
 [\fI-s\fR]
 [\fI-t\fR THUMB]
+[\fI-v\fR]
 [\fI/var/log/messages\fR]...
 .SH DESCRIPTION
 .PP
@@ -76,15 +77,17 @@ Show the matching trigger rule which caused the entry to be marked.
 .IP "-s" 10m
 Output some statistics.
 Not really useful to anybody except the author and probably not even him.
+.IP "-v" 10m
+Display program name, version, and then exit.
 .SH AUTHOR
-Tommy Reynolds <Tommy.Reynolds@Oracle.com>
+Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 .SH COPYRIGHT
 Copyright \(co 2012 Tommy Reynolds
 .PP
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 .SH "SEE ALSO"
-Read about python regular expressions if your matches surprise you.
+Read about egrep(1) regular expressions if the matches surprise you.
 .SH BUGS
 .PP
 All of the \fI/var/log/messages\fR files must be from the same year.
