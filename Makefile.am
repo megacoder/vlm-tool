@@ -1,4 +1,5 @@
 bin_PROGRAMS	= vlm-tool
+man_MANS	= vlm-tool.1
 
 vlm_tool_SOURCES = vlm-tool.c builtins.c builtins.h gcc-compat.h
 
