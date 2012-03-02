@@ -474,7 +474,7 @@ main(
 		me = argv[0];
 	}
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "Xa:b:clmno:rt:y:" )) != EOF )	{
+	while( (c = getopt( argc, argv, "Xa:b:clmno:rt:vy:" )) != EOF )	{
 		switch( c )	{
 		default:
 			fprintf(
@@ -528,6 +528,10 @@ main(
 		case 't':
 			thumb = optarg;
 			break;
+		case 'v':
+			puts( VERSION );
+			exit(0);
+			/*NOTREACHED*/
 		case 'y':
 			year = strtol( optarg, NULL, 10 );
 			break;
