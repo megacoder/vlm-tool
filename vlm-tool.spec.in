@@ -15,7 +15,12 @@ BuildRoot     : %{_tmppath}/%{name}-%{version}-root
 BuildRequires : autoconf,automake
 
 %description
-Wholesome goodness
+The vlm-tool(1) reads one or more system log files (/var/log/messages) from
+one or more systems.  The entries are filtered against a known set of trigger
+patterns.  Those entries which are matched, are then sorted and printed.
+
+Using this tool should make browsing many log files from many systems more
+palatable by highlighting entries which could indicate an issue.
 %prep
 %setup -q
 
