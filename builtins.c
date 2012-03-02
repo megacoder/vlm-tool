@@ -21,7 +21,7 @@ char const *	builtin_triggers[] =	{
 	"disagrees.*symbol.*",
 	"don't",
 	"end_request",
-	"erro",
+	"error",
 	"fail(ed|ure|ing)?",
 	"fenc(e,ing)",
 	"fsck",
