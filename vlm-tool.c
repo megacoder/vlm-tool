@@ -529,7 +529,7 @@ main(
 			thumb = optarg;
 			break;
 		case 'v':
-			puts( VERSION );
+			printf( "%s %s\n", me, VERSION );
 			exit(0);
 			/*NOTREACHED*/
 		case 'y':

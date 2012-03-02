@@ -2,7 +2,7 @@ bin_PROGRAMS	= vlm-tool
 
 vlm_tool_SOURCES = vlm-tool.c builtins.c builtins.h gcc-compat.h
 
-AM_CFLAGS	=-I. `getconf LFS_CFLAGS` -DVERSION=\"@VERSION@\"
+AM_CFLAGS	=`getconf LFS_CFLAGS` -DVERSION=\"@VERSION@\" -I.
 AM_LDFLAGS	=`getconf LFS_LDFLAGS`
 
 EXTRA_DIST=AUTHORS COPYING ChangeLog INSTALL NEWS README TODO autogen.sh \

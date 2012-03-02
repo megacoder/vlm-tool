@@ -1,3 +1,3 @@
 #!/bin/sh
-rm -f Makefile vlm-tool.spec configure
+rm -f Makefile Makefile.in  vlm-tool.spec configure
 autoreconf -vfim
