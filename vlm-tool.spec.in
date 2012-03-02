@@ -13,8 +13,6 @@ Group         : User Interface/Desktops
 Source        : %{name}-%{version}.tar.gz
 BuildRoot     : %{_tmppath}/%{name}-%{version}-root
 BuildRequires : autoconf,automake
-Requires      : python >= 2.6
-BuildArch     : noarch
 
 %description
 Wholesome goodness
@@ -22,6 +20,9 @@ Wholesome goodness
 %setup -q
 
 %build
+	[ -f configure ] || ./autogen.sh
+	./configure
+	make
 
 %install
 	rm -rf %{buildroot}
