@@ -9,7 +9,7 @@ char const *	builtin_triggers[] =	{
 	"bcm5709",
 	"blocked[[:space:]]for[[:space:]]more",
 	"becomes",
-	"bond",
+	"bond(ing)?",
 	"call[[:space:]]trace:",
 	"clocksource",
 	"conflict",
