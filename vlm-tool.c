@@ -455,6 +455,17 @@ do_file(
 		}
 		fyle = popen( cmd, "r" );
 		closer = pclose;
+	} else if( bp && !strcmp( bp, ".xz" ) )	{
+		char	cmd[ BUFSIZ ];
+		int	n;
+
+		n = snprintf( cmd, sizeof(cmd), "/usr/bin/xzcat -- %s", fn );
+		if( n > sizeof(cmd) )	{
+			perror( fn );
+			exit( 1 );
+		}
+		fyle = popen( cmd, "r" );
+		closer = pclose;
 	} else	{
 		fyle = fopen( fn, "rt" );
 		closer = fclose;
