@@ -428,8 +428,37 @@ do_file(
 	char const * const	fn
 )
 {
-	FILE * const	fyle = fopen( fn, "rt" );
+	FILE *		fyle;
+	int		(*closer)( FILE * );
+	char *		bp;
 
+	bp = strrchr( fn, '.' );
+	if( bp && !strcmp( bp, ".gz" ) )	{
+		char	cmd[ BUFSIZ ];
+		int	n;
+
+		n = snprintf( cmd, sizeof(cmd), "/bin/zcat -- %s", fn );
+		if( n > sizeof(cmd) )	{
+			perror( fn );
+			exit( 1 );
+		}
+		fyle = popen( cmd, "r" );
+		closer = pclose;
+	} else if( bp && !strcmp( bp, ".bz2" ) )	{
+		char	cmd[ BUFSIZ ];
+		int	n;
+
+		n = snprintf( cmd, sizeof(cmd), "/usr/bin/bzcat -- %s", fn );
+		if( n > sizeof(cmd) )	{
+			perror( fn );
+			exit( 1 );
+		}
+		fyle = popen( cmd, "r" );
+		closer = pclose;
+	} else	{
+		fyle = fopen( fn, "rt" );
+		closer = fclose;
+	}
 	if( !fyle )	{
 		fprintf(
 			stderr,
@@ -440,7 +469,7 @@ do_file(
 		++nonfatal;
 	} else	{
 		process( fyle );
-		if( fclose( fyle ) )	{
+		if( (*closer)( fyle ) )	{
 			perror( optarg );
 			++nonfatal;
 		}
