@@ -28,7 +28,6 @@ typedef	struct	trigger_s	{
 typedef	struct	entry_s	{
 	time_t		timestamp;
 	unsigned	host_id;
-	int		marked;
 	char *		resid;
 	trigger_t *	trigger;
 } entry_t;
@@ -262,6 +261,42 @@ add_entry(
 	*(entries + entriesPos++) = *e;
 }
 
+static	void	_inline
+do_match(
+	entry_t *		e,
+	regmatch_t *		matches,
+	char *			resid,
+	trigger_t *		t
+)
+{
+	regmatch_t * const	mid = matches+0;
+	char			color_buffer[ BUFSIZ * 3 ];
+
+	e->trigger = t;
+	if( (mid->rm_so != -1) && colorize )	{
+		char *	bp;
+
+		bp = memcpy(
+			color_buffer,
+			resid,
+			mid->rm_so
+		);
+		bp += mid->rm_so;
+		strcpy( bp, sgr_red );
+		bp += strlen( sgr_red );
+		memcpy( bp, resid+mid->rm_so, mid->rm_eo - mid->rm_so );
+		bp += (mid->rm_eo - mid->rm_so);
+		strcpy( bp, sgr_reset );
+		bp += strlen( sgr_reset );
+		strcpy( bp, resid + mid->rm_eo );
+		resid = color_buffer;
+	}
+	if( (e->trigger > -1) | mark_entries )	{
+		e->resid = xstrdup( resid );
+		add_entry( e );
+	}
+}
+
 static	void
 process(
 	FILE * const	fyle		/* Syslogd output to scan	 */
@@ -277,7 +312,6 @@ process(
 		char *		resid;
 		entry_t		e;
 		size_t		trigger;
-		char		color_buffer[ BUFSIZ * 3 ];
 
 		/* Drop trailing whitespace				 */
 		for( bp = buf + l; (bp > buf) && isspace(bp[-1]); --bp ) {
@@ -291,7 +325,7 @@ process(
 		*bp = '\0';
 		resid = bp + 1;
 		/* Convert info to timestamp				 */
-		e.marked = -1;
+		e.trigger = NULL;
 		if( calc_timestamp( ts, &e.timestamp ) )	{
 			/* Badly-formatted timestamp, ignore line	 */
 			continue;
@@ -301,44 +335,20 @@ process(
 		/* Pick a matching trigger				 */
 		for( trigger = 0; trigger < triggerPos; ++trigger )	{
 			static	size_t	rule_no;
-			regmatch_t	matches[ 10 ];
+			trigger_t * const	t = triggers + rule_no;
+			regmatch_t		matches[ 10 ];
 
 			if( !regexec(
-				&triggers[rule_no].re,
+				&t->re,
 				resid,
 				DIM( matches ),
 				matches,
 				0
 			) )	{
-				regmatch_t * const	mid = matches+0;
-
-				e.trigger = triggers+rule_no;
-				e.marked = rule_no;
-				if( (mid->rm_so != -1) && colorize )	{
-					char *	bp;
-
-					bp = memcpy(
-						color_buffer,
-						resid,
-						mid->rm_so
-					);
-					bp += mid->rm_so;
-					strcpy( bp, sgr_red );
-					bp += strlen( sgr_red );
-					memcpy( bp, resid+mid->rm_so, mid->rm_eo - mid->rm_so );
-					bp += (mid->rm_eo - mid->rm_so);
-					strcpy( bp, sgr_reset );
-					bp += strlen( sgr_reset );
-					strcpy( bp, resid + mid->rm_eo );
-					resid = color_buffer;
-				}
+				do_match( &e, matches, resid, t );
 				break;
 			}
 			rule_no = (rule_no + 1) % triggerPos;
-		}
-		if( (e.marked > -1) | mark_entries )	{
-			e.resid = xstrdup( resid );
-			add_entry( &e );
 		}
 	}
 }
@@ -398,7 +408,7 @@ print_entries(
 
 		/* First, the thumb (if marked)				 */
 		if( mark_entries )	{
-			printf( "%s ", e->marked == -1 ? no_thumb : thumb );
+			printf( "%s ", e->trigger == NULL ? no_thumb : thumb );
 		}
 		/* Special case: show rule if asked			 */
 		if( show_rules )	{
