@@ -291,7 +291,7 @@ do_match(
 		strcpy( bp, resid + mid->rm_eo );
 		resid = color_buffer;
 	}
-	if( (e->trigger > -1) | mark_entries )	{
+	if( (e->trigger != NULL) | mark_entries )	{
 		e->resid = xstrdup( resid );
 		add_entry( e );
 	}
@@ -510,6 +510,13 @@ dump_rules(
 	}
 }
 
+static	void
+post_process(
+	void
+)
+{
+}
+
 int
 main(
 	int		argc,
@@ -670,6 +677,10 @@ main(
 		sizeof(entries[0]),
 		compar
 	);
+	/* Post-processing phase					 */
+	if( mark_entries )	{
+		post_process();
+	}
 	/* Print results						 */
 	print_entries();
 	/* Get out of Dodge						 */
