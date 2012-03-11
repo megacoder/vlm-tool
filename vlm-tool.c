@@ -15,22 +15,8 @@
 
 #include <gcc-compat.h>
 #include <builtins.h>
-
-#define	TRIGGER_INCR	(256)		/* Grow table by this many	 */
-#define	HOSTS_INCR	(4096/sizeof(char *))	/* Exactly one VM page	 */
-#define	ENTRIES_INCR	(102400)	/* Entries table increment	 */
-
-typedef	struct	trigger_s	{
-	char const *	s;		/* Original rule string		 */
-	regex_t		re;		/* Compiled regex		 */
-} trigger_t;
-
-typedef	struct	entry_s	{
-	time_t		timestamp;
-	unsigned	host_id;
-	char *		resid;
-	trigger_t *	trigger;
-} entry_t;
+#include <entries.h>
+#include <pool.h>
 
 static	char const *	me = "vlm_tool";
 static	unsigned	nonfatal;
@@ -42,16 +28,14 @@ static	char const *	ofile;
 static	unsigned	show_rules;
 static	unsigned	show_stats;
 static	unsigned	colorize;
-static	trigger_t *	triggers;
-static	size_t		triggerQty;
-static	size_t		triggerPos;
+static	pool_t *	triggers;
 static	int		year;
 static	unsigned	hostsQty;
 static	unsigned	hostsPos;
 static	char * *	hosts;
-static	unsigned	entriesQty;
-static	unsigned	entriesPos;
-static	entry_t *	entries;
+static	pool_t *	entries;
+static	size_t		entries_qty;
+static	entry_t * *	flat_entries;
 static	unsigned	debug;
 
 static char const	sgr_red[] =	{
@@ -60,6 +44,20 @@ static char const	sgr_red[] =	{
 static char const	sgr_reset[] =	{
 	"\033[0m"
 };
+
+static	void *		_inline
+xmalloc(
+	size_t		size
+)
+{
+	void * const	retval = malloc( size );
+
+	if( !retval )	{
+		perror( "out of memory" );
+		abort();
+	}
+	return( retval );
+}
 
 static	void *		_inline
 xstrdup(
@@ -147,7 +145,9 @@ add_host(
 		}
 		/* Add new host to table				 */
 		if( hostsPos >= hostsQty )	{
-			hostsQty += HOSTS_INCR;
+			static	size_t const	incr = 32;
+
+			hostsQty += incr;
 			hosts = realloc(
 				hosts,
 				sizeof(hosts[0]) * hostsQty
@@ -164,21 +164,15 @@ add_trigger(
 	char const * const	rule
 )
 {
-	/* Grow table if needed						 */
-	if( triggerPos >= triggerQty )	{
-		triggerQty += TRIGGER_INCR;
-		triggers = realloc(
-			triggers,
-			triggerQty * sizeof( triggers[0] )
-		);
-	}
+	trigger_t * const	t = pool_alloc( triggers );
+
 	/* Compile the resulting trigger				 */
 	if( debug > 0 )	{
 		printf( "Adding rule '%s'.\n", rule );
 	}
-	triggers[triggerPos].s = xstrdup( rule );
+	t->s = xstrdup( rule );
 	if( regcomp(
-		&triggers[triggerPos].re,
+		&(t->re),
 		rule,
 		(REG_EXTENDED|REG_ICASE)
 	) == -1 )	{
@@ -190,7 +184,6 @@ add_trigger(
 		);
 		exit( 1 );
 	}
-	++triggerPos;
 }
 
 static	void
@@ -237,36 +230,26 @@ bulk_load(
 
 static	void
 add_entry(
-	entry_t *	e
+	time_t const		timestamp,
+	unsigned const		host_id,
+	char const * const	resid,
+	trigger_t * const	t
 )
 {
-	/* Grow table if needed						 */
-	if( entriesPos >= entriesQty )	{
-		/* Realloc can get expensive, so grab much gusto	 */
-		entriesQty += ENTRIES_INCR;
-		entries = realloc(
-			entries,
-			entriesQty * sizeof(entries[0])
-		);
-		if( !entries )	{
-			fprintf(
-				stderr,
-				"%s: out of entry memory.\n",
-				me
-			);
-			exit(1);
-			/*NOTREACHED*/
-		}
-	}
-	*(entries + entriesPos++) = *e;
+	entry_t * const		e = pool_alloc( entries );
+
+	e->timestamp = timestamp;
+	e->host_id   = host_id;
+	e->resid     = xstrdup( resid );
+	e->trigger   = t;
+	entries_qty += 1;
 }
 
+#if	0
 static	void	_inline
 do_match(
-	entry_t *		e,
-	regmatch_t *		matches,
-	char *			resid,
-	trigger_t *		t
+	entry_t *		old_e,
+	regmatch_t *		matches
 )
 {
 	regmatch_t * const	mid = matches+0;
@@ -293,9 +276,14 @@ do_match(
 	}
 	if( (e->trigger != NULL) | mark_entries )	{
 		e->resid = xstrdup( resid );
+		time_t		timestamp;
+		unsigned	host_id;
+		char *		resid;
+		trigger_t *	trigger;
 		add_entry( e );
 	}
 }
+#endif	/* NOPE */
 
 static	void
 process(
@@ -310,45 +298,63 @@ process(
 		char *		ts;
 		char *		host;
 		char *		resid;
-		entry_t		e;
-		size_t		trigger;
+		trigger_t *	fired;
+		int		keep;
+		pool_iter_t *	iter;
 
 		/* Drop trailing whitespace				 */
 		for( bp = buf + l; (bp > buf) && isspace(bp[-1]); --bp ) {
 			bp[-1] = '\0';
 		}
-		/* Isolate timestamp and hostname			 */
+		/* Isolate timestamp, hostname, and resid		 */
 		ts = buf;
 		buf[15] = '\0';
 		host = buf + 16;
-		for( bp = host+1; *bp && !isspace( *bp ); ++bp );
-		*bp = '\0';
-		resid = bp + 1;
-		/* Convert info to timestamp				 */
-		e.trigger = NULL;
-		if( calc_timestamp( ts, &e.timestamp ) )	{
-			/* Badly-formatted timestamp, ignore line	 */
-			continue;
+		for( resid = host+1; *resid && !isspace( *resid ); ++resid );
+		if( *resid )	{
+			(*resid++) = '\0';
 		}
-		e.trigger = NULL;
-		e.host_id = add_host( host );/* Remember host		 */
 		/* Pick a matching trigger				 */
-		for( trigger = 0; trigger < triggerPos; ++trigger )	{
-			static	size_t	rule_no;
-			trigger_t * const	t = triggers + rule_no;
-			regmatch_t		matches[ 10 ];
-
-			if( !regexec(
-				&t->re,
-				resid,
-				DIM( matches ),
-				matches,
-				0
-			) )	{
-				do_match( &e, matches, resid, t );
-				break;
+		keep = mark_entries;
+		iter = pool_iter_new( triggers );
+		do	{
+			/* Find a trigger that fits			 */
+			for(
+				fired = pool_iter_next( iter );
+				fired;
+				fired = pool_iter_next( iter )
+			)	{
+				regmatch_t		matches[ 10 ];
+				if( !regexec(
+					&fired->re,
+					resid,
+					DIM(matches),
+					matches,
+					0
+				) )	{
+					keep  = 1;
+					break;
+				}
 			}
-			rule_no = (rule_no + 1) % triggerPos;
+		} while( 0 );
+		pool_iter_free( &iter );
+		/* Remember this entry if we're keeping them		 */
+		if( keep )	{
+			entry_t * const	e = pool_alloc( entries );
+
+			e->host_id = add_host( host );
+
+			/* Convert info to timestamp			 */
+			if(calc_timestamp( ts, &(e->timestamp) ) ) {
+				/* Bad date, show it first in list	 */
+				memset(
+					&(e->timestamp),
+					0,
+					sizeof(e->timestamp)
+				);
+			}
+			e->trigger = fired;
+			e->resid = xstrdup( resid );
 		}
 	}
 }
@@ -359,19 +365,53 @@ compar(
 	const void *	r
 )
 {
-	const entry_t *	le = l;
-	const entry_t *	re = r;
+	entry_t * const *	le = l;
+	entry_t * const *	re = r;
 	int		retval;
 
 	/* Order by time then by host					 */
-	if( le->timestamp < re->timestamp )	{
+	if( le[0]->timestamp < re[0]->timestamp )	{
 		retval = -1;
-	} else if( le->timestamp == re->timestamp )	{
-		retval = strcmp( hosts[le->host_id], hosts[re->host_id] );
+	} else if( le[0]->timestamp == re[0]->timestamp )	{
+		retval = strcmp( hosts[le[0]->host_id], hosts[re[0]->host_id] );
 	} else	{
 		retval = 1;
 	}
 	return( retval );
+}
+
+static	void
+flatten_and_sort_entries(
+	void
+)
+{
+	pool_iter_t *	iter;
+
+	flat_entries = xmalloc( entries_qty * sizeof( flat_entries[0] ) );
+	iter         = pool_iter_new( entries );
+	do	{
+		entry_t * *	etp;
+		entry_t *	e;
+
+		/* Build index of entry addresses			 */
+		for(
+			etp = flat_entries,
+			e = pool_iter_next( iter );
+			e;
+			e = pool_iter_next( iter ),
+			++etp
+		)	{
+			*etp = e;
+		}
+		/* Order table of entry addresses			 */
+		qsort(
+			flat_entries,
+			entries_qty,
+			sizeof(flat_entries[0]),
+			compar
+		);
+	} while( 0 );
+	pool_iter_free( &iter );
 }
 
 static	void
@@ -387,24 +427,32 @@ print_entries(
 	void
 )
 {
-	entry_t * const	Lentry = entries + entriesPos;
+	char *		no_thumb;
+	pool_iter_t *	iter;
 	entry_t *	e;
 	size_t		hlen;
-	unsigned	host_id;
-	char *		no_thumb;
 
 	/* Calculate a blank thumb for un-marked entries		 */
 	no_thumb = xstrdup( thumb );
 	memset( no_thumb, ' ', strlen(no_thumb) );
 	/* Find longest host name we've kept				 */
-	hlen = 0;
-	for( host_id = 0; host_id < hostsPos; ++host_id )	{
-		hlen = max( hlen, strlen( hosts[host_id] ) );
-	}
-	/* Output the retained lines					 */
-	for( e = entries; e < Lentry; ++e )	{
+	do	{
+		size_t		host_id;
+
+		hlen = 0;
+		for( host_id = 0; host_id < hostsPos; ++host_id )	{
+			hlen = max( hlen, strlen( hosts[host_id] ) );
+		}
+	} while( 0 );
+	/* Iterate over the kept entries, printing all of them		 */
+	iter = pool_iter_new( entries );
+	for(
+		e = pool_iter_next( iter );
+		e;
+		e = pool_iter_next( iter )
+	)	{
 		static const char	fmt[] = "%-*s ";
-		struct tm *	tm;
+		struct tm *		tm;
 
 		/* First, the thumb (if marked)				 */
 		if( mark_entries )	{
@@ -429,8 +477,14 @@ print_entries(
 			printf( fmt, (int) hlen, hosts[e->host_id] );
 		}
 		/* Now, the remainder of the text			 */
-		printf( "%s\n", e->resid );
+		/* FIXME: add colorizing codes to 'resid' 		 */
+		if( colorize && (e->trigger != NULL) )	{
+			printf( "COLOR %s COLOR\n", e->resid );
+		} else	{
+			printf( "%s\n", e->resid );
+		}
 	}
+	pool_iter_free( &iter );
 }
 
 static	void
@@ -502,12 +556,21 @@ dump_rules(
 	void
 )
 {
-	trigger_t * const	last = triggers + triggerPos;
-	trigger_t *		trigger;
+	pool_iter_t *		iter;
 
-	for( trigger = triggers; trigger < last; ++trigger )	{
-		printf( "%s\n", trigger->s );
-	}
+	iter = pool_iter_new( triggers );
+	do	{
+		trigger_t *	t;
+
+		for(
+			t = pool_iter_next( iter );
+			t;
+			t = pool_iter_next( iter )
+		)	{
+			printf( "%s\n", t->s );
+		}
+	} while( 0 );
+	pool_iter_free( &iter );
 }
 
 static	void
@@ -515,6 +578,7 @@ post_process(
 	void
 )
 {
+	/* We ain't got nuthin' yet					 */
 }
 
 int
@@ -530,6 +594,9 @@ main(
 	if( me == (char *) 1 )	{
 		me = argv[0];
 	}
+	/* Setup the pools we'll be using				 */
+	triggers = pool_new( sizeof(trigger_t) );
+	entries  = pool_new( sizeof(entry_t) );
 	/* Process command line						 */
 	while( (c = getopt( argc, argv, "Xa:b:clmno:rt:vy:" )) != EOF )	{
 		switch( c )	{
@@ -612,16 +679,6 @@ main(
 			}
 		}
 	}
-	/* List our rules						 */
-	if( debug > 0 )	{
-		trigger_t * const	last = triggers+triggerPos;
-		trigger_t *		trigger;
-
-		printf( "%u Triggers:\n", triggerPos );
-		for( trigger = triggers; trigger < last; ++trigger )	{
-			puts( trigger->s );
-		}
-	}
 	/* Redirect stdout if asked					 */
 	if( ofile )	{
 		if( freopen( ofile, "wt", stdout ) != stdout )	{
@@ -671,12 +728,7 @@ main(
 		}
 	}
 	/* Sort retained entries					 */
-	qsort(
-		entries,
-		entriesPos,
-		sizeof(entries[0]),
-		compar
-	);
+	flatten_and_sort_entries();
 	/* Post-processing phase					 */
 	if( mark_entries )	{
 		post_process();

@@ -24,7 +24,7 @@ typedef	struct	pool_iter_s	{
 
 pool_t *	pool_new( size_t );
 void		pool_free( pool_t * * );
-void *		pool_add( pool_t *, void * );
+void *		pool_alloc( pool_t * );
 
 pool_iter_t *	pool_iter_new( pool_t * );
 void		pool_iter_free( pool_iter_t * * );
