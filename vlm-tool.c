@@ -610,7 +610,7 @@ post_process(
 		NULL
 	};
 	static char const * const	end_strings[] =	{
-		"kernel:",
+		"[[]<[0-9a-fA-F]*>[]]",
 		NULL
 	};
 	char const * const *		s;
@@ -687,6 +687,7 @@ post_process(
 			) )	{
 				/* Found a match			 */
 				e->trigger = t;
+				host_states[e->host_id] = 1;
 				break;
 			}
 		}
