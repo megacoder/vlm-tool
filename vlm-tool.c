@@ -173,7 +173,7 @@ add_trigger(
 	if( debug > 0 )	{
 		printf( "Adding rule '%s'.\n", rule );
 	}
-	t->s = xstrdup( rule );
+	t->s = rule;
 	if( regcomp(
 		&(t->re),
 		t->s,
@@ -226,29 +226,12 @@ bulk_load(
 		/* Step over leading whitespace				 */
 		for( bp = buffer; *bp && isspace( *bp ); ++bp );
 		/* What's left is a trigger				 */
-		add_trigger( bp );
+		add_trigger( xstrdup( bp ) );
 	}
 	fclose( fyle );
 }
 
 #if	0
-static	void
-add_entry(
-	time_t const		timestamp,
-	unsigned const		host_id,
-	char const * const	resid,
-	trigger_t * const	t
-)
-{
-	entry_t * const		e = pool_alloc( entries );
-
-	e->timestamp = timestamp;
-	e->host_id   = host_id;
-	e->resid     = xstrdup( resid );
-	e->trigger   = t;
-	entries_qty += 1;
-}
-
 static	void	_inline
 do_match(
 	entry_t *		old_e,
@@ -358,6 +341,7 @@ process(
 			}
 			e->trigger = fired;
 			e->resid = xstrdup( resid );
+			entries_qty += 1;
 		}
 	}
 }
@@ -407,6 +391,11 @@ flatten_and_sort_entries(
 			*etp = e;
 		}
 		/* Order table of entry addresses			 */
+		fprintf(
+			stderr,
+			"Sorting %u entries.\n",
+			(unsigned) entries_qty
+		);
 		qsort(
 			flat_entries,
 			entries_qty,
@@ -427,11 +416,10 @@ sgr_host(
 
 static	int
 print_one_entry(
-	void *		arg
+	entry_t * const		e
 )
 {
-	entry_t * const	e = arg;
-	int		retval;
+	int			retval;
 
 	retval = -1;
 	do	{
@@ -477,11 +465,17 @@ print_entries(
 	void
 )
 {
+	size_t			i;
+
 	/* Calculate a blank thumb for un-marked entries		 */
 	no_thumb = xstrdup( thumb );
 	memset( no_thumb, ' ', strlen(no_thumb) );
 	/* Iterate over the kept entries, printing all of them		 */
-	pool_foreach( entries, print_one_entry );
+	for( i = 0; i < entries_qty; ++i )	{
+		entry_t * const		e = flat_entries[i];
+
+		print_one_entry( e );
+	}
 }
 
 static	void
@@ -581,12 +575,11 @@ post_process(
 		"unable to handle",
 		"call trace:"
 	};
-	static	size_t			Nstart_strings = DIM( start_strings );
+	static	size_t			Nstart_strings =
+		DIM( start_strings );
 	static	trigger_t *		starters;
 	static	trigger_t		ender;
 	size_t				i;
-	pool_iter_t *			locator;
-	entry_t *			e;
 
 	/* We ain't got nuthin' yet					 */
 	starters = xmalloc( Nstart_strings * sizeof(starters[0]) );
@@ -613,12 +606,10 @@ post_process(
 		abort();
 	}
 	/* Iterate over all the entries, looking for a starter		 */
-	locator = pool_iter_new( entries );
-	for(
-		e = pool_iter_next( locator );
-		e;
-		e = pool_iter_next( locator )
-	)	{
+	for( i = 0; i < entries_qty; ++i )	{
+#if	0
+		entry_t * const		e = flat_entries[i];
+#endif	/* NOPE */
 	}
 }
 
