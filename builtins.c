@@ -1,7 +1,7 @@
 #include <builtins.h>
 #include <stdio.h>
 
-char const *	builtin_triggers[] =	{
+char const * const	builtin_triggers[] =	{
 	"abnormal",
 	"abo?rt(d)?",
 	"access[[:space:]]beyond",

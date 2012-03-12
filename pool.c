@@ -130,10 +130,10 @@ pool_iter_new(
 
 	retval = NULL;
 	if( pool )	{
-		retval        = xmalloc( sizeof(*retval) );
-		retval->pool  = pool;
-		retval->chain = pool->head;
-		retval->pos   = 0;
+		retval         = xmalloc( sizeof(*retval) );
+		retval->pool   = pool;
+		retval->chain  = pool->head;
+		retval->pos    = 0;
 	}
 	return( retval );
 }
@@ -192,7 +192,8 @@ pool_iter_dup(
 int
 pool_foreach(
 	pool_t *	pool,
-	int		(*func)(void *)
+	int		(*func)(pool_iter_t *, void *, void *),
+	void *		cookie
 )
 {
 	int		retval;
@@ -204,7 +205,7 @@ pool_foreach(
 
 		iter = pool_iter_new( pool );
 		while( (data = pool_iter_next( iter )) != NULL )	{
-			retval = (*func)( data );
+			retval = (*func)( iter, cookie, data );
 			if( retval )	{
 				break;
 			}

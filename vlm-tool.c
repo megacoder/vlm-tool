@@ -46,7 +46,7 @@ static	unsigned	show_stats;
 static	unsigned	colorize;
 static	pool_t *	triggers;
 static	int		year;
-static	unsigned	hostsQty;
+static	unsigned	hosts_qty;
 static	unsigned	hostsPos;
 static	char * *	hosts;
 static	pool_t *	entries;
@@ -161,13 +161,13 @@ add_host(
 			}
 		}
 		/* Add new host to table				 */
-		if( hostsPos >= hostsQty )	{
+		if( hostsPos >= hosts_qty )	{
 			static	size_t const	incr = 32;
 
-			hostsQty += incr;
+			hosts_qty += incr;
 			hosts = realloc(
 				hosts,
-				sizeof(hosts[0]) * hostsQty
+				sizeof(hosts[0]) * hosts_qty
 			);
 		}
 		retval = hostsPos++;
@@ -606,21 +606,29 @@ post_process(
 {
 	static char const * const	start_strings[] =	{
 		"unable to handle",
-		"call trace:"
+		"call trace:",
+		NULL
 	};
-	static	size_t			Nstart_strings =
-		DIM( start_strings );
-	static	trigger_t *		starters;
-	static	trigger_t		ender;
-	size_t				i;
+	static char const * const	end_strings[] =	{
+		"kernel:",
+		NULL
+	};
+	char const * const *		s;
+	pool_t *			starters;
+	pool_t *			enders;
+	entry_t *			e;
+	pool_iter_t *			iter;
+	unsigned char *			host_states;
 
 	xprintf( 1, ("Postprocessing.\n") );
 	/* We ain't got nuthin' yet					 */
-	starters = xmalloc( Nstart_strings * sizeof(starters[0]) );
-	for( i = 0; i < Nstart_strings; ++i )	{
-		trigger_t * const	t = starters + i;
+	xprintf( 1, ( "compiling starters.\n" ) );
+	starters = pool_new( sizeof(trigger_t), NULL, NULL );
+	for( s = start_strings; *s; ++s )	{
+		trigger_t * const	t = pool_alloc( starters );
 
-		t->s = start_strings[ i ];
+		xprintf( 2, ( "compiling starter '%s'.\n", *s ) );
+		t->s = *s;
 		if( regcomp(
 			&(t->re),
 			t->s,
@@ -630,20 +638,62 @@ post_process(
 			abort();
 		}
 	}
-	ender.s = "kernel:";
-	if( regcomp(
-		&(ender.re),
-		ender.s,
-		(REG_EXTENDED|REG_ICASE)
-	) )	{
-		perror( "out of ender memory" );
-		abort();
+	xprintf( 1, ( "compiling enders.\n" ) );
+	enders = pool_new( sizeof(trigger_t), NULL, NULL );
+	for( s = end_strings; *s; ++s )	{
+		trigger_t * const	t = pool_alloc( enders );
+
+		xprintf( 2, ( "compiling ender '%s'.\n", *s ) );
+		t->s = *s;
+		if( regcomp(
+			&(t->re),
+			t->s,
+			(REG_EXTENDED|REG_ICASE)
+		) )	{
+			perror( "out of ender memory" );
+			abort();
+		}
 	}
+	/* Host states: 0=looking, 1=ending				 */
+	host_states = xmalloc( hosts_qty );
+	memset( host_states, 0, hosts_qty );
 	/* Iterate over all the entries, looking for a starter		 */
-	for( i = 0; i < entries_qty; ++i )	{
-#if	0
-		entry_t * const		e = flat_entries[i];
-#endif	/* NOPE */
+	xprintf( 1, ( "find starters.\n" ) );
+	iter = pool_iter_new( entries );
+	for(
+		e = pool_iter_next( iter );
+		e;
+		e = pool_iter_next( iter )
+	)	{
+		pool_iter_t *		subiter;
+		trigger_t *		t;
+
+		subiter = pool_iter_new(
+			host_states[e->host_id] ? enders : starters
+		);
+		for(
+			t = pool_iter_next( subiter );
+			t;
+			t = pool_iter_next( subiter )
+		)	{
+			regmatch_t	matches[10];
+
+			if( !regexec(
+				&t->re,
+				e->resid,
+				DIM(matches),
+				matches,
+				0
+			) )	{
+				/* Found a match			 */
+				e->trigger = t;
+				break;
+			}
+		}
+		if( (e->trigger == NULL) && (subiter->pool == enders) ) {
+			host_states[e->host_id] = 0;
+		}
+		pool_iter_free( &subiter );
 	}
 }
 

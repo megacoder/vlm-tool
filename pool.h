@@ -32,6 +32,6 @@ pool_iter_t *	pool_iter_new( pool_t * );
 void		pool_iter_free( pool_iter_t * * );
 void *		pool_iter_next( pool_iter_t * );
 pool_iter_t *	pool_iter_dup( pool_iter_t * );
-int		pool_foreach( pool_t *, int (*)(void *) );
+int		pool_foreach( pool_t *, int (*)(pool_iter_t *, void *,void *), void * );
 
 #endif	/* _pool_h */
