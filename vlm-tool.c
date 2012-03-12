@@ -565,7 +565,7 @@ do_file(
 			stderr,
 			"%s: cannot read [%s].\n",
 			me,
-			optarg
+			fn
 		);
 		++nonfatal;
 	} else	{
@@ -775,10 +775,21 @@ main(
 		DIR *		dir;
 
 		dir = opendir( vdir );
-		if( dir )	{
+		if( !dir )	{
+			fprintf(
+				stderr,
+				"%s: cannot open '%s'.\n",
+				me,
+				vdir
+			);
+			++nonfatal;
+		} else	{
 			struct dirent *	de;
 
 			while( (de = readdir( dir )) != NULL )	{
+				if( debug > 0 )	{
+					puts( de->d_name );
+				}
 				if( !strncmp( de->d_name, "messages", 8 ) ) {
 					char	path[ PATH_MAX ];
 					snprintf(
