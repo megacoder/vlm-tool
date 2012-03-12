@@ -26,7 +26,9 @@ xmalloc(
 
 pool_t *
 pool_new(
-	size_t		size		/* Size of one object		 */
+	size_t		size,		/* Size of one object		 */
+	int		(*ctor)(void *), /* Called after alloc		 */
+	void		(*dtor)(void *)	/* Called before free		 */
 )
 {
 	pool_t *	retval;
@@ -39,6 +41,8 @@ pool_new(
 		retval->size  = size;
 		retval->head  = NULL;
 		retval->chain = NULL;
+		retval->ctor  = ctor;
+		retval->dtor  = dtor;
 	}
 	return( retval );
 }
@@ -60,6 +64,18 @@ pool_free(
 		/* Free chain segments, if any				 */
 		for( chain = pool->head; chain; chain = next )	{
 			next = chain->next;
+			if( pool->dtor )	{
+				size_t		i;
+
+				for( i = 0; i < chain->used; ++i )	{
+					if( pool->dtor )	{
+						(*pool->dtor)(
+							chain->data	+
+							(pool->size * i)
+						);
+					}
+				}
+			}
 			free( chain );
 		}
 		/* Release pool descriptor				 */
@@ -67,24 +83,6 @@ pool_free(
 		/* Remove our tracks					 */
 		*pp = NULL;
 	} while( 0 );
-}
-
-static	int	_inline
-off_end(
-	pool_chain_t *	chain,		/* Chain of interest		 */
-	void *		data		/* Data pointer to vet		 */
-)
-{
-	int		retval;
-
-	retval = 0;
-	do	{
-		char * const	d = data;
-		char * const	e = ( ((char *) chain) + POOL_CHUNK_SIZE );
-
-		retval = (d >= e);
-	} while( 0 );
-	return( retval );
 }
 
 void *
@@ -99,7 +97,7 @@ pool_alloc(
 		pool_chain_t *	chain = pool->chain;
 
 		/* Make sure we have a chain				 */
-		if( !chain || off_end( chain, chain->item ) )	{
+		if( !chain || (chain->used >= pool->qty) )	{
 			chain = xmalloc( POOL_CHUNK_SIZE );
 			/* Put on tail of chain				 */
 			if( pool->chain )	{
@@ -110,11 +108,14 @@ pool_alloc(
 			if( !pool->head )	{
 				pool->head = chain;
 			}
-			chain->item = &(chain->data[0]);
+			chain->used = 0;
 		}
 		/* Consume an object					 */
-		retval = chain->item;
-		chain->item += pool->size;
+		retval = chain->data + (chain->used * pool->size);
+		chain->used += 1;
+		if( pool->ctor )	{
+			(*pool->ctor)( retval );
+		}
 	} while( 0 );
 	return( retval );
 }
@@ -131,7 +132,7 @@ pool_iter_new(
 		retval        = xmalloc( sizeof(*retval) );
 		retval->pool  = pool;
 		retval->chain = pool->head;
-		retval->data  = retval->chain->data;
+		retval->pos   = 0;
 	}
 	return( retval );
 }
@@ -159,16 +160,15 @@ pool_iter_next(
 	retval = NULL;
 	while( iter->chain )	{
 		/* If we are within this link, return addr and advance	 */
-		if( !off_end( iter->chain, iter->data ) )	{
-			retval = iter->data;
-			iter->data += iter->pool->size;
+		if( iter->pos < iter->chain->used )	{
+			retval = iter->chain->data + (
+				iter->pos * iter->pool->size
+			);
+			iter->pos += 1;
 			break;
 		}
 		iter->chain = iter->chain->next;
-		/* Reset iterator data pointer if more to follow	 */
-		if( iter->chain )	{
-			iter->data = iter->chain->data;
-		}
+		iter->pos = 0;
 	}
 	return( retval );
 }
@@ -184,5 +184,30 @@ pool_iter_dup(
 		retval = xmalloc( sizeof(*retval) );
 		memcpy( retval, iter, sizeof(*retval) );
 	}
+	return( retval );
+}
+
+int
+pool_foreach(
+	pool_t *	pool,
+	int		(*func)(void *)
+)
+{
+	int		retval;
+	pool_iter_t *	iter;
+
+	retval = 0;
+	do	{
+		void *	data;
+
+		iter = pool_iter_new( pool );
+		while( (data = pool_iter_next( iter )) != NULL )	{
+			retval = (*func)( data );
+			if( retval )	{
+				break;
+			}
+		}
+		pool_iter_free( &iter );
+	} while( 0 );
 	return( retval );
 }

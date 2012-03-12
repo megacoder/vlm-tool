@@ -595,8 +595,8 @@ main(
 		me = argv[0];
 	}
 	/* Setup the pools we'll be using				 */
-	triggers = pool_new( sizeof(trigger_t) );
-	entries  = pool_new( sizeof(entry_t) );
+	triggers = pool_new( sizeof(trigger_t), NULL, NULL );
+	entries  = pool_new( sizeof(entry_t), NULL, NULL );
 	/* Process command line						 */
 	while( (c = getopt( argc, argv, "Xa:b:clmno:rt:vy:" )) != EOF )	{
 		switch( c )	{
