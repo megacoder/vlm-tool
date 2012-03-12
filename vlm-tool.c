@@ -21,6 +21,7 @@
 static	char const *	me = "vlm_tool";
 static	unsigned	nonfatal;
 static	char const *	thumb = "-";
+static	char *		no_thumb;
 static	unsigned	list_triggers;
 static	unsigned	mark_entries;
 static	unsigned	load_builtin_rules = 1;
@@ -37,6 +38,7 @@ static	pool_t *	entries;
 static	size_t		entries_qty;
 static	entry_t * *	flat_entries;
 static	unsigned	debug;
+static	size_t		hlen;
 
 static char const	sgr_red[] =	{
 	"\033[1;31m"
@@ -155,6 +157,7 @@ add_host(
 		}
 		retval = hostsPos++;
 		hosts[ retval ] = xstrdup( name );
+		hlen = max(hlen, strlen( name ));
 	} while( 0 );
 	return( retval );
 }
@@ -228,6 +231,7 @@ bulk_load(
 	fclose( fyle );
 }
 
+#if	0
 static	void
 add_entry(
 	time_t const		timestamp,
@@ -245,7 +249,6 @@ add_entry(
 	entries_qty += 1;
 }
 
-#if	0
 static	void	_inline
 do_match(
 	entry_t *		old_e,
@@ -422,35 +425,16 @@ sgr_host(
 	printf( "\033[1;%dm", (31 + (host_id % 6)) );
 }
 
-static	void
-print_entries(
-	void
+static	int
+print_one_entry(
+	void *		arg
 )
 {
-	char *		no_thumb;
-	pool_iter_t *	iter;
-	entry_t *	e;
-	size_t		hlen;
+	entry_t * const	e = arg;
+	int		retval;
 
-	/* Calculate a blank thumb for un-marked entries		 */
-	no_thumb = xstrdup( thumb );
-	memset( no_thumb, ' ', strlen(no_thumb) );
-	/* Find longest host name we've kept				 */
+	retval = -1;
 	do	{
-		size_t		host_id;
-
-		hlen = 0;
-		for( host_id = 0; host_id < hostsPos; ++host_id )	{
-			hlen = max( hlen, strlen( hosts[host_id] ) );
-		}
-	} while( 0 );
-	/* Iterate over the kept entries, printing all of them		 */
-	iter = pool_iter_new( entries );
-	for(
-		e = pool_iter_next( iter );
-		e;
-		e = pool_iter_next( iter )
-	)	{
 		static const char	fmt[] = "%-*s ";
 		struct tm *		tm;
 
@@ -483,8 +467,21 @@ print_entries(
 		} else	{
 			printf( "%s\n", e->resid );
 		}
-	}
-	pool_iter_free( &iter );
+		retval = 0;
+	} while( 0 );
+	return( retval );
+}
+
+static	void
+print_entries(
+	void
+)
+{
+	/* Calculate a blank thumb for un-marked entries		 */
+	no_thumb = xstrdup( thumb );
+	memset( no_thumb, ' ', strlen(no_thumb) );
+	/* Iterate over the kept entries, printing all of them		 */
+	pool_foreach( entries, print_one_entry );
 }
 
 static	void
@@ -551,6 +548,7 @@ do_file(
 	}
 }
 
+#if	0
 static	void
 dump_rules(
 	void
@@ -572,13 +570,56 @@ dump_rules(
 	} while( 0 );
 	pool_iter_free( &iter );
 }
+#endif	/* NOPE */
 
 static	void
 post_process(
 	void
 )
 {
+	static char const * const	start_strings[] =	{
+		"unable to handle",
+		"call trace:"
+	};
+	static	size_t			Nstart_strings = DIM( start_strings );
+	static	trigger_t *		starters;
+	static	trigger_t		ender;
+	size_t				i;
+	pool_iter_t *			locator;
+	entry_t *			e;
+
 	/* We ain't got nuthin' yet					 */
+	starters = xmalloc( Nstart_strings * sizeof(starters[0]) );
+	for( i = 0; i < Nstart_strings; ++i )	{
+		trigger_t * const	t = starters + i;
+
+		t->s = start_strings[ i ];
+		if( regcomp(
+			&(t->re),
+			t->s,
+			(REG_EXTENDED|REG_ICASE)
+		) )	{
+			perror( "out of starter memory" );
+			abort();
+		}
+	}
+	ender.s = "kernel:";
+	if( regcomp(
+		&(ender.re),
+		ender.s,
+		(REG_EXTENDED|REG_ICASE)
+	) )	{
+		perror( "out of ender memory" );
+		abort();
+	}
+	/* Iterate over all the entries, looking for a starter		 */
+	locator = pool_iter_new( entries );
+	for(
+		e = pool_iter_next( locator );
+		e;
+		e = pool_iter_next( locator )
+	)	{
+	}
 }
 
 int
