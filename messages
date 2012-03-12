@@ -1,2 +1,2 @@
 Feb 19 05:32:22 quadimodo kernel: [163989.798369] usb 1-4: reset high speed USB device using ehci_hcd and address 5
-Feb 19 05:32:22 moth-125 This is a debug test
+Feb 19 05:32:21 moth-125 This is a debug test
