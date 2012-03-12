@@ -109,6 +109,7 @@ pool_alloc(
 				pool->head = chain;
 			}
 			chain->used = 0;
+			chain->next = NULL;
 		}
 		/* Consume an object					 */
 		retval = chain->data + (chain->used * pool->size);
