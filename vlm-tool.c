@@ -14,10 +14,12 @@
 #include <limits.h>
 #include <time.h>
 #include <errno.h>
+#include <stdarg.h>
 
 #include <gcc-compat.h>
 #include <builtins.h>
 #include <pool.h>
+#include <xprintf.h>
 
 typedef	struct	trigger_s	{
 	char const *	s;		/* Original string		 */
@@ -171,6 +173,7 @@ add_host(
 		retval = hostsPos++;
 		hosts[ retval ] = xstrdup( name );
 		hlen = max(hlen, strlen( name ));
+		xprintf( 2, ("added host #%u '%s'.\n", retval, hosts[retval]) );
 	} while( 0 );
 	return( retval );
 }
@@ -183,9 +186,7 @@ add_trigger(
 	trigger_t * const	t = pool_alloc( triggers );
 
 	/* Compile the resulting trigger				 */
-	if( debug > 0 )	{
-		printf( "Adding rule '%s'.\n", rule );
-	}
+	xprintf( 3, ("Adding rule '%s'.\n", rule) );
 	t->s = rule;
 	if( regcomp(
 		&(t->re),
@@ -404,11 +405,7 @@ flatten_and_sort_entries(
 			*etp = e;
 		}
 		/* Order table of entry addresses			 */
-		fprintf(
-			stderr,
-			"Sorting %u entries.\n",
-			(unsigned) entries_qty
-		);
+		xprintf( 1, ("Sorting %u entries.\n", (unsigned) entries_qty) );
 		qsort(
 			flat_entries,
 			entries_qty,
@@ -461,7 +458,6 @@ print_one_entry(
 		printf( fmt, (int) hlen, hosts[e->host_id] );
 	}
 	/* Now, the remainder of the text			 */
-	/* FIXME: add colorizing codes to 'resid' 		 */
 	if( colorize && (e->trigger != NULL) )	{
 		regmatch_t		matches[10];
 
@@ -506,6 +502,7 @@ print_entries(
 	no_thumb = xstrdup( thumb );
 	memset( no_thumb, ' ', strlen(no_thumb) );
 	/* Iterate over the kept entries, printing all of them		 */
+	xprintf( 1, ("Listing %u entries.\n", (unsigned) entries_qty) );
 	for( i = 0; i < entries_qty; ++i )	{
 		entry_t * const		e = flat_entries[i];
 
@@ -522,6 +519,7 @@ do_file(
 	int		(*closer)( FILE * );
 	char *		bp;
 
+	xprintf( 1, ("Processing file '%s'.\n", fn) );
 	bp = strrchr( fn, '.' );
 	if( bp && !strcmp( bp, ".gz" ) )	{
 		char	cmd[ BUFSIZ ];
@@ -616,6 +614,7 @@ post_process(
 	static	trigger_t		ender;
 	size_t				i;
 
+	xprintf( 1, ("Postprocessing.\n") );
 	/* We ain't got nuthin' yet					 */
 	starters = xmalloc( Nstart_strings * sizeof(starters[0]) );
 	for( i = 0; i < Nstart_strings; ++i )	{
@@ -646,6 +645,20 @@ post_process(
 		entry_t * const		e = flat_entries[i];
 #endif	/* NOPE */
 	}
+}
+
+static	int
+only_messages(
+	const struct dirent *	de
+)
+{
+	int			retval;
+
+	retval = 0;
+	do	{
+		retval = !strncmp( de->d_name, "messages", 8 );
+	} while( 0 );
+	return( retval );
 }
 
 int
@@ -772,38 +785,39 @@ main(
 	} else	{
 		/* Nothing specified, read "/var/log/messages*" 	 */
 		static char const	vdir[] = "/var/log";
-		DIR *		dir;
+		int			nfiles;
+		struct dirent * *	namelist;
+		int			i;
 
-		dir = opendir( vdir );
-		if( !dir )	{
-			fprintf(
-				stderr,
-				"%s: cannot open '%s'.\n",
-				me,
-				vdir
-			);
-			++nonfatal;
-		} else	{
-			struct dirent *	de;
-
-			while( (de = readdir( dir )) != NULL )	{
-				if( debug > 0 )	{
-					puts( de->d_name );
-				}
-				if( !strncmp( de->d_name, "messages", 8 ) ) {
-					char	path[ PATH_MAX ];
-					snprintf(
-						path,
-						sizeof( path ),
-						"%s/%s",
-						vdir,
-						de->d_name
-					);
-					do_file( path );
-				}
-			}
-			closedir( dir );
+		nfiles = scandir(
+			vdir,
+			&namelist,
+			only_messages,
+			versionsort
+		);
+		if( nfiles == -1)	{
+			perror( vdir );
+			abort();
 		}
+		xprintf( 1, ("%d message files.\n", nfiles) );
+		for( i = 0; i < nfiles; ++i )	{
+			struct dirent *	de = namelist[i];
+
+			xprintf( 2, ("%s\n", de->d_name) );
+			if( !strncmp( de->d_name, "messages", 8 ) ) {
+				char	path[ PATH_MAX ];
+				snprintf(
+					path,
+					sizeof( path ),
+					"%s/%s",
+					vdir,
+					de->d_name
+				);
+				do_file( path );
+			}
+			free( namelist[i] );
+		}
+		free( namelist );
 	}
 	/* Sort retained entries					 */
 	flatten_and_sort_entries();
