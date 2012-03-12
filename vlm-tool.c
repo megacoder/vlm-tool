@@ -17,8 +17,19 @@
 
 #include <gcc-compat.h>
 #include <builtins.h>
-#include <entries.h>
 #include <pool.h>
+
+typedef	struct	trigger_s	{
+	char const *	s;		/* Original string		 */
+	regex_t		re;		/* Compiled regular expression	 */
+} trigger_t;
+
+typedef	struct	entry_s	{
+	trigger_t *	trigger;	/* We matched this trigger	 */
+	char *		resid;		/* Everything after host name	 */
+	size_t		host_id;	/* Index into hostname table	 */
+	time_t		timestamp;	/* Date for entry		 */
+} entry_t;
 
 static	char const *	me = "vlm_tool";
 static	unsigned	nonfatal;
@@ -464,7 +475,7 @@ print_one_entry(
 			regmatch_t * const	rm = matches+0;
 			char * const		resid = e->resid;
 
-			asprintf(
+			if( asprintf(
 				&e->resid,
 				"%.*s" "%s%.*s%s" "%s",
 				rm->rm_so,
@@ -474,8 +485,11 @@ print_one_entry(
 				resid + rm->rm_so,
 				sgr_reset,
 				resid + rm->rm_eo
-			);
-			free( resid );
+			) != -1 )	{
+				free( resid );
+			} else	{
+				e->resid = resid;
+			}
 		}
 	}
 	printf( "%s\n", e->resid );
@@ -723,7 +737,7 @@ main(
 	}
 	/* Compile internal triggers unless we are forbidden		 */
 	if( load_builtin_rules )	{
-		char const * *	builtin;
+		char const * const *	builtin;
 
 		for( builtin = builtin_triggers; *builtin; ++builtin )	{
 			/* Skip deleted builtin rules			 */
