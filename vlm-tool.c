@@ -1,3 +1,5 @@
+#define	_GNU_SOURCE
+
 #include <sys/types.h>
 #include <ctype.h>
 #include <getopt.h>
@@ -414,50 +416,69 @@ sgr_host(
 	printf( "\033[1;%dm", (31 + (host_id % 6)) );
 }
 
-static	int
+static	void
 print_one_entry(
 	entry_t * const		e
 )
 {
-	int			retval;
+	static const char	fmt[] = "%-*s ";
+	struct tm *		tm;
 
-	retval = -1;
-	do	{
-		static const char	fmt[] = "%-*s ";
-		struct tm *		tm;
+	/* First, the thumb (if marked)				 */
+	if( mark_entries )	{
+		printf(
+			"%s ",
+			e->trigger == NULL ? no_thumb : thumb
+		);
+	}
+	/* Special case: show rule if asked			 */
+	if( show_rules )	{
+		printf(
+			"%-15.15s ",
+			e->trigger ? e->trigger->s : ""
+		);
+	}
+	/* Second, the date					 */
+	tm = gmtime( &e->timestamp );
+	printf( "%.15s ", asctime(tm)+4 );
+	/* Third, the host name					 */
+	if( colorize )	{
+		sgr_host( e->host_id );
+		printf( fmt, (int) hlen, hosts[e->host_id] );
+		printf( "%s", sgr_reset );
+	} else	{
+		printf( fmt, (int) hlen, hosts[e->host_id] );
+	}
+	/* Now, the remainder of the text			 */
+	/* FIXME: add colorizing codes to 'resid' 		 */
+	if( colorize && (e->trigger != NULL) )	{
+		regmatch_t		matches[10];
 
-		/* First, the thumb (if marked)				 */
-		if( mark_entries )	{
-			printf( "%s ", e->trigger == NULL ? no_thumb : thumb );
-		}
-		/* Special case: show rule if asked			 */
-		if( show_rules )	{
-			printf(
-				"%-15.15s ",
-				e->trigger ? e->trigger->s : ""
+		if( !regexec(
+			&e->trigger->re,
+			e->resid,
+			DIM(matches),
+			matches,
+			0
+		) )	{
+			regmatch_t * const	rm = matches+0;
+			char * const		resid = e->resid;
+
+			asprintf(
+				&e->resid,
+				"%.*s" "%s%.*s%s" "%s",
+				rm->rm_so,
+				resid,
+				sgr_red,
+				rm->rm_eo - rm->rm_so,
+				resid + rm->rm_so,
+				sgr_reset,
+				resid + rm->rm_eo
 			);
+			free( resid );
 		}
-		/* Second, the date					 */
-		tm = gmtime( &e->timestamp );
-		printf( "%.15s ", asctime(tm)+4 );
-		/* Third, the host name					 */
-		if( colorize )	{
-			sgr_host( e->host_id );
-			printf( fmt, (int) hlen, hosts[e->host_id] );
-			printf( "%s", sgr_reset );
-		} else	{
-			printf( fmt, (int) hlen, hosts[e->host_id] );
-		}
-		/* Now, the remainder of the text			 */
-		/* FIXME: add colorizing codes to 'resid' 		 */
-		if( colorize && (e->trigger != NULL) )	{
-			printf( "COLOR %s COLOR\n", e->resid );
-		} else	{
-			printf( "%s\n", e->resid );
-		}
-		retval = 0;
-	} while( 0 );
-	return( retval );
+	}
+	printf( "%s\n", e->resid );
 }
 
 static	void
