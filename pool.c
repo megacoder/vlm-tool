@@ -180,6 +180,7 @@ pool_iter_dup(
 {
 	pool_iter_t *	retval;
 
+	retval = NULL;
 	if( iter )	{
 		retval = xmalloc( sizeof(*retval) );
 		memcpy( retval, iter, sizeof(*retval) );
