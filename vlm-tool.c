@@ -173,7 +173,7 @@ add_trigger(
 	t->s = xstrdup( rule );
 	if( regcomp(
 		&(t->re),
-		rule,
+		t->s,
 		(REG_EXTENDED|REG_ICASE)
 	) == -1 )	{
 		fprintf(
