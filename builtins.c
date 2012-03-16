@@ -1,6 +1,13 @@
 #include <builtins.h>
 #include <stdio.h>
 
+/*
+ *------------------------------------------------------------------------
+ * Resist the urge to re-order these entries; order matters. For instance,
+ * we want to match "read-only", before matching "only".
+ *------------------------------------------------------------------------
+ */
+
 char const * const	builtin_triggers[] =	{
 	"abnormal",
 	"abo?rt(d)?",
@@ -44,7 +51,6 @@ char const * const	builtin_triggers[] =	{
 	"nmi",
 	"o2",
 	"ocfs2?",
-	"only",
 	"oom",
 	"oops",
 	"out.*of.*memory",
@@ -56,6 +62,7 @@ char const * const	builtin_triggers[] =	{
 	"qla.*loop.*(up|down)",
 	"rds/(ib)?",
 	"read-?only",
+	"only",
 	"register(ed|ing)?",
 	"require",
 	"restart",
