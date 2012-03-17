@@ -607,6 +607,7 @@ post_process(
 	static char const * const	start_strings[] =	{
 		"unable to handle",
 		"call trace:",
+		"kobject_add failed for.*EXIST",
 		NULL
 	};
 	static char const * const	end_strings[] =	{
