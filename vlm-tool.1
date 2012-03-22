@@ -15,6 +15,7 @@ vlm-tool \- coalesce /var/log/messages from different hosts and filter
 [\fI-s\fR]
 [\fI-t\fR THUMB]
 [\fI-v\fR]
+[\fI-y\fR year]
 [\fI/var/log/messages\fR]...
 .SH DESCRIPTION
 .PP
@@ -59,30 +60,41 @@ A special post-processing phase is then enabled.
 What stanzas the tool considers to be interesting cannot be changed from the
 command line.
 .SH OPTIONS
-.IP "-a re" 10m
-Append the python regular expression \fBre\fR to the list of triggers.
-.IP "-b FILE" 10m
-Bulk-load a list of python regular expressions from \fBFILE\fR, one per line.
-.IP "-c" 10m
+.IP "-a re" 10em
+Add the regular expression \fBre\fR to the list of triggers.
+.IP "-b FILE" 10em
+Bulk-load a list of regular expressions from \fBFILE\fR, one per line.
+.IP "-c" 10em
 Colorize the matching text in each entry, using ANSI escape codes.
-.IP "-i re" 10m
+Implies \fI-m\fP switch.
+.IP "-i re" 10em
 Totally ignore incoming lines matching regular expression \fBre\fR.
-.IP "-m" 10m
+.IP "-l" 10em
+List the current trigger set.
+.IP "-m" 10em
 Mark those lines matching one or more triggers by prepending the \fBTHUMB\fR
 to the output line.
-An appropriate number of spaces are used for non-matching entries.
-.IP "-n" 10m
-Do not populate the built-in triggers before processing the command line
-or reading a bulk file.
-.IP "-o FILE" 10m
+An equivalent number of spaces are used for non-matching entries.
+.IP "-n" 10em
+Do not populate the built-in triggers.
+Triggers specified on the command line take precedence over built-in patterns.
+.IP "-o FILE" 10em
 Write output to \fBFILE\fR instead of to the standard output.
-.IP "-r" 10m
+.IP "-r" 10em
 Show the matching trigger rule which caused the entry to be marked.
-.IP "-s" 10m
+Implies \fI-m\fP switch.
+.IP "-s" 10em
 Output some statistics.
 Not really useful to anybody except the author and probably not even him.
-.IP "-v" 10m
+.IP "-t thumb" 10em
+Use \fBthumb\fP to mark matching entries instead of the default of \fB-\fP (minus).
+The default setting makes it easy to search for matches in less(1):
+\fB/^-\fP will do it.
+.IP "-v" 10em
 Display program name, version, and then exit.
+.IP "-y year" 10em
+Log file entries lack the year specifier.
+By default, the current year is used; we need this to correctly calculate leap dates.
 .SH AUTHOR
 Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 .SH COPYRIGHT
@@ -99,7 +111,6 @@ The tool does not handle lines from differing years very well.
 If could probably be modified to treat a timestamp of later in the year than
 the current time as being from the prior year, but this complicates things and
 slows things down as well.
-Since we typically receive 100,000 line logs, speed matters.
 .SH EXAMPLES
 .IP "\f(CR$ sudo vlm-tool\fP." 20m
 Output only those lines in \fI/var/log/messages*\fP which match one or
