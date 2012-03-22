@@ -48,6 +48,7 @@ char const * const	builtin_triggers[] =	{
 	"nfsd:",
 	"no[[:space:]]space[[:space:]]left",
 	"not[[:space:]]supported",
+	"not[[:space:]]*within[[:space:]]*permissible[[:space:]]range",
 	"nmi",
 	"o2",
 	"ocfs2?",
