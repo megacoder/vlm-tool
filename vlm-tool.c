@@ -859,6 +859,21 @@ main(
 			}
 		}
 	}
+	/* List known triggers if asked					 */
+	if( list_triggers )	{
+		pool_iter_t *	iter;
+		trigger_t *	t;
+
+		iter = pool_iter_new( triggers );
+		for(
+			t = pool_iter_next( iter );
+			t;
+			t = pool_iter_next( iter )
+		)	{
+			puts( t->s );
+		}
+		pool_iter_free( &iter );
+	}
 	/* Redirect stdout if asked					 */
 	if( ofile )	{
 		if( freopen( ofile, "wt", stdout ) != stdout )	{
