@@ -5,6 +5,8 @@ vlm-tool \- coalesce /var/log/messages from different hosts and filter
 .B vlm-tool
 [\fI-a\fR re]
 [\fI-b\fR FILE]
+[\fI-c\fR]
+[\fI-i\fR re]
 [\fI-l\fR]
 [\fI-m\fR]
 [\fI-n\fR]
@@ -63,6 +65,8 @@ Append the python regular expression \fBre\fR to the list of triggers.
 Bulk-load a list of python regular expressions from \fBFILE\fR, one per line.
 .IP "-c" 10m
 Colorize the matching text in each entry, using ANSI escape codes.
+.IP "-i re" 10m
+Totally ignore incoming lines matching regular expression \fBre\fR.
 .IP "-m" 10m
 Mark those lines matching one or more triggers by prepending the \fBTHUMB\fR
 to the output line.
