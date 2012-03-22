@@ -773,6 +773,7 @@ main(
 	/* Setup the pools we'll be using				 */
 	triggers = pool_new( sizeof(trigger_t), NULL, NULL );
 	entries  = pool_new( sizeof(entry_t), NULL, NULL );
+	ignores  = pool_new( sizeof(trigger_t), NULL, NULL );
 	/* Process command line						 */
 	while( (c = getopt( argc, argv, "Xa:b:ci:lmno:rst:vy:" )) != EOF ) {
 		switch( c )	{
