@@ -60,7 +60,7 @@ char const * const	builtin_triggers[] =	{
 	"page[[:space:]]allocation[[:space:]]failure",
 	"power[[:space:]]states",
 	"qla.*loop.*(up|down)",
-	"rds/(ib)?",
+	"rds(:|/ib)?",
 	"read-?only",
 	"only",
 	"register(ed|ing)?",
