@@ -42,7 +42,6 @@ static	unsigned	mark_entries;
 static	unsigned	load_builtin_rules = 1;
 static	char const *	ofile;
 static	unsigned	show_rules;
-static	unsigned	show_stats;
 static	unsigned	colorize;
 static	pool_t *	triggers;
 static	int		year;
@@ -775,7 +774,7 @@ main(
 	entries  = pool_new( sizeof(entry_t), NULL, NULL );
 	ignores  = pool_new( sizeof(trigger_t), NULL, NULL );
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "Xa:b:ci:lmno:rst:vy:" )) != EOF ) {
+	while( (c = getopt( argc, argv, "Xa:b:ci:lmno:rt:vy:" )) != EOF ) {
 		switch( c )	{
 		default:
 			fprintf(
@@ -826,9 +825,6 @@ main(
 		case 'r':
 			show_rules = 1;
 			mark_entries = 1;
-			break;
-		case 's':
-			show_stats = 1;
 			break;
 		case 't':
 			thumb = optarg;

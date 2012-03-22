@@ -12,7 +12,6 @@ vlm-tool \- coalesce /var/log/messages from different hosts and filter
 [\fI-n\fR]
 [\fI-o\fR FILE]
 [\fI-r\fR]
-[\fI-s\fR]
 [\fI-t\fR THUMB]
 [\fI-v\fR]
 [\fI-y\fR year]
@@ -83,9 +82,6 @@ Write output to \fBFILE\fR instead of to the standard output.
 .IP "-r" 10em
 Show the matching trigger rule which caused the entry to be marked.
 Implies \fI-m\fP switch.
-.IP "-s" 10em
-Output some statistics.
-Not really useful to anybody except the author and probably not even him.
 .IP "-t thumb" 10em
 Use \fBthumb\fP to mark matching entries instead of the default of \fB-\fP (minus).
 The default setting makes it easy to search for matches in less(1):
