@@ -54,6 +54,7 @@ static	size_t		entries_qty;
 static	entry_t * *	flat_entries;
 static	unsigned	debug;
 static	size_t		hlen;
+static	pool_t *	ignores;
 
 static char const	sgr_red[] =	{
 	"\033[1;31m"
@@ -179,13 +180,14 @@ add_host(
 }
 
 static	void
-add_trigger(
+add_pattern(
+	pool_t * const		pool,
 	char const * const	rule
 )
 {
-	trigger_t * const	t = pool_alloc( triggers );
+	trigger_t * const	t = pool_alloc( pool );
 
-	/* Compile the resulting trigger				 */
+	/* Compile the recognition pattern				 */
 	xprintf( 3, ("Adding rule '%s'.\n", rule) );
 	t->s = rule;
 	if( regcomp(
@@ -201,6 +203,21 @@ add_trigger(
 		);
 		exit( 1 );
 	}
+}
+static	void
+add_trigger(
+	char const * const	rule
+)
+{
+	add_pattern( triggers, rule );
+}
+
+static	void
+add_ignore(
+	char const * const	rule
+)
+{
+	add_pattern( ignores, rule );
 }
 
 static	void
@@ -313,6 +330,33 @@ process(
 		for( resid = host+1; *resid && !isspace( *resid ); ++resid );
 		if( *resid )	{
 			(*resid++) = '\0';
+		}
+		/* Qualify the line					 */
+		iter = pool_iter_new( ignores );
+		fired = NULL;
+		do	{
+			for(
+				fired = pool_iter_next( iter );
+				fired;
+				fired = pool_iter_next( iter )
+			)	{
+				regmatch_t		matches[ 10 ];
+				if( !regexec(
+					&fired->re,
+					resid,
+					DIM(matches),
+					matches,
+					0
+				) )	{
+					/* Leave loop early		 */
+					break;
+				}
+			}
+		} while( 0 );
+		pool_iter_free( &iter );
+		if( fired )	{
+			/* Do not want this line at all			 */
+			continue;
 		}
 		/* Pick a matching trigger				 */
 		keep = mark_entries;
@@ -730,7 +774,7 @@ main(
 	triggers = pool_new( sizeof(trigger_t), NULL, NULL );
 	entries  = pool_new( sizeof(entry_t), NULL, NULL );
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "Xa:b:clmno:rt:vy:" )) != EOF )	{
+	while( (c = getopt( argc, argv, "Xa:b:ci:lmno:rst:vy:" )) != EOF ) {
 		switch( c )	{
 		default:
 			fprintf(
@@ -762,6 +806,9 @@ main(
 		case 'c':
 			colorize = 1;
 			mark_entries = 1;
+			break;
+		case 'i':
+			add_ignore( optarg );
 			break;
 		case 'l':
 			list_triggers = 1;
