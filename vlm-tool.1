@@ -4,9 +4,10 @@ vlm-tool \- coalesce /var/log/messages from different hosts and filter
 .SH SYNOPSIS
 .B vlm-tool
 [\fI-a\fR re]
-[\fI-b\fR FILE]
+[\fI-A\fR FILE]
 [\fI-c\fR]
 [\fI-i\fR re]
+[\fI-I\fR FILE]
 [\fI-l\fR]
 [\fI-m\fR]
 [\fI-n\fR]
@@ -61,13 +62,15 @@ command line.
 .SH OPTIONS
 .IP "-a re" 10em
 Add the regular expression \fBre\fR to the list of triggers.
-.IP "-b FILE" 10em
-Bulk-load a list of regular expressions from \fBFILE\fR, one per line.
+.IP "-A FILE" 10em
+Bulk-load a list of trigger regular expressions from \fBFILE\fR, one per line.
 .IP "-c" 10em
 Colorize the matching text in each entry, using ANSI escape codes.
 Implies \fI-m\fP switch.
 .IP "-i re" 10em
 Totally ignore incoming lines matching regular expression \fBre\fR.
+.IP "-I FILE" 10em
+Bulk-load a list of ignored regular expressions from \fBFILE\fR, one per line.
 .IP "-l" 10em
 List the current trigger set.
 .IP "-m" 10em

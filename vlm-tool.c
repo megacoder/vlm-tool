@@ -203,24 +203,10 @@ add_pattern(
 		exit( 1 );
 	}
 }
-static	void
-add_trigger(
-	char const * const	rule
-)
-{
-	add_pattern( triggers, rule );
-}
-
-static	void
-add_ignore(
-	char const * const	rule
-)
-{
-	add_pattern( ignores, rule );
-}
 
 static	void
 bulk_load(
+	pool_t * const		pool,
 	char const * const	fn
 )
 {
@@ -256,7 +242,7 @@ bulk_load(
 		/* Step over leading whitespace				 */
 		for( bp = buffer; *bp && isspace( *bp ); ++bp );
 		/* What's left is a trigger				 */
-		add_trigger( xstrdup( bp ) );
+		add_pattern( pool, xstrdup( bp ) );
 	}
 	fclose( fyle );
 }
@@ -774,7 +760,7 @@ main(
 	entries  = pool_new( sizeof(entry_t), NULL, NULL );
 	ignores  = pool_new( sizeof(trigger_t), NULL, NULL );
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "Xa:b:ci:lmno:rt:vy:" )) != EOF ) {
+	while( (c = getopt( argc, argv, "Xa:A:ci:I:lmno:rt:vy:" )) != EOF ) {
 		switch( c )	{
 		default:
 			fprintf(
@@ -798,17 +784,20 @@ main(
 			++debug;
 			break;
 		case 'a':
-			add_trigger( optarg );
+			add_pattern( triggers, optarg );
 			break;
-		case 'b':
-			bulk_load( optarg );
+		case 'A':
+			bulk_load( triggers, optarg );
 			break;
 		case 'c':
 			colorize = 1;
 			mark_entries = 1;
 			break;
 		case 'i':
-			add_ignore( optarg );
+			add_pattern( ignores, optarg );
+			break;
+		case 'I':
+			bulk_load( ignores, optarg );
 			break;
 		case 'l':
 			list_triggers = 1;
@@ -851,7 +840,7 @@ main(
 		for( builtin = builtin_triggers; *builtin; ++builtin )	{
 			/* Skip deleted builtin rules			 */
 			if( *builtin != (char *) -1 )	{
-				add_trigger( *builtin );
+				add_pattern( triggers, *builtin );
 			}
 		}
 	}
