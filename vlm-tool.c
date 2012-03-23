@@ -247,46 +247,6 @@ bulk_load(
 	fclose( fyle );
 }
 
-#if	0
-static	void	_inline
-do_match(
-	entry_t *		old_e,
-	regmatch_t *		matches
-)
-{
-	regmatch_t * const	mid = matches+0;
-	char			color_buffer[ BUFSIZ * 3 ];
-
-	e->trigger = t;
-	if( (mid->rm_so != -1) && colorize )	{
-		char *	bp;
-
-		bp = memcpy(
-			color_buffer,
-			resid,
-			mid->rm_so
-		);
-		bp += mid->rm_so;
-		strcpy( bp, sgr_red );
-		bp += strlen( sgr_red );
-		memcpy( bp, resid+mid->rm_so, mid->rm_eo - mid->rm_so );
-		bp += (mid->rm_eo - mid->rm_so);
-		strcpy( bp, sgr_reset );
-		bp += strlen( sgr_reset );
-		strcpy( bp, resid + mid->rm_eo );
-		resid = color_buffer;
-	}
-	if( (e->trigger != NULL) | mark_entries )	{
-		e->resid = xstrdup( resid );
-		time_t		timestamp;
-		unsigned	host_id;
-		char *		resid;
-		trigger_t *	trigger;
-		add_entry( e );
-	}
-}
-#endif	/* NOPE */
-
 static	void
 process(
 	FILE * const	fyle		/* Syslogd output to scan	 */
@@ -450,7 +410,8 @@ sgr_host(
 	unsigned	host_id
 )
 {
-	printf( "\033[1;%dm", (31 + (host_id % 6)) );
+	/* Color 30 is black, up to color 37 which is white		 */
+	printf( "\033[1;%dm", (31 + ((host_id+1) % 6)) );
 }
 
 static	void
