@@ -38,6 +38,7 @@ char const * const	builtin_triggers[] =	{
 	"invalid:",
 	"i?scsi",
 	"kdump:?",
+	"kernel command line:.*",
 	"kill(ing)?",
 	"link",
 	"linux[[:space:]]version",
