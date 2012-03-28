@@ -43,6 +43,7 @@ char const * const	builtin_triggers[] =	{
 	"link",
 	"linux[[:space:]]version",
 	"lpfc",
+	"machine check events logged",
 	"multipathd",
 	"netdev",
 	"nfs:.*not[[:space:]]responding",
