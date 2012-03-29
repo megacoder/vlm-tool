@@ -4,11 +4,11 @@
 #include <ctype.h>
 #include <getopt.h>
 #include <malloc.h>
-#if	1
+#if	0
 #  include <pcreposix.h>
-#else /* !YUP */
+#else /* !NOPE */
 #  include <regex.h>
-#endif /* !YUP */
+#endif /* !NOPE */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
