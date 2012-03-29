@@ -78,7 +78,7 @@ char const * const	builtin_triggers[] =	{
 	"unknown[[:space:]]symbol.*",
 	"unsupported",
 	"vfs:",
-	"warning",
+	"warning(:.*)?",
 	"watchdog",
 	NULL
 };
