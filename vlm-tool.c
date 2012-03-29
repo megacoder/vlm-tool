@@ -4,8 +4,11 @@
 #include <ctype.h>
 #include <getopt.h>
 #include <malloc.h>
-#include <regex.h>
-#include <regex.h>
+#if	1
+#  include <pcreposix.h>
+#else /* !YUP */
+#  include <regex.h>
+#endif /* !YUP */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

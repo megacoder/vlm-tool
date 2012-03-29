@@ -52,7 +52,7 @@ char const * const	builtin_triggers[] =	{
 	"not[[:space:]]supported",
 	"not[[:space:]]*within[[:space:]]*permissible[[:space:]]range",
 	"nmi",
-	"o2",
+	"o2(cb|net)?",
 	"ocfs2?",
 	"oom",
 	"oops",
@@ -80,7 +80,7 @@ char const * const	builtin_triggers[] =	{
 	"unknown[[:space:]]symbol.*",
 	"unsupported",
 	"vfs:",
-	"warning",
+	"warning(:.*)?",
 	"watchdog",
 	NULL
 };
