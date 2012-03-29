@@ -604,7 +604,7 @@ post_process(
 		NULL
 	};
 	static char const * const	end_strings[] =	{
-		"[[]<[0-9a-fA-F]*>[]]",
+		"[[]<[0-9a-fA-F]*>[]](.*)?",
 		NULL
 	};
 	char const * const *		s;
