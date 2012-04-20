@@ -25,6 +25,8 @@ AC_FUNC_MKTIME
 AC_FUNC_REALLOC
 AC_CHECK_FUNCS([memset regcomp strdup strrchr strtol strtoul])
 
+AX_PATH_LIB_PCRE
+
 AC_CONFIG_FILES([
 	 Makefile
 	 vlm-tool.spec

@@ -1,10 +1,12 @@
 #define	_GNU_SOURCE
 
+#include <config.h>
+
 #include <sys/types.h>
 #include <ctype.h>
 #include <getopt.h>
 #include <malloc.h>
-#if	0
+#if	HAVE_LIBPCRE
 #  include <pcreposix.h>
 #else /* !NOPE */
 #  include <regex.h>
@@ -783,7 +785,14 @@ main(
 			thumb = optarg;
 			break;
 		case 'v':
-			printf( "%s %s\n", me, VERSION );
+			printf(
+				"%s %s\n",
+				me,
+				VERSION
+#if	HAVE_LIBPCRE
+				" with PCRE"
+#endif	/* HAVE_LIBPCRE */
+			);
 			exit(0);
 			/*NOTREACHED*/
 		case 'y':
