@@ -42,6 +42,7 @@ char const * const	builtin_triggers[] =	{
 	"kill(ing)?",
 	"link",
 	"linux[[:space:]]version",
+	"ll header:.*",
 	"lpfc",
 	"machine check events logged",
 	"multipathd",
