@@ -45,6 +45,7 @@ char const * const	builtin_triggers[] =	{
 	"ll header:.*",
 	"lpfc",
 	"machine check events logged",
+	"martian",
 	"multipathd",
 	"netdev",
 	"nfs:.*not[[:space:]]responding",
