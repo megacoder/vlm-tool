@@ -48,6 +48,6 @@ palatable by highlighting entries which could indicate an issue.
 %doc NEWS
 %doc README
 %{_bindir}/vlm-tool
-%{_mandir}/man1/vlm-tool.1.gz
+%{_mandir}/man1/vlm-tool.1*
 
 %changelog
