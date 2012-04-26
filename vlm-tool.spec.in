@@ -1,6 +1,3 @@
-# Assume --without-pcre by default
-%{|?_with_pcre: %{|?_without_pcre: %define _without_pcre --without-pcre}}
-
 %define	ver	@VERSION@
 %define	rel	1
 %define	prefix	/usr
@@ -15,7 +12,6 @@ License       : GPLv2
 Group         : User Interface/Desktops
 Source        : %{name}-%{version}.tar.gz
 BuildRoot     : %{_tmppath}/%{name}-%{version}-root
-%{?_with_pcre:BuildRequires: pcre}
 
 %description
 The vlm-tool(1) reads one or more system log files (/var/log/messages) from
@@ -29,7 +25,7 @@ palatable by highlighting entries which could indicate an issue.
 
 %build
 	[ -f configure ] || ./autogen.sh
-	./configure %{?_with_pcre} %{?_without_pcre}
+	./configure --prefix=$RPM_BUILD_ROOT%{prefix}
 	make
 
 %install
