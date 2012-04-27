@@ -61,7 +61,7 @@ static	size_t		hlen;
 static	pool_t *	ignores;
 
 static char const	sgr_red[] =	{
-	"\033[1;31m"
+	"\033[1;31;22;47m"		/* Bright red text, dirty white bg */
 };
 static char const	sgr_reset[] =	{
 	"\033[0m"
@@ -383,7 +383,7 @@ flatten_and_sort_entries(
 	pool_iter_t *	iter;
 
 	flat_entries = xmalloc( entries_qty * sizeof( flat_entries[0] ) );
-	iter         = pool_iter_new( entries );
+	iter	     = pool_iter_new( entries );
 	do	{
 		entry_t * *	etp;
 		entry_t *	e;
@@ -856,7 +856,7 @@ main(
 			}
 		}
 	} else	{
-		/* Nothing specified, read "/var/log/messages*" 	 */
+		/* Nothing specified, read "/var/log/messages*"		 */
 		static char const	vdir[] = "/var/log";
 		int			nfiles;
 		struct dirent * *	namelist;
