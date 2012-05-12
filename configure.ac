@@ -2,8 +2,8 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.4])
-AC_INIT([vlm-tool], [1.0.0], [Tommy.Reynolds@MegaCoder.com])
-AC_CONFIG_SRCDIR([gcc-compat.h])
+AC_INIT([vlm-tool], [1.0.1], [Tommy.Reynolds@MegaCoder.com])
+AC_CONFIG_SRCDIR([src/gcc-compat.h])
 AC_CONFIG_HEADERS([config.h])
 
 AM_INIT_AUTOMAKE
@@ -29,6 +29,7 @@ AX_PATH_LIB_PCRE
 
 AC_CONFIG_FILES([
 	 Makefile
+	 src/Makefile
 	 vlm-tool.spec
 ])
 AC_OUTPUT
