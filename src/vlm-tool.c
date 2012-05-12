@@ -106,6 +106,7 @@ calc_timestamp(
 		{ "Feb\0" },
 		{ "Mar\0" },
 		{ "Apr\0" },
+		{ "May\0" },
 		{ "Jun\0" },
 		{ "Jul\0" },
 		{ "Aug\0" },
