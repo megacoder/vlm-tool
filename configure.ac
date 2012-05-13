@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.4])
-AC_INIT([vlm-tool], [1.0.3], [Tommy.Reynolds@MegaCoder.com])
+AC_INIT([vlm-tool], [1.0.4], [Tommy.Reynolds@MegaCoder.com])
 AC_CONFIG_SRCDIR([src/gcc-compat.h])
 AC_CONFIG_HEADERS([config.h])
 

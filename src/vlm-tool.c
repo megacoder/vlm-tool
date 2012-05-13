@@ -506,6 +506,33 @@ print_entries(
 	}
 }
 
+static	int
+has_ext(
+	char const * const	fn,
+	char const * const	ext
+)
+{
+	int			retval;
+
+	retval = 0;
+	do	{
+		char const *	bn;
+		char const *	ep;
+
+		bn = strrchr( fn, '/' );
+		if( bn )	{
+			++bn;
+		} else	{
+			bn = fn;
+		}
+		ep = strrchr( bn, '.' );
+		if( ep && !strcmp( ep, ext ) )	{
+			retval = 1;
+		}
+	} while( 0 );
+	return( retval );
+}
+
 static	void
 do_file(
 	char const * const	fn
@@ -513,11 +540,9 @@ do_file(
 {
 	FILE *		fyle;
 	int		(*closer)( FILE * );
-	char *		bp;
 
 	xprintf( 1, ("Processing file '%s'.\n", fn) );
-	bp = strrchr( fn, '.' );
-	if( bp && !strcmp( bp, ".gz" ) )	{
+	if( has_ext( fn, ".gz" ) )	{
 		char	cmd[ BUFSIZ ];
 		int	n;
 
@@ -528,7 +553,7 @@ do_file(
 		}
 		fyle = popen( cmd, "r" );
 		closer = pclose;
-	} else if( bp && !strcmp( bp, ".bz2" ) )	{
+	} else if( has_ext( fn, ".bz2" ) )	{
 		char	cmd[ BUFSIZ ];
 		int	n;
 
@@ -539,7 +564,7 @@ do_file(
 		}
 		fyle = popen( cmd, "r" );
 		closer = pclose;
-	} else if( bp && !strcmp( bp, ".xz" ) )	{
+	} else if( has_ext( fn, ".xz" ) )	{
 		char	cmd[ BUFSIZ ];
 		int	n;
 
@@ -551,15 +576,6 @@ do_file(
 		fyle = popen( cmd, "r" );
 		closer = pclose;
 	} else	{
-		if( bp )	{
-			xprintf(
-				0, (
-			"'%s' has unknown extension '%s'; opening anyway.",
-					fn,
-					bp
-				)
-			);
-		}
 		fyle = fopen( fn, "rt" );
 		closer = fclose;
 	}
