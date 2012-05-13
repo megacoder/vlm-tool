@@ -551,6 +551,15 @@ do_file(
 		fyle = popen( cmd, "r" );
 		closer = pclose;
 	} else	{
+		if( bp )	{
+			xprintf(
+				1, (
+			"'%s' has unknown extension '%s'; opening anyway.",
+					fn,
+					bp
+				)
+			);
+		}
 		fyle = fopen( fn, "rt" );
 		closer = fclose;
 	}
