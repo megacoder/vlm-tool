@@ -553,7 +553,7 @@ do_file(
 	} else	{
 		if( bp )	{
 			xprintf(
-				1, (
+				0, (
 			"'%s' has unknown extension '%s'; opening anyway.",
 					fn,
 					bp
