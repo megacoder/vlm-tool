@@ -20,6 +20,7 @@
 #include <time.h>
 #include <errno.h>
 #include <stdarg.h>
+#include <math.h>
 
 #include <gcc-compat.h>
 #include <builtins.h>
@@ -59,6 +60,7 @@ static	entry_t * *	flat_entries;
 static	unsigned	debug;
 static	size_t		hlen;
 static	pool_t *	ignores;
+static	int		want_lineno;
 
 static char const	sgr_red[] =	{
 	"\033[1;31;22;47m"		/* Bright red text, dirty white bg */
@@ -428,21 +430,31 @@ print_one_entry(
 	static const char	fmt[] = "%-*s ";
 	struct tm *		tm;
 
-	/* First, the thumb (if marked)				 */
+	/* First, the thumb (if marked)					 */
 	if( mark_entries )	{
 		printf(
 			"%s ",
 			e->trigger == NULL ? no_thumb : thumb
 		);
 	}
-	/* Special case: show rule if asked			 */
+	/* Output a line number if we were asked nicely			 */
+	if( want_lineno )	{
+		static	unsigned long	lineno;
+		static	unsigned int	width;
+
+		if( !width )	{
+			width = (unsigned int) log10( entries_qty );
+		}
+		printf( "%*lu ", width, ++lineno );
+	}
+	/* Special case: show rule if asked				 */
 	if( show_rules )	{
 		printf(
 			"%-15.15s ",
 			e->trigger ? e->trigger->s : ""
 		);
 	}
-	/* Second, the date					 */
+	/* Second, the date						 */
 	tm = gmtime( &e->timestamp );
 	printf( "%.15s ", asctime(tm)+4 );
 	/* Third, the host name					 */
@@ -752,7 +764,7 @@ main(
 	entries  = pool_new( sizeof(entry_t), NULL, NULL );
 	ignores  = pool_new( sizeof(trigger_t), NULL, NULL );
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "Xa:A:ci:I:lmno:rt:vy:" )) != EOF ) {
+	while( (c = getopt( argc, argv, "Xa:A:ci:I:lmnNo:rt:vy:" )) != EOF ) {
 		switch( c )	{
 		default:
 			fprintf(
@@ -799,6 +811,9 @@ main(
 			break;
 		case 'n':
 			load_builtin_rules = 0;
+			break;
+		case 'N':
+			want_lineno = 1;
 			break;
 		case 'o':
 			ofile = optarg;

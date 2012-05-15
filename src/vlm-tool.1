@@ -11,6 +11,7 @@ vlm-tool \- coalesce /var/log/messages from different hosts and filter
 [\fI-l\fR]
 [\fI-m\fR]
 [\fI-n\fR]
+[\fI-N\fR]
 [\fI-o\fR FILE]
 [\fI-r\fR]
 [\fI-t\fR THUMB]
@@ -80,6 +81,11 @@ An equivalent number of spaces are used for non-matching entries.
 .IP "-n" 10em
 Do not populate the built-in triggers.
 Triggers specified on the command line take precedence over built-in patterns.
+.IP "-N" 10em
+Number the output lines, similar to piping the output through the
+.BR nl( 1 )
+utility.
+These output line numbers bear no relationship to the input sequence.
 .IP "-o FILE" 10em
 Write output to \fBFILE\fR instead of to the standard output.
 .IP "-r" 10em
