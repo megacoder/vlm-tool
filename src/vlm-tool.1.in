@@ -100,6 +100,8 @@ Display program name, version, and then exit.
 .IP "-y year" 10em
 Log file entries lack the year specifier.
 By default, the current year is used; we need this to correctly calculate leap dates.
+.SH VERSION
+The information here relates to version @VERSION@; your mileage may vary.
 .SH AUTHOR
 Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 .SH COPYRIGHT
