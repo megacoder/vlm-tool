@@ -119,7 +119,7 @@ If could probably be modified to treat a timestamp of later in the year than
 the current time as being from the prior year, but this complicates things and
 slows things down as well.
 .SH EXAMPLES
-.IP "\f(CR$ sudo vlm-tool\fP." 20m
+.IP "\f(CR$ sudo vlm-tool\fP" 20m
 Output only those lines in \fI/var/log/messages*\fP which match one or
 more trigger patterns.
 .IP "\f(CR$ vlm-tool -a foo messages\fP" 20m
