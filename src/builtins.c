@@ -33,6 +33,7 @@ char const * const	builtin_triggers[] =	{
 	"fail(ed(:.*)?|ure|ing)?",
 	"fenc(e,ing)",
 	"fsck",
+	"general protection rip:",
 	"h[au]ng",
 	"illegal:",
 	"init:",
