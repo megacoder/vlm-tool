@@ -77,6 +77,7 @@ char const * const	builtin_triggers[] =	{
 	"restart",
 	"segfault",
 	"selinux",
+	"setroubleshoot",
 	"signal([[:space:]]*[0-9]*)",
 	"sysrq.*:",
 	"taint",
