@@ -181,7 +181,7 @@ add_host(
 		retval = hostsPos++;
 		hosts[ retval ] = xstrdup( name );
 		hlen = max(hlen, strlen( name ));
-		xprintf( 2, ("added host #%u '%s'.\n", retval, hosts[retval]) );
+		xprintf( 2, "added host #%u '%s'", retval, hosts[retval] );
 	} while( 0 );
 	return( retval );
 }
@@ -195,7 +195,7 @@ add_pattern(
 	trigger_t * const	t = pool_alloc( pool );
 
 	/* Compile the recognition pattern				 */
-	xprintf( 3, ("Adding rule '%s'.\n", rule) );
+	xprintf( 3, "Adding rule '%s'", rule );
 	t->s = rule;
 	if( regcomp(
 		&(t->re),
@@ -402,7 +402,7 @@ flatten_and_sort_entries(
 			*etp = e;
 		}
 		/* Order table of entry addresses			 */
-		xprintf( 1, ("Sorting %u entries.\n", (unsigned) entries_qty) );
+		xprintf( 1, "Sorting %u entries", (unsigned) entries_qty );
 		qsort(
 			flat_entries,
 			entries_qty,
@@ -510,7 +510,7 @@ print_entries(
 	no_thumb = xstrdup( thumb );
 	memset( no_thumb, ' ', strlen(no_thumb) );
 	/* Iterate over the kept entries, printing all of them		 */
-	xprintf( 1, ("Listing %u entries.\n", (unsigned) entries_qty) );
+	xprintf( 1, "Listing %u entries", (unsigned) entries_qty );
 	for( i = 0; i < entries_qty; ++i )	{
 		entry_t * const		e = flat_entries[i];
 
@@ -553,7 +553,7 @@ do_file(
 	FILE *		fyle;
 	int		(*closer)( FILE * );
 
-	xprintf( 1, ("Processing file '%s'.\n", fn) );
+	xprintf( 1, "Processing file '%s'", fn );
 	if( has_ext( fn, ".gz" ) )	{
 		char	cmd[ BUFSIZ ];
 		int	n;
@@ -654,14 +654,14 @@ post_process(
 	pool_iter_t *			iter;
 	unsigned char *			host_states;
 
-	xprintf( 1, ("Postprocessing.\n") );
+	xprintf( 1, "Postprocessing" );
 	/* We ain't got nuthin' yet					 */
-	xprintf( 1, ( "compiling starters.\n" ) );
+	xprintf( 1, "compiling starters" );
 	starters = pool_new( sizeof(trigger_t), NULL, NULL );
 	for( s = start_strings; *s; ++s )	{
 		trigger_t * const	t = pool_alloc( starters );
 
-		xprintf( 2, ( "compiling starter '%s'.\n", *s ) );
+		xprintf( 2, "compiling starter '%s'", *s );
 		t->s = *s;
 		if( regcomp(
 			&(t->re),
@@ -672,12 +672,12 @@ post_process(
 			abort();
 		}
 	}
-	xprintf( 1, ( "compiling enders.\n" ) );
+	xprintf( 1, "compiling enders" );
 	enders = pool_new( sizeof(trigger_t), NULL, NULL );
 	for( s = end_strings; *s; ++s )	{
 		trigger_t * const	t = pool_alloc( enders );
 
-		xprintf( 2, ( "compiling ender '%s'.\n", *s ) );
+		xprintf( 2, "compiling ender '%s'", *s );
 		t->s = *s;
 		if( regcomp(
 			&(t->re),
@@ -692,7 +692,7 @@ post_process(
 	host_states = xmalloc( hosts_qty );
 	memset( host_states, 0, hosts_qty );
 	/* Iterate over all the entries, looking for a starter		 */
-	xprintf( 1, ( "find starters.\n" ) );
+	xprintf( 1, "find starters" );
 	iter = pool_iter_new( entries );
 	for(
 		e = pool_iter_next( iter );
@@ -786,6 +786,7 @@ main(
 			break;
 		case 'X':
 			++debug;
+			xprintf_set_debug( debug );
 			break;
 		case 'a':
 			add_pattern( triggers, optarg );
@@ -913,11 +914,11 @@ main(
 			perror( vdir );
 			abort();
 		}
-		xprintf( 1, ("%d message files.\n", nfiles) );
+		xprintf( 1, "%d message files", nfiles );
 		for( i = 0; i < nfiles; ++i )	{
 			struct dirent *	de = namelist[i];
 
-			xprintf( 2, ("%s\n", de->d_name) );
+			xprintf( 2, "%s", de->d_name );
 			if( !strncmp( de->d_name, "messages", 8 ) ) {
 				char	path[ PATH_MAX ];
 				snprintf(
