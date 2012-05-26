@@ -1,8 +1,15 @@
 #include <sys/types.h>
+#include <errno.h>
 #include <regex.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
 #include <gcc-compat.h>
 #include <pool.h>
 #include <xprintf.h>
+#include <x-funcs.h>
 
 #include <vlm-tool.h>
 #include <post-process.h>

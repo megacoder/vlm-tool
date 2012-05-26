@@ -14,4 +14,7 @@ typedef	struct	entry_s	{
 	time_t		timestamp;	/* Date for entry		 */
 } entry_t;
 
+extern	unsigned	hosts_qty;
+extern	pool_t *	entries;
+
 #endif	/* _VLM_TOOL_H */

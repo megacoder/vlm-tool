@@ -26,6 +26,7 @@
 #include <builtins.h>
 #include <pool.h>
 #include <xprintf.h>
+#include <x-funcs.h>
 
 #include <vlm-tool.h>
 
@@ -41,10 +42,10 @@ static	unsigned	show_rules;
 static	unsigned	colorize;
 static	pool_t *	triggers;
 static	int		year;
-static	unsigned	hosts_qty;
+unsigned		hosts_qty;
 static	unsigned	hostsPos;
 static	char * *	hosts;
-static	pool_t *	entries;
+pool_t *		entries;
 static	size_t		entries_qty;
 static	entry_t * *	flat_entries;
 static	unsigned	debug;
@@ -58,34 +59,6 @@ static char const	sgr_red[] =	{
 static char const	sgr_reset[] =	{
 	"\033[0m"
 };
-
-static	void *		_inline
-xmalloc(
-	size_t		size
-)
-{
-	void * const	retval = malloc( size );
-
-	if( !retval )	{
-		perror( "out of memory" );
-		abort();
-	}
-	return( retval );
-}
-
-static	void *		_inline
-xstrdup(
-	char const * const	s
-)
-{
-	void * const	retval = strdup( s );
-
-	if( !retval )	{
-		fprintf( stderr, "%s: out of memory.\n", me );
-		exit(1);
-	}
-	return( retval );
-}
 
 static	int
 calc_timestamp(
