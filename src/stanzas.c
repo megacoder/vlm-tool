@@ -1,31 +1,63 @@
-#include <sys/types.h>
-#include <unistd.h>
-#include <regex.h>
-#include <stdint.h>
-
-#include <gcc-compat.h>
 #include <vlm-tool.h>
 
 #include <stanzas.h>
 
-static	trigger_t	cut_starters[] =	{
-	{ "---[ cut.*]---" },
+/*
+ *------------------------------------------------------------------------
+ * Oops message highlighting
+ *------------------------------------------------------------------------
+ */
+
+static	trigger_t	oops_starters[] =	{
+	{ "---[ cut here ]---" },
 	{ NULL }			/* Must be last			 */
 };
 
-static	trigger_t	cut_items[] =	{
-	{ "---[.*]---" },
+static	trigger_t	oops_items[] =	{
+	{ "---[ end trace .* ]---" },
 	{ NULL }			/* Must be last			 */
 };
 
-static	stanza_t	cut_stanza =	{
-	cut_starters,			/* No starters yet		 */
-	cut_items,			/* No items yet			 */
-	STANZA_STOP,			/* No flags			 */
-	0				/* No budget			 */
+static	stanza_t	oops_stanza =	{
+	oops_starters,
+	oops_items,
+	STANZA_STOP,
+	50
 };
+
+/*
+ *------------------------------------------------------------------------
+ * Kernel errors which show a stacktrace
+ *------------------------------------------------------------------------
+ */
+
+static	trigger_t	trace_starters[] =	{
+	{ "unable to handle" },
+	{ "call trace:" },
+	{ "kobject_add failed for.*EXIST" },
+	{ NULL }			/* Must be last			 */
+};
+
+static	trigger_t	trace_items[] =	{
+	{ "[[]<[0-9a-fA-F]*>[]](.*)?" },
+	{ NULL }			/* Must be last			 */
+};
+
+static	stanza_t	trace_stanza =	{
+	trace_starters,
+	trace_items,
+	0,
+	50
+};
+
+/*
+ *------------------------------------------------------------------------
+ * Table of stanzas we will highlight
+ *------------------------------------------------------------------------
+ */
 
 stanza_t *	stanzas[] = {
-	&cut_stanza,
+	&oops_stanza,
+	&trace_stanza,
 	NULL				/* Must be last			 */
 };
