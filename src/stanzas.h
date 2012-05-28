@@ -9,13 +9,18 @@
 #include <vlm-tool.h>
 
 typedef	struct	stanza_s	{
-	trigger_t *	starters;	/* Rules to begin a region	 */
-	trigger_t *	items;		/* Body rules for the region	 */
+	char const *	name;		/* Name of the stanza		 */
+	char * *	starters;	/* Rules to begin a region	 */
+	char * *	items;		/* Body rules for the region	 */
 	uint16_t	flags;		/* Flags			 */
 #define	STANZA_STOP	(1U<<0)		/* Rule match ends stanza	 */
 	uint16_t	budget;		/* Region ends after line qty	 */
+	/* Keep overhead stuff below, so we don't bork the inits later	 */
+	pool_t *	starter_pool;	/* Pool of stanza start rules	 */
+	pool_t *	item_pool;	/* Pool of stanza body rules	 */
 } stanza_t;
 
-extern	stanza_t *	stanzas[];
+void		stanza_setup( void );	/* Must be first call		 */
+stanza_t *	stanza_find( entry_t * ); /* Does entry match any rule?	 */
 
 #endif	/* _STANZAS_H */

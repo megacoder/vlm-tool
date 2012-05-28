@@ -10,6 +10,7 @@
 #include <pool.h>
 #include <xprintf.h>
 #include <x-funcs.h>
+#include <stanzas.h>
 
 #include <vlm-tool.h>
 #include <post-process.h>
@@ -19,97 +20,58 @@ post_process(
 	void
 )
 {
-	static char const * const	start_strings[] =	{
-		"unable to handle",
-		"call trace:",
-		"kobject_add failed for.*EXIST",
-		NULL
-	};
-	static char const * const	end_strings[] =	{
-		"[[]<[0-9a-fA-F]*>[]](.*)?",
-		NULL
-	};
-	char const * const *		s;
-	pool_t *			starters;
-	pool_t *			enders;
 	entry_t *			e;
 	pool_iter_t *			iter;
-	unsigned char *			host_states;
+	stanza_t *			host_states[ hosts_qty ];
+	uint16_t			stanza_budget[ hosts_qty ];
 
 	xprintf( 1, "Postprocessing" );
 	/* We ain't got nuthin' yet					 */
-	xprintf( 1, "compiling starters" );
-	starters = pool_new( sizeof(trigger_t), NULL, NULL );
-	for( s = start_strings; *s; ++s )	{
-		trigger_t * const	t = pool_alloc( starters );
-
-		xprintf( 2, "compiling starter '%s'", *s );
-		t->s = *s;
-		if( regcomp(
-			&(t->re),
-			t->s,
-			(REG_EXTENDED|REG_ICASE)
-		) )	{
-			perror( "out of starter memory" );
-			abort();
-		}
-	}
-	xprintf( 1, "compiling enders" );
-	enders = pool_new( sizeof(trigger_t), NULL, NULL );
-	for( s = end_strings; *s; ++s )	{
-		trigger_t * const	t = pool_alloc( enders );
-
-		xprintf( 2, "compiling ender '%s'", *s );
-		t->s = *s;
-		if( regcomp(
-			&(t->re),
-			t->s,
-			(REG_EXTENDED|REG_ICASE)
-		) )	{
-			perror( "out of ender memory" );
-			abort();
-		}
-	}
-	/* Host states: 0=looking, 1=ending				 */
-	host_states = xmalloc( hosts_qty );
-	memset( host_states, 0, hosts_qty );
+	stanza_setup();
+	/* Host states: NULL=looking, else=ender table			 */
+	memset( host_states, 0, sizeof( host_states[0] ) );
+	memset( stanza_budget, 0, sizeof( stanza_budget[0] ) );
 	/* Iterate over all the entries, looking for a starter		 */
-	xprintf( 1, "find starters" );
+	xprintf( 1, "applying starters" );
 	iter = pool_iter_new( entries );
 	for(
 		e = pool_iter_next( iter );
 		e;
 		e = pool_iter_next( iter )
 	)	{
-		pool_iter_t *		subiter;
-		trigger_t *		t;
+		/* Called once for each /v/l/m entry we've kept		 */
+		if( !host_states[e->host_id] )	{
+			/* Haven't found stanza yet, maybe this one	 */
+			host_states[e->host_id] = stanza_find( e );
+			if( host_states[e->host_id] )	{
+				/* Begins stanza, establish budget	 */
+				stanza_budget[e->host_id] =
+					host_states[e->host_id]->budget;
+			}
+		} else	{
+			/* In a stanza, see if we match any item rule	 */
+			/* First, test the stanza's budget		 */
+			if(
+				(stanza_budget[e->host_id] > 0) &&
+				(--stanza_budget[e->host_id] == 0)
+			)	{
+				/* Budget expired			 */
+				host_states[e->host_id] = NULL;
+			} else	{
+				/* Under budget				 */
+				int const	match_stops = (
+					host_states[e->host_id]->flags &
+					STANZA_STOP
+				);
+				stanza_t *	match;
 
-		subiter = pool_iter_new(
-			host_states[e->host_id] ? enders : starters
-		);
-		for(
-			t = pool_iter_next( subiter );
-			t;
-			t = pool_iter_next( subiter )
-		)	{
-			regmatch_t	matches[10];
-
-			if( !regexec(
-				&t->re,
-				e->resid,
-				DIM(matches),
-				matches,
-				0
-			) )	{
-				/* Found a match			 */
-				e->trigger = t;
-				host_states[e->host_id] = 1;
-				break;
+				match = stanza_find( e );
+				if( match_stops && (match != NULL) )	{
+					host_states[e->host_id] = NULL;
+				} else if( !match_stops && (match == NULL) ) {
+					host_states[e->host_id] = NULL;
+				}
 			}
 		}
-		if( (e->trigger == NULL) && (subiter->pool == enders) ) {
-			host_states[e->host_id] = 0;
-		}
-		pool_iter_free( &subiter );
 	}
 }
