@@ -49,7 +49,8 @@ char const * const	builtin_triggers[] =	{
 	"lpfc",
 	"machine check events logged",
 	"martian",
-	"multipathd",
+	"remaining active paths:",	/* Keep before 'multipathd'	 */
+	"multipathd",			/* after 'remaining active p..'  */
 	"netdev",
 	"nfs:.*not[[:space:]]responding",
 	"nfsd:",
@@ -71,7 +72,6 @@ char const * const	builtin_triggers[] =	{
 	"\\b[rm]d:.*",
 	"rds(:|/ib)?",
 	"read-?only",
-	"remaining active paths:",
 	"shutdown([[].*[]])?:",
 	"only",
 	"register(ed|ing)?",
