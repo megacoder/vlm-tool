@@ -72,7 +72,7 @@ char const * const	builtin_triggers[] =	{
 	"rds(:|/ib)?",
 	"read-?only",
 	"remaining active paths:",
-	"shutdown:",
+	"shutdown([[].*[]])?:",
 	"only",
 	"register(ed|ing)?",
 	"require",
