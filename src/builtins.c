@@ -43,7 +43,8 @@ char const * const	builtin_triggers[] =	{
 	"kernel command line:.*",
 	"kill(ing)?",
 	"link",
-	"linux[[:space:]]version",
+	"redhat.com",			/* Keep before 'linux version'	 */
+	"linux[[:space:]]version",	/* Keep after 'redhat.com'	 */
 	"ll header:.*",
 	"lpfc",
 	"machine check events logged",
