@@ -77,6 +77,7 @@ char const * const	builtin_triggers[] =	{
 	"register(ed|ing)?",
 	"require",
 	"restart",
+	"return code =.*",
 	"segfault",
 	"selinux",
 	"setroubleshoot",
