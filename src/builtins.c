@@ -74,7 +74,6 @@ char const * const	builtin_triggers[] =	{
 	"read-?only",
 	"shutdown([[].*[]])?:",
 	"only",
-	"register(ed|ing)?",
 	"require",
 	"restart",
 	"return code =.*",
