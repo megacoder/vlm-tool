@@ -77,6 +77,7 @@ char const * const	builtin_triggers[] =	{
 	"require",
 	"restart",
 	"return code =.*",
+	"runlevel: [0-9]*",
 	"segfault",
 	"selinux",
 	"setroubleshoot",
