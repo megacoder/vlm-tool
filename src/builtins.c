@@ -28,6 +28,7 @@ char const * const	builtin_triggers[] =	{
 	"disagrees.*symbol.*",
 	"disk.*,.*o:.*$",
 	"don't",
+	"el[0-9]debug",
 	"end_request",
 	"error",
 	"fail(ed(:.*)?|ure|ing)?",
