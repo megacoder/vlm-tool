@@ -5,7 +5,7 @@ vlm_tool_SOURCES=builtins.c builtins.h gcc-compat.h pool.c pool.h      \
          post-process.c post-process.h vlm-tool.c vlm-tool.h xprintf.c \
          xprintf.h x-funcs.h stanzas.h stanzas.c
 
-AM_CFLAGS	=-std=gnu99 `getconf LFS_CFLAGS` -DVERSION=\"@VERSION@\" -I. -Wall -Werror -pedantic -g
+AM_CFLAGS	=-std=gnu99 `getconf LFS_CFLAGS` -DVERSION=\"@VERSION@\" -I. -Wall -Werror -pedantic -g -Wsuggest-attribute=pure
 AM_LDFLAGS	=`getconf LFS_LDFLAGS` -g -lm
 
 EXTRA_DIST=vlm-tool.1

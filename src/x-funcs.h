@@ -6,7 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-static	void *		_inline _used
+static	void *		_used
 xmalloc(
 	size_t		size
 )
@@ -20,7 +20,7 @@ xmalloc(
 	return( retval );
 }
 
-static	void *		_inline _used
+static	void *		_used
 xstrdup(
 	char const * const	s
 )
