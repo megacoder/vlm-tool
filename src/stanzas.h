@@ -4,8 +4,6 @@
 #include <unistd.h>
 #include <stdint.h>
 
-#include <gcc-compat.h>
-
 #include <vlm-tool.h>
 
 typedef	struct	stanza_s	{

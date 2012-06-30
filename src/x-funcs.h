@@ -1,10 +1,11 @@
 #ifndef	_X_FUNCS_H
 #define	_X_FUNCS_H
 
-#include <gcc-compat.h>
 #include <malloc.h>
 #include <string.h>
 #include <stdlib.h>
+
+#include <gcc-compat.h>
 
 static	void *		_used
 xmalloc(

@@ -6,13 +6,12 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <gcc-compat.h>
 #include <pool.h>
 #include <xprintf.h>
 #include <x-funcs.h>
 #include <stanzas.h>
-
 #include <vlm-tool.h>
+
 #include <post-process.h>
 
 void
