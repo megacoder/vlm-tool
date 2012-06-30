@@ -74,6 +74,7 @@ stanza_setup_pool(
 )
 {
 	size_t			qty;
+	size_t			i;
 
 	/* Count length of string list					 */
 	for( qty = 0; list[ qty ]; ++qty )	{
@@ -82,11 +83,11 @@ stanza_setup_pool(
 	/* Allocate pool of exact length				 */
 	*pp = pool_new( sizeof( trigger_t ), NULL, NULL );
 	/* Fill in list of rules					 */
-	for( qty = 0; ; ++qty )	{
+	for( i = 0; i < qty; ++i )	{
 		trigger_t * const	t = pool_alloc( *pp );
 
 		xprintf( 2, "compiling pattern '%s'.", list[qty] );
-		t->s = list[qty];
+		t->s = list[i];
 		if( regcomp(
 			&(t->re),
 			t->s,
