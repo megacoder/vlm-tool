@@ -159,7 +159,7 @@ add_pattern(
 {
 	trigger_t * const	t = pool_alloc( pool );
 
-	compile_trigger( rule, t );
+	trigger_compile( rule, t );
 }
 
 static	void
@@ -243,14 +243,7 @@ process(
 				fired;
 				fired = pool_iter_next( iter )
 			)	{
-				regmatch_t		matches[ 10 ];
-				if( !regexec(
-					&fired->re,
-					resid,
-					DIM(matches),
-					matches,
-					0
-				) )	{
+				if( trigger_match( resid, fired, NULL ) ) {
 					/* Leave loop early		 */
 					break;
 				}
@@ -271,14 +264,7 @@ process(
 				fired;
 				fired = pool_iter_next( iter )
 			)	{
-				regmatch_t		matches[ 10 ];
-				if( !regexec(
-					&fired->re,
-					resid,
-					DIM(matches),
-					matches,
-					0
-				) )	{
+				if( trigger_match( resid, fired, NULL ) ) {
 					keep  = 1;
 					break;
 				}

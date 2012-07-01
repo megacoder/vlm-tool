@@ -87,7 +87,7 @@ stanza_setup_pool(
 	for( i = 0; i < qty; ++i )	{
 		trigger_t * const	t = pool_alloc( *pp );
 
-		compile_trigger( list[i], t );
+		trigger_compile( list[i], t );
 	}
 }
 

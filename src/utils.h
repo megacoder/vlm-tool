@@ -8,6 +8,10 @@
 
 #include <stanzas.h>
 
-void compile_trigger( char const * const, trigger_t * const );
+#define	NUM_MATCHES	(10)
+
+void	trigger_compile( char const * const, trigger_t * const );
+
+int	trigger_match( char const * const, trigger_t * const, regmatch_t * );
 
 #endif	/* _UTILS_H */
