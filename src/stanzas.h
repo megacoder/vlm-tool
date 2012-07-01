@@ -19,6 +19,6 @@ typedef	struct	stanza_s	{
 } stanza_t;
 
 void		stanza_setup( void );	/* Must be first call		 */
-stanza_t *	stanza_find( entry_t * ); /* Does entry match any rule?	 */
+stanza_t *	stanza_find( entry_t *, int ); /* Entry match any rule?	 */
 
 #endif	/* _STANZAS_H */

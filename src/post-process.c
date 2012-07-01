@@ -41,7 +41,7 @@ post_process(
 		/* Called once for each /v/l/m entry we've kept		 */
 		if( !host_states[e->host_id] )	{
 			/* Haven't found stanza yet, maybe this one	 */
-			host_states[e->host_id] = stanza_find( e );
+			host_states[e->host_id] = stanza_find( e, 1 );
 			if( host_states[e->host_id] )	{
 				/* Begins stanza, establish budget	 */
 				stanza_budget[e->host_id] =
@@ -64,7 +64,7 @@ post_process(
 				);
 				stanza_t *	match;
 
-				match = stanza_find( e );
+				match = stanza_find( e, 0 );
 				if( match_stops && (match != NULL) )	{
 					host_states[e->host_id] = NULL;
 				} else if( !match_stops && (match == NULL) ) {

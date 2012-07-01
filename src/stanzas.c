@@ -129,7 +129,8 @@ stanza_setup(
 
 stanza_t *
 stanza_find(
-	entry_t *		e	/* Candidate to match		 */
+	entry_t *		e,	/* Candidate to match		 */
+	int const		begin	/* Search starters if true	 */
 )
 {
 	stanza_t *		retval;
@@ -142,23 +143,26 @@ stanza_find(
 			pool_iter_t *	iter;
 			trigger_t *	t;
 
-			xprintf( 1, "examining '%s' for starters.", (*stp)->name );
-			iter = pool_iter_new( (*stp)->starter_pool );
+			if( begin )	{
+				xprintf( 1, "examining '%s' for starters.", (*stp)->name );
+				iter = pool_iter_new( (*stp)->starter_pool );
+			} else	{
+				xprintf( 1, "examining '%s' for enders.", (*stp)->name );
+				iter = pool_iter_new( (*stp)->item_pool );
+			}
 			do	{
 				for(
 					t = pool_iter_next( iter );
 					t;
 					t = pool_iter_next( iter )
 				)	{
-					regmatch_t	matches[10];
-
-					if( !regexec(
-						&t->re,
-						e->resid,
-						DIM(matches),
-						matches,
-						0
-					) )	{
+					if(trigger_match( e->resid, t, NULL )){
+						xprintf(
+							2,
+							"matched '%s' by '%s'.",
+							t->s,
+							e->resid
+						);
 						e->trigger = t;
 						retval = *stp;
 						break;
