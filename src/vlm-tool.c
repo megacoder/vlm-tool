@@ -28,6 +28,7 @@
 #include <xprintf.h>
 #include <x-funcs.h>
 #include <post-process.h>
+#include <utils.h>
 
 #include <vlm-tool.h>
 
@@ -158,22 +159,7 @@ add_pattern(
 {
 	trigger_t * const	t = pool_alloc( pool );
 
-	/* Compile the recognition pattern				 */
-	xprintf( 3, "Adding rule '%s'", rule );
-	t->s = rule;
-	if( regcomp(
-		&(t->re),
-		t->s,
-		(REG_EXTENDED|REG_ICASE)
-	) == -1 )	{
-		fprintf(
-			stderr,
-			"%s: trigger [%s] failed to compile.\n",
-			me,
-			rule
-		);
-		exit( 1 );
-	}
+	compile_trigger( rule, t );
 }
 
 static	void

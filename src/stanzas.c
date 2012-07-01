@@ -2,6 +2,7 @@
 #include <vlm-tool.h>
 #include <x-funcs.h>
 #include <xprintf.h>
+#include <utils.h>
 
 #include <stanzas.h>
 
@@ -86,16 +87,7 @@ stanza_setup_pool(
 	for( i = 0; i < qty; ++i )	{
 		trigger_t * const	t = pool_alloc( *pp );
 
-		xprintf( 2, "compiling pattern '%s'.", list[qty] );
-		t->s = list[i];
-		if( regcomp(
-			&(t->re),
-			t->s,
-			(REG_EXTENDED|REG_ICASE)
-		) )	{
-			perror( "out of pattern memory" );
-			abort();
-		}
+		compile_trigger( list[i], t );
 	}
 }
 
