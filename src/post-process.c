@@ -21,17 +21,17 @@ post_process(
 {
 	entry_t *			e;
 	pool_iter_t *			iter;
-	stanza_t *			host_states[ hosts_qty ];
+	stanza_t *			in_stanza[ hosts_qty ];
 	uint16_t			stanza_budget[ hosts_qty ];
-	trigger_t *			stanza_triggers[ hosts_qty ];
+	trigger_t *			began_with[ hosts_qty ];
 
 	xprintf( 1, "Postprocessing" );
 	/* We ain't got nuthin' yet					 */
 	stanza_setup();
 	/* Host states: NULL=looking, else=ender table			 */
-	memset( host_states, 0, sizeof( host_states[0] ) );
+	memset( in_stanza, 0, sizeof( in_stanza[0] ) );
 	memset( stanza_budget, 0, sizeof( stanza_budget[0] ) );
-	memset( stanza_triggers, 0, sizeof( stanza_triggers[0] ) );
+	memset( began_with, 0, sizeof( began_with[0] ) );
 	/* Iterate over all the entries, looking for a starter		 */
 	xprintf( 1, "applying starters" );
 	iter = pool_iter_new( entries );
@@ -40,17 +40,16 @@ post_process(
 		e;
 		e = pool_iter_next( iter )
 	)	{
-		size_t const	host_id = e->host_id;
+		size_t const	hid = e->host_id;
 
 		/* Called once for each /v/l/m entry we've kept		 */
-		if( !host_states[host_id] )	{
+		if( !in_stanza[hid] )	{
 			/* Haven't found stanza yet, maybe this one	 */
-			host_states[host_id] = stanza_find( e, 1 );
-			if( host_states[host_id] )	{
+			in_stanza[hid] = stanza_search_starters( e );
+			if( in_stanza[hid] )	{
 				/* Begins stanza, establish budget	 */
-				stanza_triggers[host_id] = e->trigger;
-				stanza_budget[host_id] =
-					host_states[host_id]->budget;
+				began_with[hid] = e->trigger;
+				stanza_budget[hid] = in_stanza[hid]->budget;
 			}
 		} else	{
 			int	done;
@@ -59,23 +58,23 @@ post_process(
 			done = 0;
 			/* First, test the stanza's budget		 */
 			if(
-				(stanza_budget[host_id] > 0) &&
-				(--stanza_budget[host_id] == 0)
+				(stanza_budget[hid] > 0) &&
+				(--stanza_budget[hid] == 0)
 			)	{
-				done                     = 1;
 				/* Budget expired			 */
-				host_states[host_id]     = NULL;
-				stanza_triggers[host_id] = NULL;
+				done            = 1;
 			} else	{
 				/* Under budget				 */
 				int const	match_stops = (
-					host_states[host_id]->flags &
+					in_stanza[hid]->flags &
 					STANZA_STOP
 				);
+				stanza_t *	s;
 
-				if( stanza_find( e, 0 ) )	{
+				s = stanza_search_one( in_stanza[hid], e, 0 );
+				if( s )	{
 					/* Found an item match		 */
-					e->trigger = stanza_triggers[host_id];
+					e->trigger = began_with[hid];
 					if( match_stops )	{
 						done = 1;
 					}
@@ -84,16 +83,19 @@ post_process(
 					if( match_stops )	{
 						/* Keep going		 */
 						e->trigger =
-							stanza_triggers[host_id];
+							began_with[hid];
 					} else	{
 						/* Must match to be in	 */
+						e->trigger = NULL;
 						done = 1;
 					}
 				}
-				if( done )	{
-					host_states[host_id]        = NULL;
-					stanza_triggers[e->host_id] = NULL;
-				}
+			}
+			if( done )	{
+				/* This entry ended stanza		 */
+				stanza_budget[hid] = 0;
+				in_stanza[hid]  = NULL;
+				began_with[hid] = NULL;
 			}
 		}
 	}

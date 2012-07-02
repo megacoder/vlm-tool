@@ -123,12 +123,13 @@ stanza_setup(
 
 /*
  *------------------------------------------------------------------------
- * stanza_find: locate stanza with matching rule, else NULL
+ * stanza_search_one: scan stanza for matching rule, else NULL
  *------------------------------------------------------------------------
  */
 
 stanza_t *
-stanza_find(
+stanza_search_one(
+	stanza_t *		stanza,	/* Where to search		 */
 	entry_t *		e,	/* Candidate to match		 */
 	int const		begin	/* Search starters if true	 */
 )
@@ -137,39 +138,62 @@ stanza_find(
 
 	retval = NULL;
 	do	{
+		pool_iter_t *	iter;
+		trigger_t *	t;
+
+		if( begin )	{
+			xprintf( 1, "starters for '%s'.", stanza->name );
+			iter = pool_iter_new( stanza->starter_pool );
+		} else	{
+			xprintf( 1, "enders for '%s'.", stanza->name );
+			iter = pool_iter_new( stanza->item_pool );
+		}
+		for(
+			t = pool_iter_next( iter );
+			t;
+			t = pool_iter_next( iter )
+		)	{
+			if(trigger_match( e->resid, t, NULL )){
+				xprintf(
+					2,
+					"matched '%s' by '%s'.",
+					t->s,
+					e->resid
+				);
+				e->trigger = t;
+				retval = stanza;
+				break;
+			}
+		}
+		pool_iter_free( &iter );
+	} while( 0 );
+	return( retval );
+}
+
+/*
+ *------------------------------------------------------------------------
+ * stanza_search_all: locate stanza with matching rule, else NULL
+ *------------------------------------------------------------------------
+ */
+
+stanza_t *
+stanza_search_starters(
+	entry_t *		e	/* Candidate to match		 */
+)
+{
+	stanza_t *		retval;
+
+	retval = NULL;
+	do	{
+		stanza_t *	s;
 		stanza_t * *	stp;
 
 		for( stp = stanzas; *stp; ++stp )	{
-			pool_iter_t *	iter;
-			trigger_t *	t;
-
-			if( begin )	{
-				xprintf( 1, "examining '%s' for starters.", (*stp)->name );
-				iter = pool_iter_new( (*stp)->starter_pool );
-			} else	{
-				xprintf( 1, "examining '%s' for enders.", (*stp)->name );
-				iter = pool_iter_new( (*stp)->item_pool );
+			s = stanza_search_one( *stp, e, 1 );
+			if( s )	{
+				retval = s;
+				break;
 			}
-			do	{
-				for(
-					t = pool_iter_next( iter );
-					t;
-					t = pool_iter_next( iter )
-				)	{
-					if(trigger_match( e->resid, t, NULL )){
-						xprintf(
-							2,
-							"matched '%s' by '%s'.",
-							t->s,
-							e->resid
-						);
-						e->trigger = t;
-						retval = *stp;
-						break;
-					}
-				}
-			} while( 0 );
-			pool_iter_free( &iter );
 		}
 	} while( 0 );
 	return( retval );

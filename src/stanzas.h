@@ -19,7 +19,8 @@ typedef	struct	stanza_s	{
 	pool_t *	item_pool;	/* Pool of stanza body rules	 */
 } stanza_t;
 
-void		stanza_setup( void );	/* Must be first call		 */
-stanza_t *	stanza_find( entry_t *, int ); /* Entry match any rule?	 */
+void		stanza_setup( void );
+stanza_t *	stanza_search_one( stanza_t *, entry_t *, int );
+stanza_t *	stanza_search_starters( entry_t * );
 
 #endif	/* _STANZAS_H */
