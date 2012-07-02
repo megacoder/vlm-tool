@@ -13,12 +13,12 @@
  */
 
 static	char *		oops_starters[] =	{
-	"---[ cut here ]---",
+	"---\\[ cut here \\]---",
 	NULL
 };
 
 static	char *		oops_items[] =	{
-	"---[ end trace .* ]---",
+	"---\\[ end trace .* \\]---",
 	NULL
 };
 

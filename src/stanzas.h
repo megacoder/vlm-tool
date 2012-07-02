@@ -11,6 +11,7 @@ typedef	struct	stanza_s	{
 	char * *	starters;	/* Rules to begin a region	 */
 	char * *	items;		/* Body rules for the region	 */
 	uint16_t	flags;		/* Flags			 */
+#define	STANZA_CONT	(0U<<0)		/* Rule match extends stanza	 */
 #define	STANZA_STOP	(1U<<0)		/* Rule match ends stanza	 */
 	uint16_t	budget;		/* Region ends after line qty	 */
 	/* Keep overhead stuff below, so we don't bork the inits later	 */
