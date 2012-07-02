@@ -138,16 +138,12 @@ stanza_search_one(
 
 	retval = NULL;
 	do	{
+		pool_t * const	pool =
+			begin ? stanza->starter_pool : stanza->item_pool;
 		pool_iter_t *	iter;
 		trigger_t *	t;
 
-		if( begin )	{
-			xprintf( 1, "starters for '%s'.", stanza->name );
-			iter = pool_iter_new( stanza->starter_pool );
-		} else	{
-			xprintf( 1, "enders for '%s'.", stanza->name );
-			iter = pool_iter_new( stanza->item_pool );
-		}
+		iter = pool_iter_new( pool );
 		for(
 			t = pool_iter_next( iter );
 			t;
