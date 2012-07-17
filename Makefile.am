@@ -1,4 +1,9 @@
 SUBDIRS=src
 
 EXTRA_DIST=AUTHORS COPYING ChangeLog INSTALL NEWS README README.md     \
-         TODO autogen.sh configure.ac install-sh missing
+	 README.html TODO autogen.sh configure.ac install-sh missing
+
+.PHONY:	.FORCE
+
+README README.html: README.md .FORCE
+	markdown2 <README.md | tee README.html | lynx -dump -stdin >README
