@@ -1,0 +1,140 @@
+<h1>VLM-TOOL: /var/log/messages analysis tool</h1>
+
+<p>Linux systems can log copious amounts of data in the "/var/log/messages" files.
+Too often clustering environments are configured so that each machine keeps its own "/var/log/messages" files locally.
+Then, when an event happens on one machine, the other cluster nodes may react and generate their own log messages.
+All this gets recorded, but looking at the individual log files makes trying to reconstruct the chain of events a real pain.
+The vlm-tool(1) is designed to make this much simpler.</p>
+
+<h2>A Knowledgeable Grep</h2>
+
+<p>In its most basic usage, vlm-tool(1) works much like grep(1) in that there is a set of built-in rules which identify interesting log entries, so:</p>
+
+<pre>
+# vlm-tool /var/log/messages
+</pre>
+
+<p>Suppose you have the message logs from two cluster nodes:</p>
+
+<pre>
+$ vlm-tool node1-messages node2-messages
+</pre>
+
+<p>The content of all input files will be merged, using the timestamps conveniently placed on each log entry.
+All the log files should be for the same calendar year since the log timestamps do not include a year.
+The algorithm tries to keep the lines for each host clumped together if many lines share the same timestamp.</p>
+
+<h2>Flooded Logs</h2>
+
+<p>Sometimes logs will get endless chatter about some uninteresting topic.
+You can just ignore those entries:</p>
+
+<pre>
+$ vlm-tool -i ntpd node1-messages node2-messages
+</pre>
+
+<p>Any line matching the pattern <em>ntp</em> is just dropped from the input.</p>
+
+<p>Have too many trigger patterns to keep writing on the command line?
+No problem, just put them in a file, one per line.
+Use your ignored trigger collection like this:</p>
+
+<pre>
+$ vlm-tool -I my_ignores node1-messages node2-messages
+</pre>
+
+<h2>Adding Your Own Triggers</h2>
+
+<p>The built-in matching trigger patterns include strings which I've found associated with problems.
+Perhaps you have your own log entry you need included:</p>
+
+<pre>
+$ vlm-tool -a dull node1-messages node2-messages
+</pre>
+
+<p>Now, any log entry matching the trigger <em>dull</em> will be shown.</p>
+
+<p>Maybe you have lots and lots of custom triggers.
+Add them to a file, one-per-line, and use them like this:</p>
+
+<pre>
+$ vlm-tool -A my_rules messages
+</pre>
+
+<h2>Ignoring The Built-in Trigger Patterns</h2>
+
+<p>You can focus your search to only a specific trigger:</p>
+
+<pre>
+$ vlm-tool -n -a panic node1-messages
+</pre>
+
+<p>The <em>-n</em> switch inhibits populating the built-in triggers.
+This also works with the <em>-A</em> option to read the new triggers from a file.</p>
+
+<h2>Debugging Trigger Patterns</h2>
+
+<p>Each trigger pattern is a <em>regex(3)</em> regular expression.
+They are applied in an arbitrary order; first match <em>wins</em> and no further matching is done.</p>
+
+<p>You can see which trigger rule fired on a particular entry:</p>
+
+<pre>
+$ vlm-tool -r messages
+</pre>
+
+<h3>Caution</h3>
+
+<p>So you can better see what is happening, this will output <em>all</em> your messages but will highlight the matched entries, and include the first few characters of the matched trigger.</p>
+
+<h2>Highlighting Matched Entries In Context</h2>
+
+<p>Sometimes just seeing the selected log messages is not enough.
+You need to see the surrounding log entries, too.</p>
+
+<pre>
+$ vlm-tool -m node1-messages node2-messages
+</pre>
+
+<p>Each log entry will be output, so if your log file are big, be prepared for lots of output.
+By default, log entries which match a trigger pattern, will be prefixed with a <em>thumb</em> which defaults to "- ", a minus and a space.
+Log entries which are not matched, are prefixed with enough spaces so that the columns still line up.</p>
+
+<p>The default <em>thumb</em> was chosen to be small, and easy to type into less(1) or vi(1).
+You can change your <em>thumb</em> string if you like, see the man(1) page.</p>
+
+<h2>Colorized Output</h2>
+
+<p>If you run vlm-tool(1) using the <em>-c</em> switch, ANSI color sequences will be embedded into the output.</p>
+
+<h3>What The Matching Trigger Pattern Matched</h3>
+
+<p>In addition to the <em>thumb</em>, that part of the log entry which matched the trigger rule is highlighted.
+This can make scanning through a really large log file quicker, because it attracts your eye to the relevant portion of the message.</p>
+
+<p>You do not get choice of color.</p>
+
+<h3>Colored Host Names</h3>
+
+<p>The hostname portion of each log line is colored.
+This can help visually group related log entries together and avoid the eye-tedium of matching entries to the host which logged them.</p>
+
+<p>Host name colors are recycled, so on larger clusters host name colors will be duplicated.
+Hopefully not too many of these hosts will be logging at the same time, but your mileage may vary.</p>
+
+<h2>Saving The Results For Later</h2>
+
+<p>Instead of writing to the standard output <em>stdout</em>, you can redirect to a file:</p>
+
+<pre>
+$ vlm-tool -o for_later messages messages.1
+</pre>
+
+<h2>Recognizing Compressed Files</h2>
+
+<p>Frequently, part of the log rotation includes compressing the older log files.
+No need to uncompress them before using vlm-tool(1) because files compressed using gzip (<em>.gz</em>), bzip2 (<em>.bz2</em>), compress (<em>.Z</em>), and xz (<em>.xz</em>) are recognized by their filename extensions.</p>
+
+<h2>When In Doubt</h2>
+
+<p>Read the man(1) page.</p>
