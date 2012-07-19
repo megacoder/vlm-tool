@@ -33,7 +33,7 @@ You can just ignore those entries:
 $ vlm-tool -i ntpd node1-messages node2-messages
 </pre>
 
-Any line matching the pattern *ntp* is just dropped from the input.
+Any line matching the pattern *ntpd* is just dropped from the input.
 
 Have too many trigger patterns to keep writing on the command line?
 No problem, just put them in a file, one per line.
