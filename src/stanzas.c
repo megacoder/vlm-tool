@@ -58,6 +58,30 @@ static	stanza_t	trace_stanza =	{
 
 /*
  *------------------------------------------------------------------------
+ * Task-related messages
+ *------------------------------------------------------------------------
+ */
+
+static	char *		task_starters[] =	{
+	"INFO: task.*blocked for more than",
+	NULL				/* Must be last			 */
+};
+
+static	char *		task_items[] =	{
+	".*",				/* Highlight the entire line	 */
+	NULL				/* Must be last			 */
+};
+
+static	stanza_t	task_stanza =	{
+	"task",
+	task_starters,
+	task_items,
+	0,
+	5				/* No ender; programmer's trick	 */
+};
+
+/*
+ *------------------------------------------------------------------------
  * Table of stanzas we will highlight
  *------------------------------------------------------------------------
  */
@@ -65,6 +89,7 @@ static	stanza_t	trace_stanza =	{
 stanza_t *	stanzas[] = {
 	&oops_stanza,
 	&trace_stanza,
+	&task_stanza,
 	NULL				/* Must be last			 */
 };
 
