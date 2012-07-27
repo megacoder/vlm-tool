@@ -41,8 +41,13 @@ post_process(
 		e = pool_iter_next( iter )
 	)	{
 		size_t const	hid = e->host_id;
+		int const	match_stops = (
+			in_stanza[hid]->flags &
+			STANZA_STOP
+		);
 
 		/* Called once for each /v/l/m entry we've kept		 */
+Rescan:
 		if( !in_stanza[hid] )	{
 			/* Haven't found stanza yet, maybe this one	 */
 			in_stanza[hid] = stanza_search_starters( e );
@@ -65,10 +70,6 @@ post_process(
 				done            = 1;
 			} else	{
 				/* Under budget				 */
-				int const	match_stops = (
-					in_stanza[hid]->flags &
-					STANZA_STOP
-				);
 				stanza_t *	s;
 
 				s = stanza_search_one( in_stanza[hid], e, 0 );
@@ -96,6 +97,13 @@ post_process(
 				stanza_budget[hid] = 0;
 				in_stanza[hid]  = NULL;
 				began_with[hid] = NULL;
+				if( match_stops )	{
+					/*
+					 * This entry failed to match.
+					 * Maybe it starts a stanza, though.
+					 */
+					goto Rescan;
+				}
 			}
 		}
 	}
