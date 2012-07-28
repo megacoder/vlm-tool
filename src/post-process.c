@@ -40,71 +40,62 @@ post_process(
 		e;
 		e = pool_iter_next( iter )
 	)	{
+		/* Called once for each /v/l/m entry we've kept		 */
 		size_t const	hid = e->host_id;
-		int const	match_stops = (
+		int const	match_ends_stanza = (
 			in_stanza[hid]->flags &
 			STANZA_STOP
 		);
 
-		/* Called once for each /v/l/m entry we've kept		 */
-Rescan:
-		if( !in_stanza[hid] )	{
-			/* Haven't found stanza yet, maybe this one	 */
-			in_stanza[hid] = stanza_search_starters( e );
-			if( in_stanza[hid] )	{
-				/* Begins stanza, establish budget	 */
-				began_with[hid] = e->trigger;
-				stanza_budget[hid] = in_stanza[hid]->budget;
-			}
-		} else	{
-			int	done;
+		/* First, check for ender matching			 */
+		if( in_stanza[hid] )	{
+			/* In a stanza, try to locate end		 */
+			int		stanza_ended;
+			stanza_t *	matched_stanza;
 
-			/* In a stanza, see if we match any item rule	 */
-			done = 0;
-			/* First, test the stanza's budget		 */
+			e->trigger     = began_with[hid];
+			stanza_ended   = 0;
+			matched_stanza = NULL;
+			/* Check remaining budget			 */
 			if(
 				(stanza_budget[hid] > 0) &&
-				(--stanza_budget[hid] == 0)
+				( --stanza_budget[hid] == 0 )
 			)	{
 				/* Budget expired			 */
-				done            = 1;
+				stanza_ended		= 1;
 			} else	{
 				/* Under budget				 */
-				stanza_t *	s;
-
-				s = stanza_search_one( in_stanza[hid], e, 0 );
-				if( s )	{
-					/* Found an item match		 */
-					e->trigger = began_with[hid];
-					if( match_stops )	{
-						done = 1;
-					}
-				} else	{
-					/* Didn't find an item match	 */
-					if( match_stops )	{
-						/* Keep going		 */
-						e->trigger =
-							began_with[hid];
-					} else	{
-						/* Must match to be in	 */
-						e->trigger = NULL;
-						done = 1;
-					}
+				matched_stanza = stanza_search_one(
+					in_stanza[hid],
+					e,
+					0
+				);
+				if( matched_stanza && match_ends_stanza ) {
+					stanza_ended = 1;
+				}
+				if( !matched_stanza && !match_ends_stanza ) {
+					stanza_ended = 1;
 				}
 			}
-			if( done )	{
-				/* This entry ended stanza		 */
-				stanza_budget[hid] = 0;
-				in_stanza[hid]  = NULL;
-				began_with[hid] = NULL;
-				if( match_stops )	{
-					/*
-					 * This entry failed to match.
-					 * Maybe it starts a stanza, though.
-					 */
-					goto Rescan;
-				}
+			if( !stanza_ended )	{
+				continue;
 			}
+			/* Stanza ends			 */
+			e->trigger	   = NULL;
+			stanza_budget[hid] = 0;
+			in_stanza[hid]	   = NULL;
+			began_with[hid]    = NULL;
+			/*
+			 * Fall through and consider if this
+			 * entry starts a new stanza.
+			 */
+		}
+		/* Current entry is candidate to begin a stanza		 */
+		in_stanza[hid] = stanza_search_starters( e );
+		if( in_stanza[hid] )	{
+			/* New stanza has begun */
+			began_with[hid] = e->trigger;
+			stanza_budget[hid] = in_stanza[hid]->budget;
 		}
 	}
 }
