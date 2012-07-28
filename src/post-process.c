@@ -29,9 +29,9 @@ post_process(
 	/* We ain't got nuthin' yet					 */
 	stanza_setup();
 	/* Host states: NULL=looking, else=ender table			 */
-	memset( in_stanza, 0, hosts_qty * sizeof( in_stanza[0] ) );
-	memset( stanza_budget, 0, hosts_qty * sizeof( stanza_budget[0] ) );
-	memset( began_with, 0, hosts_qty * sizeof( began_with[0] ) );
+	memset( in_stanza,     0, sizeof( in_stanza     ) );
+	memset( stanza_budget, 0, sizeof( stanza_budget ) );
+	memset( began_with,    0, sizeof( began_with    ) );
 	/* Iterate over all the entries, looking for a starter		 */
 	xprintf( 1, "applying starters" );
 	iter = pool_iter_new( entries );
@@ -42,13 +42,13 @@ post_process(
 	)	{
 		/* Called once for each /v/l/m entry we've kept		 */
 		size_t const	hid = e->host_id;
-		int const	match_ends_stanza = (
-			in_stanza[hid]->flags &
-			STANZA_STOP
-		);
 
 		/* First, check for ender matching			 */
 		if( in_stanza[hid] )	{
+			int const	match_ends_stanza = (
+				in_stanza[hid]->flags &
+				STANZA_STOP
+			);
 			/* In a stanza, try to locate end		 */
 			int		stanza_ended;
 			stanza_t *	matched_stanza;
