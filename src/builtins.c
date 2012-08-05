@@ -18,6 +18,7 @@ char const * const	builtin_triggers[] =	{
 	"becomes",
 	"bond(ing|[0-9.]+)?",
 	"call[[:space:]]trace:",
+	"checker failed path",
 	"clocksource",
 	"conflict",
 	"crs",
@@ -49,6 +50,7 @@ char const * const	builtin_triggers[] =	{
 	"ll header:.*",
 	"lpfc",
 	"machine check events logged",
+	"mark as failed",
 	"martian",
 	"remaining active paths:",	/* Keep before 'multipathd'	 */
 	"multipathd",			/* after 'remaining active p..'  */
