@@ -31,7 +31,7 @@ char const * const	builtin_triggers[] =	{
 	"el[0-9]debug",
 	"end_request",
 	"error",
-	"fail(ed(:.*)?|ure|ing)?",
+	"fail(ed(:.*)?|ure|ing|-?over)?",
 	"fenc(e,ing)",
 	"fsck",
 	"general protection rip:",
