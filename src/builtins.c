@@ -17,6 +17,7 @@ char const * const	builtin_triggers[] =	{
 	"blocked[[:space:]]for[[:space:]]more",
 	"becomes",
 	"bond(ing|[0-9.]+)?",
+	"c-state",
 	"call[[:space:]]trace:",
 	"checker failed path",
 	"clocksource",
