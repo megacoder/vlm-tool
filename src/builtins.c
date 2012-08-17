@@ -92,6 +92,7 @@ char const * const	builtin_triggers[] =	{
 	"taint",
 	"terminated",
 	"time-?out",
+	"udev:",
 	"unable",
 	"unknown[[:space:]]symbol.*",
 	"unsupported",
