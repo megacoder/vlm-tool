@@ -11,6 +11,7 @@
 char const * const	builtin_triggers[] =	{
 	"abnormal",
 	"abo?rt(d)?",
+	"addrconf\(",
 	"access[[:space:]]beyond",
 	"asked[[:space:]]fo",
 	"bcm5709",
