@@ -91,7 +91,7 @@ char const * const	builtin_triggers[] =	{
 	"setroubleshoot",
 	"signal([[:space:]]*[0-9]*)",
 	"sysrq.*:",
-	"taint",
+	"taints?",
 	"terminated",
 	"time-?out",
 	"udev:",
