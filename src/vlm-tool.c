@@ -20,23 +20,17 @@
 #include <time.h>
 #include <errno.h>
 #include <stdarg.h>
+#include <math.h>
 
 #include <gcc-compat.h>
 #include <builtins.h>
 #include <pool.h>
 #include <xprintf.h>
+#include <x-funcs.h>
+#include <post-process.h>
+#include <utils.h>
 
-typedef	struct	trigger_s	{
-	char const *	s;		/* Original string		 */
-	regex_t		re;		/* Compiled regular expression	 */
-} trigger_t;
-
-typedef	struct	entry_s	{
-	trigger_t *	trigger;	/* We matched this trigger	 */
-	char *		resid;		/* Everything after host name	 */
-	size_t		host_id;	/* Index into hostname table	 */
-	time_t		timestamp;	/* Date for entry		 */
-} entry_t;
+#include <vlm-tool.h>
 
 static	char const *	me = "vlm_tool";
 static	unsigned	nonfatal;
@@ -50,15 +44,16 @@ static	unsigned	show_rules;
 static	unsigned	colorize;
 static	pool_t *	triggers;
 static	int		year;
-static	unsigned	hosts_qty;
+unsigned		hosts_qty;
 static	unsigned	hostsPos;
 static	char * *	hosts;
-static	pool_t *	entries;
+pool_t *		entries;
 static	size_t		entries_qty;
 static	entry_t * *	flat_entries;
 static	unsigned	debug;
 static	size_t		hlen;
 static	pool_t *	ignores;
+static	int		want_lineno;
 
 static char const	sgr_red[] =	{
 	"\033[1;31;22;47m"		/* Bright red text, dirty white bg */
@@ -66,34 +61,6 @@ static char const	sgr_red[] =	{
 static char const	sgr_reset[] =	{
 	"\033[0m"
 };
-
-static	void *		_inline
-xmalloc(
-	size_t		size
-)
-{
-	void * const	retval = malloc( size );
-
-	if( !retval )	{
-		perror( "out of memory" );
-		abort();
-	}
-	return( retval );
-}
-
-static	void *		_inline
-xstrdup(
-	char const * const	s
-)
-{
-	void * const	retval = strdup( s );
-
-	if( !retval )	{
-		fprintf( stderr, "%s: out of memory.\n", me );
-		exit(1);
-	}
-	return( retval );
-}
 
 static	int
 calc_timestamp(
@@ -106,6 +73,7 @@ calc_timestamp(
 		{ "Feb\0" },
 		{ "Mar\0" },
 		{ "Apr\0" },
+		{ "May\0" },
 		{ "Jun\0" },
 		{ "Jul\0" },
 		{ "Aug\0" },
@@ -178,7 +146,7 @@ add_host(
 		retval = hostsPos++;
 		hosts[ retval ] = xstrdup( name );
 		hlen = max(hlen, strlen( name ));
-		xprintf( 2, ("added host #%u '%s'.\n", retval, hosts[retval]) );
+		xprintf( 2, "added host #%u '%s'", retval, hosts[retval] );
 	} while( 0 );
 	return( retval );
 }
@@ -191,22 +159,7 @@ add_pattern(
 {
 	trigger_t * const	t = pool_alloc( pool );
 
-	/* Compile the recognition pattern				 */
-	xprintf( 3, ("Adding rule '%s'.\n", rule) );
-	t->s = rule;
-	if( regcomp(
-		&(t->re),
-		t->s,
-		(REG_EXTENDED|REG_ICASE)
-	) == -1 )	{
-		fprintf(
-			stderr,
-			"%s: trigger [%s] failed to compile.\n",
-			me,
-			rule
-		);
-		exit( 1 );
-	}
+	trigger_compile( rule, t );
 }
 
 static	void
@@ -290,14 +243,7 @@ process(
 				fired;
 				fired = pool_iter_next( iter )
 			)	{
-				regmatch_t		matches[ 10 ];
-				if( !regexec(
-					&fired->re,
-					resid,
-					DIM(matches),
-					matches,
-					0
-				) )	{
+				if( trigger_match( resid, fired, NULL ) ) {
 					/* Leave loop early		 */
 					break;
 				}
@@ -318,14 +264,7 @@ process(
 				fired;
 				fired = pool_iter_next( iter )
 			)	{
-				regmatch_t		matches[ 10 ];
-				if( !regexec(
-					&fired->re,
-					resid,
-					DIM(matches),
-					matches,
-					0
-				) )	{
+				if( trigger_match( resid, fired, NULL ) ) {
 					keep  = 1;
 					break;
 				}
@@ -399,7 +338,7 @@ flatten_and_sort_entries(
 			*etp = e;
 		}
 		/* Order table of entry addresses			 */
-		xprintf( 1, ("Sorting %u entries.\n", (unsigned) entries_qty) );
+		xprintf( 1, "Sorting %u entries", (unsigned) entries_qty );
 		qsort(
 			flat_entries,
 			entries_qty,
@@ -427,21 +366,31 @@ print_one_entry(
 	static const char	fmt[] = "%-*s ";
 	struct tm *		tm;
 
-	/* First, the thumb (if marked)				 */
+	/* First, the thumb (if marked)					 */
 	if( mark_entries )	{
 		printf(
 			"%s ",
 			e->trigger == NULL ? no_thumb : thumb
 		);
 	}
-	/* Special case: show rule if asked			 */
+	/* Output a line number if we were asked nicely			 */
+	if( want_lineno )	{
+		static	unsigned long	lineno;
+		static	unsigned int	width;
+
+		if( !width )	{
+			width = (unsigned int) log10( entries_qty );
+		}
+		printf( "%*lu ", width, ++lineno );
+	}
+	/* Special case: show rule if asked				 */
 	if( show_rules )	{
 		printf(
 			"%-15.15s ",
 			e->trigger ? e->trigger->s : ""
 		);
 	}
-	/* Second, the date					 */
+	/* Second, the date						 */
 	tm = gmtime( &e->timestamp );
 	printf( "%.15s ", asctime(tm)+4 );
 	/* Third, the host name					 */
@@ -497,12 +446,39 @@ print_entries(
 	no_thumb = xstrdup( thumb );
 	memset( no_thumb, ' ', strlen(no_thumb) );
 	/* Iterate over the kept entries, printing all of them		 */
-	xprintf( 1, ("Listing %u entries.\n", (unsigned) entries_qty) );
+	xprintf( 1, "Listing %u entries", (unsigned) entries_qty );
 	for( i = 0; i < entries_qty; ++i )	{
 		entry_t * const		e = flat_entries[i];
 
 		print_one_entry( e );
 	}
+}
+
+static	int
+has_ext(
+	char const * const	fn,
+	char const * const	ext
+)
+{
+	int			retval;
+
+	retval = 0;
+	do	{
+		char const *	bn;
+		char const *	ep;
+
+		bn = strrchr( fn, '/' );
+		if( bn )	{
+			++bn;
+		} else	{
+			bn = fn;
+		}
+		ep = strrchr( bn, '.' );
+		if( ep && !strcmp( ep, ext ) )	{
+			retval = 1;
+		}
+	} while( 0 );
+	return( retval );
 }
 
 static	void
@@ -512,11 +488,9 @@ do_file(
 {
 	FILE *		fyle;
 	int		(*closer)( FILE * );
-	char *		bp;
 
-	xprintf( 1, ("Processing file '%s'.\n", fn) );
-	bp = strrchr( fn, '.' );
-	if( bp && !strcmp( bp, ".gz" ) )	{
+	xprintf( 1, "Processing file '%s'", fn );
+	if( has_ext( fn, ".gz" ) )	{
 		char	cmd[ BUFSIZ ];
 		int	n;
 
@@ -527,7 +501,7 @@ do_file(
 		}
 		fyle = popen( cmd, "r" );
 		closer = pclose;
-	} else if( bp && !strcmp( bp, ".bz2" ) )	{
+	} else if( has_ext( fn, ".bz2" ) )	{
 		char	cmd[ BUFSIZ ];
 		int	n;
 
@@ -538,7 +512,7 @@ do_file(
 		}
 		fyle = popen( cmd, "r" );
 		closer = pclose;
-	} else if( bp && !strcmp( bp, ".xz" ) )	{
+	} else if( has_ext( fn, ".xz" ) )	{
 		char	cmd[ BUFSIZ ];
 		int	n;
 
@@ -594,106 +568,6 @@ dump_rules(
 }
 #endif	/* NOPE */
 
-static	void
-post_process(
-	void
-)
-{
-	static char const * const	start_strings[] =	{
-		"unable to handle",
-		"call trace:",
-		"kobject_add failed for.*EXIST",
-		NULL
-	};
-	static char const * const	end_strings[] =	{
-		"[[]<[0-9a-fA-F]*>[]](.*)?",
-		NULL
-	};
-	char const * const *		s;
-	pool_t *			starters;
-	pool_t *			enders;
-	entry_t *			e;
-	pool_iter_t *			iter;
-	unsigned char *			host_states;
-
-	xprintf( 1, ("Postprocessing.\n") );
-	/* We ain't got nuthin' yet					 */
-	xprintf( 1, ( "compiling starters.\n" ) );
-	starters = pool_new( sizeof(trigger_t), NULL, NULL );
-	for( s = start_strings; *s; ++s )	{
-		trigger_t * const	t = pool_alloc( starters );
-
-		xprintf( 2, ( "compiling starter '%s'.\n", *s ) );
-		t->s = *s;
-		if( regcomp(
-			&(t->re),
-			t->s,
-			(REG_EXTENDED|REG_ICASE)
-		) )	{
-			perror( "out of starter memory" );
-			abort();
-		}
-	}
-	xprintf( 1, ( "compiling enders.\n" ) );
-	enders = pool_new( sizeof(trigger_t), NULL, NULL );
-	for( s = end_strings; *s; ++s )	{
-		trigger_t * const	t = pool_alloc( enders );
-
-		xprintf( 2, ( "compiling ender '%s'.\n", *s ) );
-		t->s = *s;
-		if( regcomp(
-			&(t->re),
-			t->s,
-			(REG_EXTENDED|REG_ICASE)
-		) )	{
-			perror( "out of ender memory" );
-			abort();
-		}
-	}
-	/* Host states: 0=looking, 1=ending				 */
-	host_states = xmalloc( hosts_qty );
-	memset( host_states, 0, hosts_qty );
-	/* Iterate over all the entries, looking for a starter		 */
-	xprintf( 1, ( "find starters.\n" ) );
-	iter = pool_iter_new( entries );
-	for(
-		e = pool_iter_next( iter );
-		e;
-		e = pool_iter_next( iter )
-	)	{
-		pool_iter_t *		subiter;
-		trigger_t *		t;
-
-		subiter = pool_iter_new(
-			host_states[e->host_id] ? enders : starters
-		);
-		for(
-			t = pool_iter_next( subiter );
-			t;
-			t = pool_iter_next( subiter )
-		)	{
-			regmatch_t	matches[10];
-
-			if( !regexec(
-				&t->re,
-				e->resid,
-				DIM(matches),
-				matches,
-				0
-			) )	{
-				/* Found a match			 */
-				e->trigger = t;
-				host_states[e->host_id] = 1;
-				break;
-			}
-		}
-		if( (e->trigger == NULL) && (subiter->pool == enders) ) {
-			host_states[e->host_id] = 0;
-		}
-		pool_iter_free( &subiter );
-	}
-}
-
 static	int
 only_messages(
 	const struct dirent *	de
@@ -726,7 +600,7 @@ main(
 	entries  = pool_new( sizeof(entry_t), NULL, NULL );
 	ignores  = pool_new( sizeof(trigger_t), NULL, NULL );
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "Xa:A:ci:I:lmno:rt:vy:" )) != EOF ) {
+	while( (c = getopt( argc, argv, "Xa:A:ci:I:lmnNo:rt:vy:" )) != EOF ) {
 		switch( c )	{
 		default:
 			fprintf(
@@ -748,6 +622,7 @@ main(
 			break;
 		case 'X':
 			++debug;
+			xprintf_set_debug( debug );
 			break;
 		case 'a':
 			add_pattern( triggers, optarg );
@@ -773,6 +648,9 @@ main(
 			break;
 		case 'n':
 			load_builtin_rules = 0;
+			break;
+		case 'N':
+			want_lineno = 1;
 			break;
 		case 'o':
 			ofile = optarg;
@@ -872,11 +750,11 @@ main(
 			perror( vdir );
 			abort();
 		}
-		xprintf( 1, ("%d message files.\n", nfiles) );
+		xprintf( 1, "%d message files", nfiles );
 		for( i = 0; i < nfiles; ++i )	{
 			struct dirent *	de = namelist[i];
 
-			xprintf( 2, ("%s\n", de->d_name) );
+			xprintf( 2, "%s", de->d_name );
 			if( !strncmp( de->d_name, "messages", 8 ) ) {
 				char	path[ PATH_MAX ];
 				snprintf(

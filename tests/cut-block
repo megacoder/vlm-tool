@@ -1,0 +1,22 @@
+Jun 12 21:09:45 tristr12db1 kernel: IOAPIC id 0 under DRHD base 0xf8ffe000
+Jun 12 21:09:45 tristr12db1 kernel: ------------[ cut here ]------------
+Jun 12 21:09:45 tristr12db1 kernel: WARNING: at drivers/pci/intr_remapping.c:671 enable_intr_remapping+0x6d/0x2a2()
+Jun 12 21:09:45 tristr12db1 kernel: Hardware name: ProLiant DL380p Gen8
+Jun 12 21:09:45 tristr12db1 kernel: Your BIOS is broken and requested that x2apic be disabled
+Jun 12 21:09:45 tristr12db1 kernel: This will leave your machine vulnerable to irq-injection attacks
+Jun 12 21:09:45 tristr12db1 kernel: Use 'intremap=no_x2apic_optout' to override BIOS request
+Jun 12 21:09:45 tristr12db1 kernel: Modules linked in:
+Jun 12 21:09:45 tristr12db1 kernel: Pid: 1, comm: swapper Not tainted 2.6.32-300.21.1.el6uek.x86_64 #1
+Jun 12 21:09:45 tristr12db1 kernel: Call Trace:
+Jun 12 21:09:45 tristr12db1 kernel: [<ffffffff81056f90>] warn_slowpath_common+0x7c/0x94
+Jun 12 21:09:45 tristr12db1 kernel: [<ffffffff81056fff>] warn_slowpath_fmt+0x41/0x43
+Jun 12 21:09:45 tristr12db1 kernel: [<ffffffff81b8767a>] enable_intr_remapping+0x6d/0x2a2
+Jun 12 21:09:45 tristr12db1 kernel: [<ffffffff81b6b682>] enable_IR+0x48/0x5f
+Jun 12 21:09:45 tristr12db1 kernel: [<ffffffff81b6b753>] enable_IR_x2apic+0xba/0x20f
+Jun 12 21:09:45 tristr12db1 kernel: [<ffffffff81b6975f>] native_smp_prepare_cpus+0x13d/0x375
+Jun 12 21:09:45 tristr12db1 kernel: [<ffffffff81b5c5d8>] kernel_init+0x81/0x1cb
+Jun 12 21:09:45 tristr12db1 kernel: [<ffffffff81012d2a>] child_rip+0xa/0x20
+Jun 12 21:09:45 tristr12db1 kernel: [<ffffffff81b5c557>] ? kernel_init+0x0/0x1cb
+Jun 12 21:09:45 tristr12db1 kernel: [<ffffffff81012d20>] ? child_rip+0x0/0x20
+Jun 12 21:09:45 tristr12db1 kernel: ---[ end trace a7919e7f17c0a725 ]---
+Jun 12 21:09:45 tristr12db1 kernel: Enabled IRQ remapping in xapic mode

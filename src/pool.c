@@ -11,7 +11,7 @@
 
 #define	POOL_CHUNK_SIZE	(getpagesize() * 4)
 
-static	void *		_inline
+static	void *
 xmalloc(
 	size_t const	size
 )
