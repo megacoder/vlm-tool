@@ -31,6 +31,7 @@ char const * const	builtin_triggers[] =	{
 	"don't",
 	"end_request",
 	"error",
+	"/etc/sysconfig/network-scripts",
 	"fail(ed(:.*)?|ure|ing)?",
 	"fenc(e,ing)",
 	"fsck",
