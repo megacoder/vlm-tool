@@ -11,7 +11,7 @@
 char const * const	builtin_triggers[] =	{
 	"abnormal",
 	"abo?rt(d)?",
-	"addrconf[(]",
+	"addrconf[(].*",
 	"access[[:space:]]beyond",
 	"asked[[:space:]]fo",
 	"bcm5709",
@@ -54,7 +54,7 @@ char const * const	builtin_triggers[] =	{
 	"lpfc",
 	"machine check events logged",
 	"mark as failed",
-	"martian",
+	"martian source.*",
 	"remaining active paths:",	/* Keep before 'multipathd'	 */
 	"multipathd",			/* after 'remaining active p..'  */
 	"netdev",
