@@ -15,9 +15,10 @@ char const * const	builtin_triggers[] =	{
 	"access[[:space:]]beyond",
 	"asked[[:space:]]fo",
 	"bcm5709",
+	"martian source.*",	/* Keep this before "bonding" 		 */
 	"blocked[[:space:]]for[[:space:]]more",
 	"becomes",
-	"bond(ing|[0-9.]+)?",
+	"bond(ing|[a-zA-Z]*[0-9.]+)",
 	"c-state",
 	"call[[:space:]]trace:",
 	"checker failed path",
@@ -54,7 +55,6 @@ char const * const	builtin_triggers[] =	{
 	"lpfc",
 	"machine check events logged",
 	"mark as failed",
-	"martian source.*",
 	"remaining active paths:",	/* Keep before 'multipathd'	 */
 	"multipathd",			/* after 'remaining active p..'  */
 	"netdev",
