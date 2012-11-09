@@ -30,6 +30,7 @@ char const * const	builtin_triggers[] =	{
 	"dlm",
 	"disagrees.*symbol.*",
 	"disk.*,.*o:.*$",
+	"do_irq:.*$",
 	"don't",
 	"el[0-9]debug",
 	"end_request",
