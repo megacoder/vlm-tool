@@ -49,11 +49,11 @@ static	char *		trace_items[] =	{
 };
 
 static	stanza_t	trace_stanza =	{
-	"trace",
-	trace_starters,
-	trace_items,
-	0,
-	50
+	.name	  = "trace",
+	.starters = trace_starters,
+	.items	  = trace_items,
+	.flags	  = 0,
+	.budget   = 50
 };
 
 /*
@@ -73,11 +73,35 @@ static	char *		task_items[] =	{
 };
 
 static	stanza_t	task_stanza =	{
-	"task",
-	task_starters,
-	task_items,
-	0,
-	5				/* No ender; programmer's trick	 */
+	.name	  = "task",
+	.starters = task_starters,
+	.items	  = task_items,
+	.flags	  = 0,
+	.budget   = 2
+};
+
+/*
+ *------------------------------------------------------------------------
+ * PVM-related messages
+ *------------------------------------------------------------------------
+ */
+
+static	char *		pvm_starters[] =	{
+	"You might have to change the root device.*",
+	NULL				/* Must be last			 */
+};
+
+static	char *		pvm_items[] =	{
+	".*",				/* Highlight the entire line	 */
+	NULL				/* Must be last			 */
+};
+
+static	stanza_t	pvm_stanza =	{
+	.name	  = "pvm",
+	.starters = pvm_starters,
+	.items	  = pvm_items,
+	.flags	  = 0,
+	.budget   = 2			/* No ender; programmer's trick	 */
 };
 
 /*
@@ -90,6 +114,7 @@ stanza_t *	stanzas[] = {
 	&oops_stanza,
 	&trace_stanza,
 	&task_stanza,
+	&pvm_stanza,
 	NULL				/* Must be last			 */
 };
 
