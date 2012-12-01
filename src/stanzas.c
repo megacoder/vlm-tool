@@ -101,7 +101,7 @@ static	stanza_t	pvm_stanza =	{
 	.starters = pvm_starters,
 	.items	  = pvm_items,
 	.flags	  = 0,
-	.budget   = 2			/* No ender; programmer's trick	 */
+	.budget   = 3			/* No ender; programmer's trick	 */
 };
 
 /*
