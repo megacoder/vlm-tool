@@ -800,10 +800,10 @@ main(
 	if( do_stats )	{
 		static char const	fmt[] = "%15lu %s.\n";
 
-		printf( fmt, log_stats.read,		"entries read" );
-		printf( fmt, log_stats.dropped,		"entries dropped" );
-		printf( fmt, log_stats.flattened,	"entries kept" );
-		printf( fmt, log_stats.output,		"entries output" );
+		fprintf( stderr, fmt, log_stats.read,	"entries read" );
+		fprintf( stderr, fmt, log_stats.dropped, "entries dropped" );
+		fprintf( stderr, fmt, log_stats.flattened, "entries kept" );
+		fprintf( stderr, fmt, log_stats.output,	"entries output" );
 	}
 	/* Get out of Dodge						 */
 	return( nonfatal ? 1 : 0 );
