@@ -32,6 +32,13 @@
 
 #include <vlm-tool.h>
 
+typedef	struct	log_stats_s	{
+	unsigned long	read;
+	unsigned long	dropped;
+	unsigned long	flattened;
+	unsigned long	output;
+} log_stats_t;
+
 static	char const *	me = "vlm_tool";
 static	unsigned	nonfatal;
 static	char const *	thumb = "-";
@@ -54,6 +61,8 @@ static	unsigned	debug;
 static	size_t		hlen;
 static	pool_t *	ignores;
 static	int		want_lineno;
+static	log_stats_t	log_stats;
+static	unsigned	do_stats;
 
 static char const	sgr_red[] =	{
 	"\033[1;31;22;47m"		/* Bright red text, dirty white bg */
@@ -222,6 +231,8 @@ process(
 		int		keep;
 		pool_iter_t *	iter;
 
+		/* Count this line					 */
+		log_stats.read += 1;
 		/* Drop trailing whitespace				 */
 		for( bp = buf + l; (bp > buf) && isspace(bp[-1]); --bp ) {
 			bp[-1] = '\0';
@@ -252,6 +263,7 @@ process(
 		pool_iter_free( &iter );
 		if( fired )	{
 			/* Do not want this line at all			 */
+			log_stats.dropped += 1;
 			continue;
 		}
 		/* Pick a matching trigger				 */
@@ -345,6 +357,7 @@ flatten_and_sort_entries(
 			sizeof(flat_entries[0]),
 			compar
 		);
+		log_stats.flattened = entries_qty;
 	} while( 0 );
 	pool_iter_free( &iter );
 }
@@ -366,6 +379,8 @@ print_one_entry(
 	static const char	fmt[] = "%-*s ";
 	struct tm *		tm;
 
+	/* Count it							 */
+	log_stats.output += 1;
 	/* First, the thumb (if marked)					 */
 	if( mark_entries )	{
 		printf(
@@ -600,7 +615,7 @@ main(
 	entries  = pool_new( sizeof(entry_t), NULL, NULL );
 	ignores  = pool_new( sizeof(trigger_t), NULL, NULL );
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "Xa:A:ci:I:lmnNo:rt:vy:" )) != EOF ) {
+	while( (c = getopt( argc, argv, "Xa:A:ci:I:lmnNo:rst:vy:" )) != EOF ) {
 		switch( c )	{
 		default:
 			fprintf(
@@ -658,6 +673,9 @@ main(
 		case 'r':
 			show_rules = 1;
 			mark_entries = 1;
+			break;
+		case 's':
+			do_stats += 1;
 			break;
 		case 't':
 			thumb = optarg;
@@ -778,6 +796,15 @@ main(
 	}
 	/* Print results						 */
 	print_entries();
+	/* Want stats?							 */
+	if( do_stats )	{
+		static char const	fmt[] = "%15lu %s.\n";
+
+		printf( fmt, log_stats.read,		"entries read" );
+		printf( fmt, log_stats.dropped,		"entries dropped" );
+		printf( fmt, log_stats.flattened,	"entries kept" );
+		printf( fmt, log_stats.output,		"entries output" );
+	}
 	/* Get out of Dodge						 */
 	return( nonfatal ? 1 : 0 );
 }
