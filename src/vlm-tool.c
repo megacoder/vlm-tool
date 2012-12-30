@@ -63,6 +63,8 @@ static	pool_t *	ignores;
 static	int		want_lineno;
 static	log_stats_t	log_stats;
 static	unsigned	do_stats;
+static	time_t		gap_threshold = 10 * 60;
+static	unsigned	do_gap;
 
 static char const	sgr_red[] =	{
 	"\033[1;31;22;47m"		/* Bright red text, dirty white bg */
@@ -381,6 +383,20 @@ print_one_entry(
 
 	/* Count it							 */
 	log_stats.output += 1;
+	/* Mind the gap							 */
+	if( do_gap )	{
+		static	time_t	last;
+		int		gapped;
+
+		gapped = ' ';
+		if( last )	{
+			if( (e->timestamp - last) >= gap_threshold )	{
+				gapped = '>';
+			}
+		}
+		putchar( gapped );
+		last = e->timestamp;
+	}
 	/* First, the thumb (if marked)					 */
 	if( mark_entries )	{
 		printf(
@@ -615,7 +631,7 @@ main(
 	entries  = pool_new( sizeof(entry_t), NULL, NULL );
 	ignores  = pool_new( sizeof(trigger_t), NULL, NULL );
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "Xa:A:ci:I:lmnNo:rst:vy:" )) != EOF ) {
+	while( (c = getopt( argc, argv, "Xa:A:cG:gi:I:lmnNo:rst:vy:" )) != EOF ) {
 		switch( c )	{
 		default:
 			fprintf(
@@ -648,6 +664,13 @@ main(
 		case 'c':
 			colorize = 1;
 			mark_entries = 1;
+			break;
+		case 'g':
+			do_gap = 1;
+			mark_entries = 1;
+			break;
+		case 'G':
+			gap_threshold = strtoul( optarg, NULL, 10 );
 			break;
 		case 'i':
 			add_pattern( ignores, optarg );
