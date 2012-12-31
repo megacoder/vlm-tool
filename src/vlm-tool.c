@@ -386,15 +386,14 @@ print_one_entry(
 	/* Mind the gap							 */
 	if( do_gap )	{
 		static	time_t	last;
-		int		gapped;
 
-		gapped = ' ';
 		if( last )	{
-			if( (e->timestamp - last) >= gap_threshold )	{
-				gapped = '>';
+			time_t const	delta = e->timestamp - last;
+
+			if( delta >= gap_threshold )	{
+				printf( "\n%s %lu-second gap; possible hang situation. ***\n\n", thumb, delta );
 			}
 		}
-		putchar( gapped );
 		last = e->timestamp;
 	}
 	/* First, the thumb (if marked)					 */

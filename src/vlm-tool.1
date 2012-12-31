@@ -6,8 +6,6 @@ vlm-tool \- coalesce /var/log/messages from different hosts and filter
 [\fI-a\fR re]
 [\fI-A\fR FILE]
 [\fI-c\fR]
-[\fI-g\fR]
-[\fI-G\fR FILE]
 [\fI-i\fR re]
 [\fI-I\fR FILE]
 [\fI-l\fR]
@@ -16,10 +14,8 @@ vlm-tool \- coalesce /var/log/messages from different hosts and filter
 [\fI-N\fR]
 [\fI-o\fR FILE]
 [\fI-r\fR]
-[\fI-s\fR]
 [\fI-t\fR THUMB]
 [\fI-v\fR]
-[\fI-X\fR]
 [\fI-y\fR year]
 [\fI/var/log/messages\fR]...
 .SH DESCRIPTION
@@ -72,10 +68,6 @@ Bulk-load a list of trigger regular expressions from \fBFILE\fR, one per line.
 .IP "-c" 10em
 Colorize the matching text in each entry, using ANSI escape codes.
 Implies \fI-m\fP switch.
-.IP "-g" 10em
-Turns on gap analysis, which marks the first message after a selectale time period.
-.IP "-G secs" 10em
-Minimal interval between to log messages before a gap is declared.  Defaults to 10 minutes.
 .IP "-i re" 10em
 Totally ignore incoming lines matching regular expression \fBre\fR.
 .IP "-I FILE" 10em
@@ -99,21 +91,17 @@ Write output to \fBFILE\fR instead of to the standard output.
 .IP "-r" 10em
 Show the matching trigger rule which caused the entry to be marked.
 Implies \fI-m\fP switch.
-.IP "-s" 10em
-Display internal statistics.
 .IP "-t thumb" 10em
 Use \fBthumb\fP to mark matching entries instead of the default of \fB-\fP (minus).
 The default setting makes it easy to search for matches in less(1):
 \fB/^-\fP will do it.
 .IP "-v" 10em
 Display program name, version, and then exit.
-.IP "-X" 10em
-Trust me.  You do not want to know...
 .IP "-y year" 10em
 Log file entries lack the year specifier.
 By default, the current year is used; we need this to correctly calculate leap dates.
 .SH VERSION
-The information here relates to version 2.0.9; your mileage may vary.
+The information here relates to version 2.0.10; your mileage may vary.
 .SH AUTHOR
 Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 .SH COPYRIGHT
