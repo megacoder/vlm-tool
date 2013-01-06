@@ -37,11 +37,12 @@ typedef	struct	log_stats_s	{
 	unsigned long	dropped;
 	unsigned long	flattened;
 	unsigned long	output;
+	unsigned long	poorly_formed;
 } log_stats_t;
 
 static	char const *	me = "vlm_tool";
 static	unsigned	nonfatal;
-static	char const *	thumb = "-";
+static	char const *	thumb = "- ";
 static	char *		no_thumb;
 static	unsigned	list_triggers;
 static	unsigned	mark_entries;
@@ -294,6 +295,7 @@ process(
 			/* Convert info to timestamp			 */
 			if(calc_timestamp( ts, &(e->timestamp) ) ) {
 				/* Bad date, show it first in list	 */
+				log_stats.poorly_formed += 1;
 				memset(
 					&(e->timestamp),
 					0,
@@ -391,7 +393,7 @@ print_one_entry(
 			time_t const	delta = e->timestamp - last;
 
 			if( delta >= gap_threshold )	{
-				printf( "\n%s %lu-second gap; possible hang situation. ***\n\n", thumb, delta );
+				printf( "\n%s%lu-second gap; possible hang situation. ***\n\n", thumb, delta );
 			}
 		}
 		last = e->timestamp;
@@ -399,7 +401,7 @@ print_one_entry(
 	/* First, the thumb (if marked)					 */
 	if( mark_entries )	{
 		printf(
-			"%s ",
+			"%s",
 			e->trigger == NULL ? no_thumb : thumb
 		);
 	}
@@ -421,7 +423,7 @@ print_one_entry(
 		);
 	}
 	/* Second, the date						 */
-	tm = gmtime( &e->timestamp );
+	tm = localtime( &e->timestamp );
 	printf( "%.15s ", asctime(tm)+4 );
 	/* Third, the host name					 */
 	if( colorize )	{
@@ -823,6 +825,7 @@ main(
 		static char const	fmt[] = "%15lu %s.\n";
 
 		fprintf( stderr, fmt, log_stats.read,	"entries read" );
+		fprintf( stderr, fmt, log_stats.poorly_formed, "poorly-formed entries" );
 		fprintf( stderr, fmt, log_stats.dropped, "entries dropped" );
 		fprintf( stderr, fmt, log_stats.flattened, "entries kept" );
 		fprintf( stderr, fmt, log_stats.output,	"entries output" );
