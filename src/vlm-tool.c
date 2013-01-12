@@ -428,7 +428,7 @@ print_one_entry(
 				if( bp == buffer )	{
 					bp += sprintf( bp, " %lu-second", (unsigned long) delta );
 				}
-				printf( "\n\n%s***%s gap detected. ***\n\n",
+				printf( "\n%s***%s gap detected. ***\n\n",
 					thumb,
 					buffer
 				);
