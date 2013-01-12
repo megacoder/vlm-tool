@@ -32,6 +32,10 @@
 
 #include <vlm-tool.h>
 
+#define	SEC_PER_MINUTE	(60UL)
+#define	SEC_PER_HOUR	(SEC_PER_MINUTE * 60UL)
+#define	SEC_PER_DAY	(SEC_PER_HOUR * 24UL)
+
 typedef	struct	log_stats_s	{
 	unsigned long	read;
 	unsigned long	dropped;
@@ -390,10 +394,32 @@ print_one_entry(
 		static	time_t	last;
 
 		if( last )	{
-			time_t const	delta = e->timestamp - last;
+			time_t		delta;
 
+			delta = e->timestamp - last;
 			if( delta >= gap_threshold )	{
-				printf( "\n%s%lu-second gap; possible hang situation. ***\n\n", thumb, delta );
+				time_t	days;
+				time_t	hours;
+				time_t	minutes;
+
+				days = delta / SEC_PER_DAY;
+				delta -= (days * SEC_PER_DAY);
+				hours = delta / SEC_PER_HOUR;
+				delta -= (hours * SEC_PER_HOUR);
+				minutes = delta / SEC_PER_MINUTE;
+				delta -= (minutes * SEC_PER_MINUTE);
+				printf(
+					"\n%s"
+					"%lu-day "
+					"%lu-hour "
+					"%lu-minute "
+					"%lu-second gap. ***\n\n",
+					thumb,
+					days,
+					hours,
+					minutes,
+					delta
+				);
 			}
 		}
 		last = e->timestamp;
