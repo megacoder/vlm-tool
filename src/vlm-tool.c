@@ -398,27 +398,39 @@ print_one_entry(
 
 			delta = e->timestamp - last;
 			if( delta >= gap_threshold )	{
+				char	buffer[ BUFSIZ + 1 ];
+				char *	bp;
 				time_t	days;
 				time_t	hours;
 				time_t	minutes;
+				time_t	seconds;
 
-				days = delta / SEC_PER_DAY;
-				delta -= (days * SEC_PER_DAY);
-				hours = delta / SEC_PER_HOUR;
-				delta -= (hours * SEC_PER_HOUR);
-				minutes = delta / SEC_PER_MINUTE;
-				delta -= (minutes * SEC_PER_MINUTE);
-				printf(
-					"\n%s"
-					"%lu-day "
-					"%lu-hour "
-					"%lu-minute "
-					"%lu-second gap. ***\n\n",
+				seconds = delta;
+				days = seconds / SEC_PER_DAY;
+				seconds -= (days * SEC_PER_DAY);
+				hours = seconds / SEC_PER_HOUR;
+				seconds -= (hours * SEC_PER_HOUR);
+				minutes = seconds / SEC_PER_MINUTE;
+				seconds -= (minutes * SEC_PER_MINUTE);
+				bp = buffer;
+				if( days )	{
+					bp += sprintf( bp, " %lu-day", (unsigned long) days );
+				}
+				if( hours )	{
+					bp += sprintf( bp, " %lu-hour", (unsigned long) hours );
+				}
+				if( minutes )	{
+					bp += sprintf( bp, " %lu-minute", (unsigned long) minutes );
+				}
+				if( seconds )	{
+					bp += sprintf( bp, " %lu-second", (unsigned long) seconds );
+				}
+				if( bp == buffer )	{
+					bp += sprintf( bp, " %lu-second", (unsigned long) delta );
+				}
+				printf( "\n%s***%s gap detected. ***\n\n",
 					thumb,
-					days,
-					hours,
-					minutes,
-					delta
+					buffer
 				);
 			}
 		}
