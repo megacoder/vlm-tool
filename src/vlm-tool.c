@@ -70,6 +70,7 @@ static	log_stats_t	log_stats;
 static	unsigned	do_stats;
 static	time_t		gap_threshold = 10 * 60;
 static	unsigned	do_gap;
+static	unsigned	iso_date;
 
 static char const	sgr_red[] =	{
 	"\033[1;31;22;47m"		/* Bright red text, dirty white bg */
@@ -84,47 +85,70 @@ calc_timestamp(
 	time_t *	t
 )
 {
-	static char const months[12][4] =	{
-		{ "Jan\0" },
-		{ "Feb\0" },
-		{ "Mar\0" },
-		{ "Apr\0" },
-		{ "May\0" },
-		{ "Jun\0" },
-		{ "Jul\0" },
-		{ "Aug\0" },
-		{ "Sep\0" },
-		{ "Oct\0" },
-		{ "Nov\0" },
-		{ "Dec\0" },
-	};
 	int		retval;
-	char		mmddhhmmss[16];
 	struct tm	tm;
 
 	retval = -1;
 	do	{
-		/* 11111						 */
-		/* 012345678901234					 */
-		/* MMM DD HH:MM:SS					 */
-		memcpy( mmddhhmmss, timestamp, 15 );
-		mmddhhmmss[ 3] = '\0';
-		mmddhhmmss[ 6] = '\0';
-		mmddhhmmss[ 9] = '\0';
-		mmddhhmmss[12] = '\0';
-		tm.tm_sec      = strtoul( mmddhhmmss+13, NULL, 10 );
-		tm.tm_min      = strtoul( mmddhhmmss+10, NULL, 10 );
-		tm.tm_hour     = strtoul( mmddhhmmss+7, NULL, 10 );
-		tm.tm_mday     = strtoul( mmddhhmmss+4, NULL, 10 );
-		/* Pick the month out of the line-up			 */
-		for( tm.tm_mon = 0; tm.tm_mon < 12; tm.tm_mon += 1 )	{
-			if(!strcmp( mmddhhmmss, months[tm.tm_mon] ) )	{
-				break;
+		if( unlikely(iso_date) )	{
+			char		yyyymmddhhmmss[ 20 ];
+			/*           1111111111				 */
+			/* 01234567890123456789				 */
+			/* YYYY-MM-DDTHH:MM:SS				 */
+			memcpy( yyyymmddhhmmss, timestamp, 19 );
+			yyyymmddhhmmss[  4 ] = '\0';	/* Year		 */
+			yyyymmddhhmmss[  7 ] = '\0';	/* Month	 */
+			yyyymmddhhmmss[ 10 ] = '\0';	/* Day		 */
+			yyyymmddhhmmss[ 13 ] = '\0';	/* Hour		 */
+			yyyymmddhhmmss[ 16 ] = '\0';	/* Minute	 */
+			yyyymmddhhmmss[ 19 ] = '\0';	/* Second	 */
+
+			tm.tm_year  = strtoul( yyyymmddhhmmss +  0, NULL, 10 ) - 1900;
+			tm.tm_mon   = strtoul( yyyymmddhhmmss +  5, NULL, 10 );
+			tm.tm_mday  = strtoul( yyyymmddhhmmss +  8, NULL, 10 );
+			tm.tm_hour  = strtoul( yyyymmddhhmmss + 10, NULL, 10 );
+			tm.tm_min   = strtoul( yyyymmddhhmmss + 14, NULL, 10 );
+			tm.tm_sec   = strtoul( yyyymmddhhmmss + 17, NULL, 10 );
+			tm.tm_isdst = -1;
+
+		} else	{
+			static char const months[12][4] =	{
+				{ "Jan\0" },
+				{ "Feb\0" },
+				{ "Mar\0" },
+				{ "Apr\0" },
+				{ "May\0" },
+				{ "Jun\0" },
+				{ "Jul\0" },
+				{ "Aug\0" },
+				{ "Sep\0" },
+				{ "Oct\0" },
+				{ "Nov\0" },
+				{ "Dec\0" },
+			};
+			char		mmddhhmmss[16];
+			/*	     11111				 */
+			/* 012345678901234				 */
+			/* MMM DD HH:MM:SS				 */
+			memcpy( mmddhhmmss, timestamp, 15 );
+			mmddhhmmss[ 3] = '\0';
+			mmddhhmmss[ 6] = '\0';
+			mmddhhmmss[ 9] = '\0';
+			mmddhhmmss[12] = '\0';
+			tm.tm_sec      = strtoul( mmddhhmmss+13, NULL, 10 );
+			tm.tm_min      = strtoul( mmddhhmmss+10, NULL, 10 );
+			tm.tm_hour     = strtoul( mmddhhmmss+7, NULL, 10 );
+			tm.tm_mday     = strtoul( mmddhhmmss+4, NULL, 10 );
+			/* Pick the month out of the line-up		 */
+			for( tm.tm_mon = 0; tm.tm_mon < 12; tm.tm_mon += 1 )	{
+				if(!strcmp( mmddhhmmss, months[tm.tm_mon] ) )	{
+					break;
+				}
 			}
+			/* Fill in intuited year			 */
+			tm.tm_year = year - 1900;
+			tm.tm_isdst = -1;
 		}
-		/* Fill in intuited year				 */
-		tm.tm_year = year - 1900;
-		tm.tm_isdst = -1;
 		/* Convert to time_t					 */
 		*t = mktime( &tm );
 		/* Tell if we've screwed up the date			 */
@@ -670,7 +694,7 @@ main(
 	entries  = pool_new( sizeof(entry_t), NULL, NULL );
 	ignores  = pool_new( sizeof(trigger_t), NULL, NULL );
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "Xa:A:cG:gi:I:lmnNo:rst:vy:" )) != EOF ) {
+	while( (c = getopt( argc, argv, "Xa:A:cdG:gi:I:lmnNo:rst:vy:" )) != EOF ) {
 		switch( c )	{
 		default:
 			fprintf(
@@ -703,6 +727,9 @@ main(
 		case 'c':
 			colorize = 1;
 			mark_entries = 1;
+			break;
+		case 'd':
+			iso_date = 1;
 			break;
 		case 'g':
 			do_gap = 1;

@@ -6,6 +6,9 @@ vlm-tool \- coalesce /var/log/messages from different hosts and filter
 [\fI-a\fR re]
 [\fI-A\fR FILE]
 [\fI-c\fR]
+[\fI-d\fR]
+[\fI-g\fR]
+[\fI-G\fR secs]
 [\fI-i\fR re]
 [\fI-I\fR FILE]
 [\fI-l\fR]
@@ -52,6 +55,10 @@ Currently, the colors may not be changed.
 As an aide to visually grouping related entries together, host names are
 highlighted using separate colors.
 Host name colors are recycled as needed.
+.PP
+Using the \fI-d\fR switch interprets the log entry timestamps in ISO format instead of the traditional format.
+.PP
+The \fI-g\fR switch enables entry gap detection.  By default, a gap is declared when more than 10 minutes between entries are found.  The \fI-G\fR switch may be used to specify an alternative number of seconds.
 .SH POSTPROCESSING
 .PP
 When any of the marking options (\fI-c\fR or \fI-m\fR) are used, all of the
