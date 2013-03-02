@@ -60,6 +60,7 @@ char const * const	builtin_triggers[] =	{
 	"netdev",
 	"nfs:.*not[[:space:]]responding",
 	"nfsd:",
+	"nss_ldap:.*",
 	"no[[:space:]]space[[:space:]]left",
 	"not[[:space:]]supported",
 	"not[[:space:]]*within[[:space:]]*permissible[[:space:]]range",
