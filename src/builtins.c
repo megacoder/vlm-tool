@@ -39,6 +39,7 @@ char const * const	builtin_triggers[] =	{
 	"/etc/sysconfig/network-scripts",
 	"fail(ed(:.*)?|ure|ing|-?over)?",
 	"fenc(e,ing)",
+	"floating-point",
 	"fsck",
 	"general protection rip:",
 	"h[au]ng",
