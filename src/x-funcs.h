@@ -3,6 +3,7 @@
 
 #include <malloc.h>
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #include <gcc-compat.h>
