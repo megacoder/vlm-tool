@@ -58,7 +58,7 @@ char const * const	builtin_triggers[] =	{
 	"lpfc",
 	"machine check events logged",
 	"mark as failed",
-	"remaining active paths:",	/* Keep before 'multipathd'	 */
+	"remaining active paths:[[:space:]]*[[:digit:]]*",	/* Keep before 'multipathd'	 */
 	"multipathd",			/* after 'remaining active p..'  */
 	"netdev",
 	"nfs:.*not[[:space:]]responding",
