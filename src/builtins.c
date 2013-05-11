@@ -49,6 +49,7 @@ char const * const	builtin_triggers[] =	{
 	"i?scsi",
 	"kdump(:.*)?",
 	"kernel command line:.*",
+	"khash_super_prune_nolock",
 	"kill(ing)?",
 	"link",
 	"redhat.com",			/* Keep before 'linux version'	 */
