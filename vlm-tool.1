@@ -3,20 +3,87 @@
 vlm-tool \- intelligent grep(1) for /var/log/messages files
 .SH SYNOPSIS
 .B vlm-tool
-[\fIOPTION\fR]... [\fINAME\fR|\fINUMBER\fR]...
+[\fIOPTION\fR]... [\fIfile\fR...]
 .SH DESCRIPTION
 .PP
 This man(1) page gives only the command-line usage.
-See the \fIREADME\fP file for full details.
+I know these are a log of options; see the \fIREADME\fP file for full details.
 .TP
-\fB\-a\fR, \fB--all\fP
-display all known \fIerrno\fP codes, names, and descriptions.
+\fB\-X\fP
+increase level of debug output.
+Not useful to anyone other than the developer and probably not even him.
 .TP
-\fB\-n\fR, \fB--network\fP
-display network error codes, names, and descriptions.
+\fB\-a\fP \fIpattern\fP
+Add \fIpattern\fP to list of regular expressions to find.
 .TP
-\fB\-x\fR, \fB--X11\fP
-display X11 error codes, names, and descriptions.
+\fB\-A\fP \fIfile\fP
+Add list of regular expressions from \fIfile\fP, one pattern per line.
+.TP
+\fB\-c\fP
+Colorize the output.
+This assigns each host a different color, so that finding related entries is easier.
+You do not get any choice about the color selection.
+.TP
+\fB\-d\fP
+Log entries have an ISO 8601 date instead of the usual.
+.TP
+\fB\-G\fP \fIsecs\fP
+Recognize a time gap if two log entries for this host are \fIsecs\fP apart.
+.TP
+\fB\-g\fP
+Flag gaps in the log files.
+A gap is recognized when the timestamps on two consecutive line from the same host are more than \fIN\fP seconds apart.
+By default, \fIN\fP is 10 minutes.
+.TP
+\fB\-I\fP \fIfile\fP
+Read a list of patterns, one per line, that identifies log entries to be ignored.
+.TP
+\fB\-i\fP \fIpattern\fP
+Ignore log entries matching \fIpattern\fP.
+.TP
+\fB\-l\fP
+Output the table of default trigger patterns.
+No other switches are honored if \fB-l\fP is used.
+.TP
+\fB\-m\fP
+Output all log entries.
+Entries matching a trigger pattern will be marked with the \fIthumb\P.
+.TP
+\fB\-n\fP
+Do not load the table of built-in trigger rules.
+.TP
+\fB\-N\fP
+Prefix each output line with a number.
+The first line output is one, the next two, and so on.
+Ignored or unmatched lines are not counted.
+.TP
+\fB\-o\fP \fIofile\fP
+Write the output to \fIofile\fP instead of the default \fIstdout\fP.
+.TP
+\fB\-r\fP
+Show the trigger rule which caused this line to be selected.
+.TP
+\fB\-s\fP
+Output some statistics at the end.
+No really sure why I did this.
+.TP
+\fB\-t\fP \fIthumb\fP
+Use \fIthumb\fP to mark a matched log entry.
+The default thumb is \fI- \fP, to make searching for an interesting log entry simple but you may prefer a different pattern.
+Any size thumb will work.
+.TP
+\fB\-v\fP
+Print the program version and exit.
+.TP
+\fB\-y\fP \fIyear\fP
+Normally log entries do not include the year value.
+The current year is assumed, but if you can specify a different year if needed.
+
+.PP
+Visually scanning a \fI/var/log/messages\fP file with hundreds of thousands of entries is boring.
+On a single-server setup, this tool identifies interesting log file entries for you.
+.PP
+In a clustered environment, the input files are sorted internally by host and then by date.
 .SH AUTHOR
 Written by Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 .SH COPYRIGHT
@@ -25,4 +92,6 @@ Copyright \(co 2013 Tommy Reynolds; all rights reserved; international copyright
 This code is licensed under the GPL v2, and no other.
 .SH "SEE ALSO"
 .PP
-\fIerrno(\fP3\fI)\fP
+\fIlogger(\fP1\fI)\fP
+\fIgrep(\fP1\fI)\fP
+\fIsyslog(\fP3\fI)\fP
