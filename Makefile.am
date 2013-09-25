@@ -7,3 +7,5 @@ EXTRA_DIST=AUTHORS COPYING ChangeLog INSTALL NEWS README README.md     \
 
 README README.html: README.md .FORCE
 	markdown2 <README.md | tee README.html | lynx -dump -stdin >README
+
+man_MANS = vlm-tool.1
