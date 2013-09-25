@@ -90,6 +90,10 @@ Written by Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 Copyright \(co 2013 Tommy Reynolds; all rights reserved; international copyright secured.
 .PP
 This code is licensed under the GPL v2, and no other.
+.PP
+Some log entries consist of multiple lines and form a \fIstanza\fP.
+For example, the string \fBCall Trace:\fP marks a register dump and stack trace.
+\fBvlm-tool\fP detects several typs of the stanzas and tries to mark the entire set of lines.
 .SH "SEE ALSO"
 .PP
 \fIlogger(\fP1\fI)\fP
