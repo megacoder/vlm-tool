@@ -26,7 +26,7 @@ static	stanza_t	oops_stanza =	{
 	.name	  = "oops",
 	.starters = oops_starters,
 	.items	  = oops_items,
-	.flags	  = STANZA_STOP,
+	.flags	  = (STANZA_STOP|STANZA_ISLAST),
 	.budget   = 50
 };
 
@@ -52,8 +52,32 @@ static	stanza_t	trace_stanza =	{
 	.name	  = "trace",
 	.starters = trace_starters,
 	.items	  = trace_items,
-	.flags	  = 0,
+	.flags	  = STANZA_CONT,
 	.budget   = 50
+};
+
+/*
+ *------------------------------------------------------------------------
+ * Kernel errors which show memory information
+ *------------------------------------------------------------------------
+ */
+
+static	char *		mem_starters[] =	{
+	"^kernel: Mem-Info:",
+	NULL				/* Must be last			 */
+};
+
+static	char *		mem_items[] =	{
+	".*pages non-shared",
+	NULL				/* Must be last			 */
+};
+
+static	stanza_t	mem_stanza =	{
+	.name	  = "meminfo",
+	.starters = mem_starters,
+	.items	  = mem_items,
+	.flags	  = (STANZA_STOP|STANZA_ISLAST),
+	.budget   = 200
 };
 
 /*
@@ -76,7 +100,7 @@ static	stanza_t	task_stanza =	{
 	.name	  = "task",
 	.starters = task_starters,
 	.items	  = task_items,
-	.flags	  = 0,
+	.flags	  = STANZA_CONT,
 	.budget   = 2
 };
 
@@ -100,7 +124,7 @@ static	stanza_t	pvm_stanza =	{
 	.name	  = "pvm",
 	.starters = pvm_starters,
 	.items	  = pvm_items,
-	.flags	  = 0,
+	.flags	  = STANZA_CONT,
 	.budget   = 3			/* No ender; programmer's trick	 */
 };
 
@@ -113,6 +137,7 @@ static	stanza_t	pvm_stanza =	{
 stanza_t *	stanzas[] = {
 	&oops_stanza,
 	&trace_stanza,
+	&mem_stanza,
 	&task_stanza,
 	&pvm_stanza,
 	NULL				/* Must be last			 */

@@ -13,6 +13,7 @@ typedef	struct	stanza_s	{
 	uint16_t	flags;		/* Flags			 */
 #define	STANZA_CONT	(0U<<0)		/* Rule match extends stanza	 */
 #define	STANZA_STOP	(1U<<0)		/* Rule match ends stanza	 */
+#define	STANZA_ISLAST	(1U<<1)		/* Mark stop line of stanza	 */
 	uint16_t	budget;		/* Region ends after line qty	 */
 	/* Keep overhead stuff below, so we don't bork the inits later	 */
 	pool_t *	starter_pool;	/* Pool of stanza start rules	 */

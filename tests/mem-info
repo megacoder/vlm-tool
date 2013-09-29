@@ -1,0 +1,154 @@
+Jul  8 13:55:08 xdb3db01 auditd[6058]: Audit daemon rotating log files
+Jul  8 13:55:08 xdb3db01 auditd[6058]: Audit daemon rotating log files
+Jul  8 13:59:16 xdb3db01 lsidiagd-monitor: lsidiagd is alive
+Jul  8 13:59:16 xdb3db01 lsidiagd-monitor: lsidiagd is alive
+Jul  8 15:25:14 xdb3db01 kernel: swapper: page allocation failure. order:2, mode:0x0
+Jul  8 15:25:14 xdb3db01 kernel: Pid: 0, comm: swapper Not tainted 2.6.32-400.21.1.el5uek #1
+Jul  8 15:25:14 xdb3db01 kernel: Call Trace:
+Jul  8 15:25:14 xdb3db01 kernel:  <IRQ>  [<ffffffff810de4bc>] __alloc_pages_nodemask+0x524/0x595
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff8110e11b>] kmem_getpages+0x4f/0xf4
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff8110e318>] fallback_alloc+0x158/0x1ce
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff8110e4af>] ____cache_alloc_node+0x121/0x134
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff8110f848>] kmem_cache_alloc+0x7f/0xf7
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffffa02d69ef>] rds_ib_recv_refill+0x1de/0x524 [rds_rdma]
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffffa02d7350>] rds_ib_recv_cqe_handler+0x3fd/0x441 [rds_rdma]
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffffa02d5383>] poll_cq+0x4a/0x88 [rds_rdma]
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffffa02d51e0>] ? tasklet_schedule+0x1a/0x1c [rds_rdma]
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffffa02d5fa5>] rds_ib_tasklet_fn_recv+0x62/0xe6 [rds_rdma]
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff8105f1ad>] tasklet_action+0x79/0xe0
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff8105e9d9>] __do_softirq+0xd7/0x19e
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff810af524>] ? handle_IRQ_event+0x66/0x120
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff81012f2c>] call_softirq+0x1c/0x30
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff810146d5>] do_softirq+0x46/0x89
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff8105e85e>] irq_exit+0x3b/0x7a
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff8145d7e1>] do_IRQ+0x99/0xb0
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff81012753>] ret_from_intr+0x0/0x11
+Jul  8 15:25:14 xdb3db01 kernel:  <EOI>  [<ffffffff81019a4a>] ? mwait_idle+0x74/0x7f
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff81019a3d>] ? mwait_idle+0x67/0x7f
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff81010d6f>] ? cpu_idle+0xa5/0xd4
+Jul  8 15:25:14 xdb3db01 kernel:  [<ffffffff81453143>] ? start_secondary+0x1fd/0x23c
+Jul  8 15:25:14 xdb3db01 kernel: Mem-Info:
+Jul  8 15:25:14 xdb3db01 kernel: Node 0 DMA per-cpu:
+Jul  8 15:25:14 xdb3db01 kernel: CPU    0: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    1: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    2: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    3: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    4: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    5: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    6: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    7: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    8: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    9: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   10: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   11: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   12: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   13: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   14: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   15: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   16: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   17: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   18: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   19: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   20: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   21: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   22: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   23: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   24: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   25: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   26: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   27: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   28: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   29: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   30: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   31: hi:    0, btch:   1 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: Node 0 DMA32 per-cpu:
+Jul  8 15:25:14 xdb3db01 kernel: CPU    0: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    1: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    2: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    3: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    4: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    5: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    6: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    7: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    8: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU    9: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   10: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   11: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   12: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   13: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   14: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   15: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   16: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   17: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   18: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   19: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   20: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   21: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   22: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   23: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   24: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   25: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   26: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   27: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   28: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   29: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   30: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: CPU   31: hi:  186, btch:  31 usd:   0
+Jul  8 15:25:14 xdb3db01 kernel: Node 0 Normal per-cpu:
+Jul  8 15:25:14 xdb3db01 kernel: CPU    0: hi:  186, btch:  31 usd:  67
+Jul  8 15:25:14 xdb3db01 kernel: CPU    1: hi:  186, btch:  31 usd:  51
+Jul  8 15:25:14 xdb3db01 kernel: CPU    2: hi:  186, btch:  31 usd: 167
+Jul  8 15:25:14 xdb3db01 kernel: CPU    3: hi:  186, btch:  31 usd: 177
+Jul  8 15:25:14 xdb3db01 kernel: CPU    4: hi:  186, btch:  31 usd: 171
+Jul  8 15:25:14 xdb3db01 kernel: CPU    5: hi:  186, btch:  31 usd: 161
+Jul  8 15:25:14 xdb3db01 kernel: CPU    6: hi:  186, btch:  31 usd:  42
+Jul  8 15:25:14 xdb3db01 kernel: CPU    7: hi:  186, btch:  31 usd:  25
+Jul  8 15:25:14 xdb3db01 kernel: CPU    8: hi:  186, btch:  31 usd: 145
+Jul  8 15:25:14 xdb3db01 kernel: CPU    9: hi:  186, btch:  31 usd:  57
+Jul  8 15:25:14 xdb3db01 kernel: CPU   10: hi:  186, btch:  31 usd:  41
+Jul  8 15:25:14 xdb3db01 kernel: CPU   11: hi:  186, btch:  31 usd:  44
+Jul  8 15:25:14 xdb3db01 kernel: CPU   12: hi:  186, btch:  31 usd: 157
+Jul  8 15:25:14 xdb3db01 kernel: CPU   13: hi:  186, btch:  31 usd: 153
+Jul  8 15:25:14 xdb3db01 kernel: CPU   14: hi:  186, btch:  31 usd: 168
+Jul  8 15:25:14 xdb3db01 kernel: CPU   15: hi:  186, btch:  31 usd: 180
+Jul  8 15:25:14 xdb3db01 kernel: CPU   16: hi:  186, btch:  31 usd:  69
+Jul  8 15:25:14 xdb3db01 kernel: CPU   17: hi:  186, btch:  31 usd: 175
+Jul  8 15:25:14 xdb3db01 kernel: CPU   18: hi:  186, btch:  31 usd: 163
+Jul  8 15:25:14 xdb3db01 kernel: CPU   19: hi:  186, btch:  31 usd:  86
+Jul  8 15:25:14 xdb3db01 kernel: CPU   20: hi:  186, btch:  31 usd:  96
+Jul  8 15:25:14 xdb3db01 kernel: CPU   21: hi:  186, btch:  31 usd:  84
+Jul  8 15:25:14 xdb3db01 kernel: CPU   22: hi:  186, btch:  31 usd: 159
+Jul  8 15:25:14 xdb3db01 kernel: CPU   23: hi:  186, btch:  31 usd: 166
+Jul  8 15:25:14 xdb3db01 kernel: CPU   24: hi:  186, btch:  31 usd:  60
+Jul  8 15:25:14 xdb3db01 kernel: CPU   25: hi:  186, btch:  31 usd: 180
+Jul  8 15:25:14 xdb3db01 kernel: CPU   26: hi:  186, btch:  31 usd:  35
+Jul  8 15:25:14 xdb3db01 kernel: CPU   27: hi:  186, btch:  31 usd:  33
+Jul  8 15:25:14 xdb3db01 kernel: CPU   28: hi:  186, btch:  31 usd: 149
+Jul  8 15:25:14 xdb3db01 kernel: CPU   29: hi:  186, btch:  31 usd:  92
+Jul  8 15:25:14 xdb3db01 kernel: CPU   30: hi:  186, btch:  31 usd: 106
+Jul  8 15:25:14 xdb3db01 kernel: CPU   31: hi:  186, btch:  31 usd: 176
+Jul  8 15:25:14 xdb3db01 kernel: active_anon:5782595 inactive_anon:2950071 isolated_anon:0
+Jul  8 15:25:14 xdb3db01 kernel:  active_file:6628087 inactive_file:8433021 isolated_file:0
+Jul  8 15:25:14 xdb3db01 kernel:  unevictable:76453 dirty:494 writeback:0 unstable:0
+Jul  8 15:25:14 xdb3db01 kernel:  free:179938 slab_reclaimable:464132 slab_unreclaimable:1839840
+Jul  8 15:25:14 xdb3db01 kernel:  mapped:2539468 shmem:5974592 pagetables:192706 bounce:0
+Jul  8 15:25:14 xdb3db01 kernel: Node 0 DMA free:15800kB min:0kB low:0kB high:0kB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB isolated(anon):0kB isolated(file):0kB present:15252kB mlocked:0kB dirty:0kB writeback:0kB mapped:0kB shmem:0kB slab_reclaimable:0kB slab_unreclaimable:0kB kernel_stack:0kB pagetables:0kB unstable:0kB bounce:0kB writeback_tmp:0kB pages_scanned:0 all_unreclaimable? yes
+Jul  8 15:25:14 xdb3db01 kernel: lowmem_reserve[]: 0 1966 258506 258506
+Jul  8 15:25:14 xdb3db01 kernel: Node 0 DMA32 free:439224kB min:388kB low:484kB high:580kB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB isolated(anon):0kB isolated(file):0kB present:2013348kB mlocked:0kB dirty:0kB writeback:0kB mapped:0kB shmem:0kB slab_reclaimable:0kB slab_unreclaimable:0kB kernel_stack:0kB pagetables:0kB unstable:0kB bounce:0kB writeback_tmp:0kB pages_scanned:0 all_unreclaimable? yes
+Jul  8 15:25:14 xdb3db01 kernel: lowmem_reserve[]: 0 0 256540 256540
+Jul  8 15:25:14 xdb3db01 kernel: Node 0 Normal free:265844kB min:50804kB low:63504kB high:76204kB active_anon:23130524kB inactive_anon:11800024kB active_file:26512344kB inactive_file:33732200kB unevictable:305812kB isolated(anon):0kB isolated(file):0kB present:262696960kB mlocked:305860kB dirty:1976kB writeback:0kB mapped:10157872kB shmem:23898368kB slab_reclaimable:1856512kB slab_unreclaimable:7359460kB kernel_stack:17688kB pagetables:770824kB unstable:0kB bounce:0kB writeback_tmp:0kB pages_scanned:0 all_unreclaimable? no
+Jul  8 15:25:14 xdb3db01 kernel: lowmem_reserve[]: 0 0 0 0
+Jul  8 15:25:14 xdb3db01 kernel: Node 0 DMA: 0*4kB 1*8kB 1*16kB 1*32kB 2*64kB 0*128kB 1*256kB 0*512kB 1*1024kB 1*2048kB 3*4096kB = 15800kB
+Jul  8 15:25:14 xdb3db01 kernel: Node 0 DMA32: 8*4kB 5*8kB 5*16kB 5*32kB 6*64kB 4*128kB 3*256kB 8*512kB 7*1024kB 4*2048kB 102*4096kB = 439224kB
+Jul  8 15:25:14 xdb3db01 kernel: Node 0 Normal: 57249*4kB 8*8kB 216*16kB 104*32kB 73*64kB 34*128kB 22*256kB 11*512kB 3*1024kB 1*2048kB 1*4096kB = 265348kB
+Jul  8 15:25:14 xdb3db01 kernel: 21101277 total pagecache pages
+Jul  8 15:25:14 xdb3db01 kernel: 11208 pages in swap cache
+Jul  8 15:25:14 xdb3db01 kernel: Swap cache stats: add 33067, delete 21859, find 14427/15528
+Jul  8 15:25:14 xdb3db01 kernel: Free swap  = 25086128kB
+Jul  8 15:25:14 xdb3db01 kernel: Total swap = 25165816kB
+Jul  8 15:25:14 xdb3db01 kernel: 67108848 pages RAM
+Jul  8 15:25:14 xdb3db01 kernel: 974776 pages reserved
+Jul  8 15:25:14 xdb3db01 kernel: 379227859 pages shared
+Jul  8 15:25:14 xdb3db01 kernel: 20625244 pages non-shared
+Jul  8 15:47:12 xdb3db01 auditd[6058]: Audit daemon rotating log files
+Jul  8 15:47:12 xdb3db01 auditd[6058]: Audit daemon rotating log files

@@ -46,8 +46,10 @@ post_process(
 		/* First, check for ender matching			 */
 		if( in_stanza[hid] )	{
 			int const	match_ends_stanza = (
-				in_stanza[hid]->flags &
-				STANZA_STOP
+				in_stanza[hid]->flags & STANZA_STOP
+			);
+			int const	mark_ender =	(
+				in_stanza[hid]->flags & STANZA_ISLAST
 			);
 			/* In a stanza, try to locate end		 */
 			int		stanza_ended;
@@ -81,7 +83,9 @@ post_process(
 				continue;
 			}
 			/* Stanza ends			 */
-			e->trigger	   = NULL;
+			if( !mark_ender )	{
+				e->trigger	   = NULL;
+			}
 			stanza_budget[hid] = 0;
 			in_stanza[hid]	   = NULL;
 			began_with[hid]    = NULL;
