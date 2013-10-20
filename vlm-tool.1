@@ -1,4 +1,4 @@
-.TH ERRNO "1" "Sep 2013" "MegaCoder.com" "User Commands"
+.TH VLM-TOOL "1" "Sep 2013" "MegaCoder.com" "User Commands"
 .SH NAME
 vlm-tool \- intelligent grep(1) for /var/log/messages files
 .SH SYNOPSIS
@@ -71,6 +71,15 @@ No really sure why I did this.
 Use \fIthumb\fP to mark a matched log entry.
 The default thumb is \fI- \fP, to make searching for an interesting log entry simple but you may prefer a different pattern.
 Any size thumb will work.
+.TP
+\fB\-w\fP \fIwhen\fP
+This is the approximate time the issue occurred.
+The format is exactly the same as the \f(CW/var/log/messages\fP entries.
+.TP
+\fB\-W\fP \fIwindow\fP
+A fuzzy time delta to capture entries before and after the incident time set by the \fB-w\fP switch.
+By default, the delta is 24 hours.
+The \fIwindow\fP is the number of seconds and can be followed by \fBs\fP for seconds (default), \fBh\fP for hours, \fBd\fP for days, \fBw\fP for weeks.
 .TP
 \fB\-v\fP
 Print the program version and exit.
