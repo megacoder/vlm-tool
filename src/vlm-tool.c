@@ -71,6 +71,9 @@ static	unsigned	do_stats;
 static	time_t		gap_threshold = 10 * 60;
 static	unsigned	do_gap;
 static	unsigned	iso_date;
+static	char const *	about;
+static	time_t		incident;
+static	time_t		window;
 
 static char const	sgr_red[] =	{
 	"\033[1;31;22;47m"		/* Bright red text, dirty white bg */
@@ -81,7 +84,7 @@ static char const	sgr_reset[] =	{
 
 static	int
 calc_timestamp(
-	char *		timestamp,
+	char const *	timestamp,
 	time_t *	t
 )
 {
@@ -141,7 +144,10 @@ calc_timestamp(
 			tm.tm_mday     = strtoul( mmddhhmmss+4, NULL, 10 );
 			/* Pick the month out of the line-up		 */
 			for( tm.tm_mon = 0; tm.tm_mon < 12; tm.tm_mon += 1 )	{
-				if(!strcmp( mmddhhmmss, months[tm.tm_mon] ) )	{
+				if(!strcasecmp(
+					mmddhhmmss,
+					months[tm.tm_mon]
+				) )	{
 					break;
 				}
 			}
@@ -261,6 +267,7 @@ process(
 		trigger_t *	fired;
 		int		keep;
 		pool_iter_t *	iter;
+		time_t		when;
 
 		/* Count this line					 */
 		log_stats.read += 1;
@@ -272,6 +279,22 @@ process(
 		ts = buf;
 		buf[15] = '\0';
 		host = buf + 16;
+		/* Convert info to timestamp				 */
+		if(calc_timestamp( ts, &when ) ) {
+			/* Bad date, show it first in list		 */
+			log_stats.poorly_formed += 1;
+			when = (time_t) 0;
+		}
+		xprintf(
+			3,
+			"when=%lu, incident=%lu, window=%lu",
+			when,
+			incident,
+			window
+		);
+		if( window && (abs(when - incident) > window) )	{
+			continue;
+		}
 		for( resid = host+1; *resid && !isspace( *resid ); ++resid );
 		if( *resid )	{
 			(*resid++) = '\0';
@@ -318,21 +341,11 @@ process(
 		if( keep )	{
 			entry_t * const	e = pool_alloc( entries );
 
-			e->host_id = add_host( host );
-
-			/* Convert info to timestamp			 */
-			if(calc_timestamp( ts, &(e->timestamp) ) ) {
-				/* Bad date, show it first in list	 */
-				log_stats.poorly_formed += 1;
-				memset(
-					&(e->timestamp),
-					0,
-					sizeof(e->timestamp)
-				);
-			}
-			e->trigger = fired;
-			e->resid = xstrdup( resid );
-			entries_qty += 1;
+			e->host_id    = add_host( host );
+			e->timestamp  = when;
+			e->trigger    = fired;
+			e->resid      = xstrdup( resid );
+			entries_qty  += 1;
 		}
 	}
 }
@@ -694,7 +707,7 @@ main(
 	entries  = pool_new( sizeof(entry_t), NULL, NULL );
 	ignores  = pool_new( sizeof(trigger_t), NULL, NULL );
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "Xa:A:cdG:gi:I:lmnNo:rst:vy:" )) != EOF ) {
+	while( (c = getopt( argc, argv, "Xa:A:cdG:gi:I:lmnNo:rst:w:W:vy:" )) != EOF ) {
 		switch( c )	{
 		default:
 			fprintf(
@@ -780,6 +793,39 @@ main(
 			);
 			exit(0);
 			/*NOTREACHED*/
+		case 'w':
+			about = optarg;
+			break;
+		case 'W':
+			{
+				char *	eos;
+				window = (time_t) strtoul(
+					optarg,
+					&eos,
+					10
+				);
+				switch( tolower( *eos & 0xFF ) )	{
+				default:
+					fprintf(
+						stderr,
+						"%s: bad scaler '%s'.\n",
+						me,
+						eos
+					);
+					exit(1);
+					/*NOTREACHED			 */
+				case 'w':
+					window *= 7;
+				case 'h':
+					window *= 60;
+				case 'm':
+					window *= 60;
+				case 's':
+				case '\0':
+					break;
+				}
+			}
+			break;
 		case 'y':
 			year = strtol( optarg, NULL, 10 );
 			break;
@@ -790,6 +836,22 @@ main(
 		time_t const	now = time( NULL );
 		struct tm const *	tm = localtime(&now);
 		year = tm->tm_year + 1900;
+	}
+	/* Figure out about when the incident was supposed to happen	 */
+	if( about )	{
+		if( calc_timestamp( about, &incident ) )	{
+			fprintf(
+				stderr,
+				"%s: illegal incident time '%s'.\n",
+				me,
+				optarg
+			);
+			exit(1);
+		}
+		if( !window )	{
+			/* Default window is one day		 */
+			window = (time_t) (24*60*60);
+		}
 	}
 	/* Compile internal triggers unless we are forbidden		 */
 	if( load_builtin_rules )	{
