@@ -20,6 +20,7 @@ char const * const	builtin_triggers[] =	{
 	"becomes",
 	"bond(ing|[a-zA-Z]*[0-9.]+)",
 	"c-state",
+	"can't contact ldap server",
 	"call[[:space:]]trace:",
 	"checker failed path",
 	"clocksource",
