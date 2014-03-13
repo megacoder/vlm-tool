@@ -36,6 +36,7 @@ char const * const	builtin_triggers[] =	{
 	"don't",
 	"el[0-9]debug",
 	"end_request",
+	"enforcing=[[:digit:]]*",
 	"errno([[:space:]]*[[:digit:]][[:digit:]]*)?",
 	"error",
 	"/etc/sysconfig/network-scripts",

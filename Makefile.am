@@ -2,7 +2,7 @@ SUBDIRS=src
 
 EXTRA_DIST=AUTHORS COPYING ChangeLog INSTALL NEWS README README.md     	\
 	 README.html TODO autogen.sh configure.ac install-sh missing	\
-	 vlm-tool.1
+	 vlm-tool.1 vlm-tool.spec
 
 .PHONY:	.FORCE
 
