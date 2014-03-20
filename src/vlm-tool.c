@@ -74,6 +74,7 @@ static	unsigned	iso_date;
 static	char const *	about;
 static	time_t		incident;
 static	time_t		window;
+static	time_t		delta_hours;
 
 static char const	sgr_red[] =	{
 	"\033[1;31;22;47m"		/* Bright red text, dirty white bg */
@@ -257,6 +258,7 @@ process(
 )
 {
 	char		buf[ BUFSIZ ];	/* Incoming line goes here	 */
+	time_t const	future = time( NULL ) + (delta_hours * 60 * 60);
 
 	while( fgets( buf, sizeof(buf), fyle ) )	{
 		int const	l = strlen( buf );
@@ -292,6 +294,21 @@ process(
 			incident,
 			window
 		);
+		if( when > future )	{
+			/*
+			 * Looks as if /var/log/messages has wrapped and
+			 * what we think is a current line is actually
+			 * from a year ago.  Message entries do not include
+			 * the year, so this entry is from another year.
+			 */
+			xprintf(
+				3,
+				"when=%lu, future=%lu",
+				when,
+				future
+			);
+			continue;
+		}
 		if( window && (abs(when - incident) > window) )	{
 			continue;
 		}
@@ -707,7 +724,7 @@ main(
 	entries  = pool_new( sizeof(entry_t), NULL, NULL );
 	ignores  = pool_new( sizeof(trigger_t), NULL, NULL );
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "Xa:A:cdG:gi:I:lmnNo:rst:w:W:vy:" )) != EOF ) {
+	while( (c = getopt( argc, argv, "Xa:A:cdG:gi:I:lmnNO:o:rst:w:W:vy:" )) != EOF ) {
 		switch( c )	{
 		default:
 			fprintf(
@@ -771,6 +788,9 @@ main(
 			break;
 		case 'o':
 			ofile = optarg;
+			break;
+		case 'O':
+			delta_hours = strtol( optarg, NULL, 0 );
 			break;
 		case 'r':
 			show_rules = 1;

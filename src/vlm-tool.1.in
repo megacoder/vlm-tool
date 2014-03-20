@@ -1,4 +1,4 @@
-.TH VLM-TOOL "1" "February 2012" "Tommy.Reynolds@MegaCoder.com" "User Commands"
+.TH VLM-TOOL "1" "March 2014" "Tommy.Reynolds@MegaCoder.com" "User Commands"
 .SH NAME
 vlm-tool \- coalesce /var/log/messages from different hosts and filter
 .SH SYNOPSIS
@@ -16,6 +16,7 @@ vlm-tool \- coalesce /var/log/messages from different hosts and filter
 [\fI-n\fR]
 [\fI-N\fR]
 [\fI-o\fR FILE]
+[\fI-O\fR delta_hours]
 [\fI-r\fR]
 [\fI-t\fR THUMB]
 [\fI-v\fR]
@@ -95,6 +96,9 @@ utility.
 These output line numbers bear no relationship to the input sequence.
 .IP "-o FILE" 10em
 Write output to \fBFILE\fR instead of to the standard output.
+.IP "-O delta_hours" 10em
+Adjust the current time by \fBdelta_hours\fP when calculating the current time.
+Log entries later than the adjusted local time will be silently ignored.
 .IP "-r" 10em
 Show the matching trigger rule which caused the entry to be marked.
 Implies \fI-m\fP switch.
