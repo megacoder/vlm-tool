@@ -97,6 +97,7 @@ char const * const	builtin_triggers[] =	{
 	"selinux",
 	"setroubleshoot",
 	"signal([[:space:]]*[0-9]*)",
+	"snmpd.*Got trap from peer*",
 	"sysrq.*:",
 	"taints?",
 	"terminated",
