@@ -515,8 +515,25 @@ print_one_entry(
 		);
 	}
 	/* Second, the date						 */
-	tm = localtime( &e->timestamp );
-	printf( "%.15s ", asctime(tm)+4 );
+	if( unlikely( iso_date ) )	{
+		/* yyyy-mm-ddThh:mm:ss					 */
+		char	iso8601[ 20 ];
+
+		if( strftime(
+			iso8601,
+			sizeof(iso8601),
+			"%Y-%m-%dT%H:%M:%S",
+			localtime( &e->timestamp )
+		) > sizeof( iso8601 ) )	{
+			fprintf( stderr, "ISO date printing failed.\n" );
+			exit( 1 );
+		}
+		printf( iso8601 );
+	} else	{
+		/* Print only MMM DD %H:%M:%S				 */
+		tm = localtime( &e->timestamp );
+		printf( "%.15s ", asctime(tm)+4 );
+	}
 	/* Third, the host name					 */
 	if( colorize )	{
 		sgr_host( e->host_id );
