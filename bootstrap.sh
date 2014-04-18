@@ -8,10 +8,23 @@ markdown2 README.md | tee README.html | lynx -dump -stdin >README
 autoreconf -vfim -I m4
 ./configure
 make dist
-RPMDIR="${PWD}/rpms"
-rpmbuild								\
-	-D "_topdir		${RPMDIR}"				\
-	-D "_sourcedir		${PWD}"					\
-	-ba								\
-	*.spec
-rm -rf "${RPMDIR}/"{BUILD,BUILDROOT}
+# We can't build locally before OS series 6
+OSREV=`
+	rpm -qf --qf='%{VERSION}\n' /etc/*-release | sort -rnu | head -n1
+`
+case "${OSREV}" in
+5 )
+	mkdir -p ${HOME}/rpm/{SOURCE,SPEC}S
+	mv *gz ${HOME}/rpm/SOURCES/
+	rpmbuild -ba *.spec
+	;;
+6 )
+	RPMDIR="${PWD}/rpms"
+	rpmbuild							\
+		-D "_topdir	${RPMDIR}"				\
+		-D "_sourcedir	${PWD}"					\
+		-ba							\
+		*.spec
+	rm -rf "${RPMDIR}/"{BUILD,BUILDROOT}
+	;;
+esac

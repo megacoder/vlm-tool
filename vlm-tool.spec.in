@@ -47,6 +47,7 @@ palatable by highlighting entries which could indicate an issue.
 %doc NEWS
 %doc README README.md README.html
 %{_bindir}/vlm-tool
-%{_mandir}/man1/vlm-tool.1*
+# %{_mandir}/man1/vlm-tool.1.gz
+/usr/man/man1/vlm-tool.1.gz
 
 %changelog
