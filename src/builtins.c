@@ -50,6 +50,8 @@ char const * const	builtin_triggers[] =	{
 	"init:",
 	"invalid(:.*)?",
 	"i?scsi",
+	"is down",
+	"is up",
 	"kdump(:.*)?",
 	"kernel command line:.*",
 	"khash_super_prune_nolock",

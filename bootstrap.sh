@@ -18,7 +18,7 @@ case "${OSREV}" in
 	mv *gz ${HOME}/rpm/SOURCES/
 	rpmbuild -ba *.spec
 	;;
-6 )
+* )
 	RPMDIR="${PWD}/rpms"
 	rpmbuild							\
 		-D "_topdir	${RPMDIR}"				\
