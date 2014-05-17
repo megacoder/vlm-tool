@@ -46,7 +46,7 @@ char const * const	builtin_triggers[] =	{
 	"fsck",
 	"general protection rip:",
 	"h[au]ng",
-	"illegal:",
+	"illegal(:.*)?",
 	"init:",
 	"invalid(:.*)?",
 	"i?scsi",
