@@ -677,6 +677,14 @@ do_file(
 		);
 		++nonfatal;
 	} else	{
+		if( setvbuf( fyle, NULL, _IOFBF, getpagesize() * 16 ) )	{
+			fprintf(
+				stderr,
+				"%s: failed to set buffer size"
+				"; continuing bravely onward.\n",
+				me
+			);
+		}
 		process( fyle );
 		if( (*closer)( fyle ) )	{
 			perror( optarg );
