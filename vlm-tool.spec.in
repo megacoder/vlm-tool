@@ -4,7 +4,7 @@
 
 Prefix:	%{prefix}
 
-Summary       : Hightlight interesting /var/log/messages entries
+Summary       : Highlight interesting /var/log/messages entries
 Name          : vlm-tool
 Version       : %{ver}
 Release       : %{rel}
@@ -21,6 +21,8 @@ patterns.  Those entries which are matched, are then sorted and printed.
 
 Using this tool should make browsing many log files from many systems more
 palatable by highlighting entries which could indicate an issue.
+
+For example, suppose one node of a five-server cluster starts having I/O issues to external storage and reboots.  Was this an isolated event or was the reboot simply the proper reaction to a non-fatal event on another node?  Now, expand this scenario to a huge cluster with hundreds of virtual guest machines.  The vlm-tool(1) can merge all their log files, highlight suspicious log entries, and mark simultaneous event before displaying the unified log file.
 %prep
 %setup -q
 
