@@ -1,3 +1,1364 @@
-2014-05-17  Tommy Reynolds  oldest.software.guy@gmail.com
+2014-06-19  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
-* Recognize "illegal" in more contexts than "illegal:"
+	* configure.ac, src/builtins.c, vlm-tool.spec.in: Reduce the number
+	of false-positive indications by ignoring "_NMI" entries but still
+	marking NMI significant events.
+
+2014-06-06  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* autogen.sh: Construct README from the README.md file.
+
+2014-06-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: Use setvbuf(3) to manage a
+	larger-than-default buffer for reading the logs.
+
+2014-05-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Updated changelog.
+
+2014-05-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Recognize "illegal" in more contexts
+	than "illegal:"
+
+2014-04-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* bootstrap.sh, configure.ac, src/builtins.c, vlm-tool.spec.in: 
+	Detect "is down" and "is up".  Build RPM locally on everything not
+	RHEL5
+
+2014-04-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Bumped version
+
+2014-04-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* bootstrap.sh, vlm-tool.spec.in: Cannot build locally under version
+	5
+
+2014-04-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : commit 0549bce35f35fbc49812c6e1488235e4fd6323f4 Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Tue Apr 15 08:55:19
+	2014 -0500
+
+2014-04-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: If we accept an ISO8601 timestamp,
+	we should generate an ISO8601 too.
+
+2014-03-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.1.in, src/vlm-tool.c: Added '-O
+	delta_hours' option that adds "delta_hours" to the current time
+	before comparing the incoming entry's timestamp against the current
+	time.  Since the log files omit the year, we assume the current
+	year; a log entry timestamp in the future probably came from a year
+	ago, so we just throw that away.
+
+2014-03-13  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, bootstrap.sh, configure.ac, src/builtins.c: Notice
+	"enforcing=N" and build RPM locally.
+
+2014-01-19  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Flag "can't contact ldap server" as
+	an interesting message.
+
+2014-01-05  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Highlight "errno" and option
+	following numeric value.
+
+2013-10-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1: Documented the new switches.
+
+2013-10-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: Added '-w when' and '-W window'
+	arguments.
+
+2013-09-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Bumped version
+
+2013-09-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/post-process.c, src/stanzas.c, src/stanzas.h, tests/mem-info: 
+	Added Mem-info: stanza marking
+
+2013-09-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Bump rev.
+
+2013-09-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.c: Don't mark gap notice; it's easy to notice as it
+	is.
+
+2013-09-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1: Mention 'stanzas'
+
+2013-09-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Bumped version
+
+2013-09-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, vlm-tool.1, vlm-tool.spec.in: Fleshed out man(1)
+	page.
+
+2013-09-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am: Include man(1) page in distribution.
+
+2013-09-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1: man(1) page coming
+
+2013-05-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Highlight entire 'remaining paths' messages.
+
+2013-05-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Mystery message: khash_super_prune_nolock
+
+2013-04-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/x-funcs.h: Include stdio.h to pick up perror(3) definition.
+
+2013-03-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Catch "floating-point" errors
+
+2013-03-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Also flag "Dazed and confused" and
+	"Uhhuh".
+
+2013-03-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Flag "nss_ldap:" messages.
+
+2013-01-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.1, src/vlm-tool.1.in, src/vlm-tool.c: 
+	Recognize ISO timestamps if the "-d" switch is used.
+
+2013-01-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.c: Nope, too much after all.
+
+2013-01-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.c: Extra leading space on note.
+
+2013-01-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.1, src/vlm-tool.c: Output calculated
+	gap time in meaningful form.
+
+2013-01-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.c: Show gap delta in meaningful units.
+
+2013-01-06  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: Output using localtime() instead of
+	gmtime(), so the times correspond to what you see in the
+	"/var/log/messages" file.
+
+2012-12-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.1, src/vlm-tool.c: Highlight the gap
+	instead of flagging it.
+
+2012-12-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.1: Documentation.
+
+2012-12-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: Added "-g" switch to perform gap
+	analysis.
+
+2012-12-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.c: Write statistics to stderr because stdout can be
+	redirected.
+
+2012-12-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: Added "-s" switch to output
+	statistics; we may be losing content somewhere.
+
+2012-12-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/stanzas.c: Increase PVM budget.
+
+2012-12-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/stanzas.c: If a kernel is switched to use the
+	XEN blkfront driver, the name of the root defice could change.
+	Highlight the kernel's recommendation about that.
+
+2012-11-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* INSTALL, README, README.html, bootstrap.sh: Don't archive
+	generated files.
+
+2012-11-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : No RPM's please.
+
+2012-11-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Expand bonding text
+
+2012-11-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : commit 493d152917793617fe9105b256c9b953ae7148c7 Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Mon Sep 24 19:50:43
+	2012 -0500
+
+2012-09-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* bootstrap.sh: Do more.
+
+2012-09-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Flag "martian source" and
+	"addrconf(" changes more completely.
+
+2012-08-31  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Use a character class "[(]" instead of an escape
+	"\(".
+
+2012-08-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Also match "loop ready".
+
+2012-08-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Flags "taints" too
+
+2012-08-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : commit d29e66a1e43a55b917cfddfe9c1cf648326b3afc Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Fri Aug 17 11:16:14
+	2012 -0500
+
+2012-08-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Flag NIC address entries
+
+2012-08-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Flag UDEV: entries.
+
+2012-08-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Flag lines with "c-state".
+
+2012-08-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Well, flag "Oracle"...
+
+2012-08-05  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Flag "checker failed path", "mark as failed".
+
+2012-08-05  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Flag 'failover', 'fail-over' as well.
+
+2012-07-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/post-process.c: Don't dereference null pointer first time
+	through post-processing loop.
+
+2012-07-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/post-process.c: Simplifying stanza recognition
+	logic.
+
+2012-07-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/post-process.c: When a line stops a "match"
+	stanza, rescan to see if it might start another stanza.
+
+2012-07-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* README, README.html, configure.ac, src/stanzas.c: Hilight the
+	"INFO: task xxx blocked for more than" segment; which is usually
+	followed by a Call Trace.
+
+2012-07-19  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* README.md: Typo for "ntpd".
+
+2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* README: Generated
+
+2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* README.html: Generated documentation.
+
+2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, README, configure.ac, vlm-tool.spec.in: Generate
+	README on the fly.
+
+2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am: Removed rules.
+
+2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am: Generate README
+
+2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* README: Automake was complaining.
+
+2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am: Include README.md
+
+2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* README: Renamed
+
+2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* README.md: More details
+
+2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* README.md: More details.
+
+2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* README.md: Renamed because I'm going to provide the content in
+	markdown syntax.
+
+2012-07-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : Version 2.0.1
+
+2012-07-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/post-process.c: Zeroize the entire size of the dynamic arrays.
+
+2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/stanzas.c: Checkpoint.
+
+2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* autogen.sh: '$ make dist' expects 'autogen.sh'.
+
+2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/post-process.c, src/stanzas.c, src/stanzas.h: Recognizes the
+	cut stanza.
+
+2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/stanzas.c, src/stanzas.h: Added "STANZA_CONT" to clarify
+	logic.
+
+2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/post-process.c: Simplified logic for marking stanzas.
+
+2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/post-process.c, src/stanzas.c, src/stanzas.h: Recognized 'call
+	trace', but not cut list.
+
+2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/messages, tests/messages: Moved test case out of source
+	directory.
+
+2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/stanzas.c, src/utils.c, src/utils.h, src/vlm-tool.c: 
+	Consolidated regular expression matching as well.
+
+2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/Makefile.am: List all the files.
+
+2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/stanzas.c, src/utils.c, src/utils.h, src/vlm-tool.c: Isolate
+	regular expression compilation into a single place.
+
+2012-06-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/stanzas.c: Can now initialize itself without core dump.
+
+2012-06-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* INSTALL, src/post-process.c, src/post-process.h, src/stanzas.h,
+	src/vlm-tool.c, src/x-funcs.h: Reference gcc-compat.h only in header
+	files that need it.  No "*.c" file should call it directly.
+
+2012-06-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* tests/cut-block: Remove unnecessary lines from the test case.
+
+2012-06-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Bumped version.
+
+2012-06-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* autogen.sh, bootstrap.sh: Change 'autogen.sh' to 'bootstrap.sh' to
+	avoid auto-complete collision.
+
+2012-06-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* tests/cut-block: Cleanup
+
+2012-06-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* tests/cut-block: Added test case for cut-block
+
+2012-06-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* INSTALL, src/Makefile.am, src/pool.c, src/x-funcs.h: Remove the
+	"_inline" attributes until I can ken this new GCC out.
+
+2012-06-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* .gitignore: Don't ignore stuff because 'git clean -d -f' can't see
+	it.
+
+2012-06-13  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : Archive
+
+2012-06-13  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Ship it.
+
+2012-06-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Fancy post-processing tested.
+
+2012-06-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Flag "el[0-9]debug" string.  Found in debug
+	kernels.
+
+2012-06-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Flag "o2hb".
+
+2012-06-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Updated
+
+2012-06-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Flag run level.
+
+2012-06-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Don't match "register", it has been boring.
+
+2012-05-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Better :)
+
+2012-05-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Highlight remaining path count.
+
+2012-05-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Match and capture potential PID information on
+	"shutdown:" entries.
+
+2012-05-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Catch messages about 'shutdown:'
+
+2012-05-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Highlight 'redhat.com'
+
+2012-05-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* release-script: Goner
+
+2012-05-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/post-process.c, src/stanzas.c, src/stanzas.h, src/x-funcs.h: 
+	First cut at generalized stanzas.  Marks matches, no stanzas found
+	yet.
+
+2012-05-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/Makefile.am: Include stanzas in build.
+
+2012-05-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/stanzas.c: Add recognition for both OOPS and Call Trace:
+	stanzas.
+
+2012-05-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/stanzas.c, src/stanzas.h, src/vlm-tool.h: Unified stanza
+	theory.
+
+2012-05-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/Makefile.am, src/post-process.c, src/post-process.h,
+	src/vlm-tool.c, src/vlm-tool.h, src/x-funcs.h: Moved post-processing
+	into its own files and stuff still works.
+
+2012-05-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/Makefile.am, src/post-process.c, src/post-process.h,
+	src/vlm-tool.c, src/vlm-tool.h: Moved post-processing into separate
+	files.
+
+2012-05-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Move xprintf() to its own files.
+
+2012-05-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/Makefile.am, src/vlm-tool.c, src/xprintf.c, src/xprintf.h: 
+	Split xprintf() to a separate file and forget about that hideously
+	ugly #define macro.
+
+2012-05-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Flag anything from that troublemaker
+	"setroubleshoot".
+
+2012-05-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : commit 1f0c71347c71111022ccc568fab2dd81c20e6f82 Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Fri May 25 12:12:01
+	2012 -0500
+
+2012-05-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Flag kernel general protection faults.
+
+2012-05-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Flag multipath active paths count change.
+
+2012-05-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.1.in: Dropped extraneous dot.
+
+2012-05-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.1, src/vlm-tool.1.in: Added version
+	information to the man(1) page..
+
+2012-05-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/Makefile.am, src/vlm-tool.1, src/vlm-tool.c: 
+	Added "-N" switch to have line numbers between the thumb and the
+	matched rule.
+
+2012-05-13  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: Didn't isolate the input basename
+	before searching for an extention, so a dot in the path fooled me.
+
+2012-05-13  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.c: Checkpoint
+
+2012-05-13  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* INSTALL, configure.ac: Complain about unknown extensions.
+
+2012-05-13  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.c: Complain about unrecognized filename extentions.
+
+2012-05-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Bump for update.
+
+2012-05-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.c: Er, ever heard of the bonny month of May?
+
+2012-05-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.spec.in, vlm-tool.spec.in: Rebuild
+	using a 'src/' subdirectory.
+
+2012-05-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* gcc-compat.h, messages, src/gcc-compat.h, src/messages: Checkpoint
+
+2012-05-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, builtins.c, builtins.h, pool.c, pool.h,
+	src/Makefile.am, src/builtins.c, src/builtins.h, src/pool.c,
+	src/pool.h, src/vlm-tool.1, src/vlm-tool.c, src/vlm-tool.spec.in,
+	src/xprintf.h, vlm-tool.1, vlm-tool.c, vlm-tool.spec.in, xprintf.h: 
+	Isolated sources into a subdirectory.
+
+2012-04-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Use bright red text with dirty white background.  This
+	stands out better on transparent windows.
+
+2012-04-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Add some RAID / md triggers.
+
+2012-04-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.spec.in: Drop PCRE foolishness
+
+2012-04-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* INSTALL: Boilerplate
+
+2012-04-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : commit ac7af56be877a7d30a60b02fe1c696b303ffb95c Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Fri Apr 20 12:53:09
+	2012 -0500
+
+2012-04-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Also pick up link-level headers for martian
+	detections.
+
+2012-04-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* m4/aclocal.m4, m4/ax_path_lib_pcre.m4: Checkpoint
+
+2012-04-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.spec.in: PCRE
+
+2012-04-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: PCRE
+
+2012-04-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* autogen.sh: Use an m4/ subdirectory.
+
+2012-04-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : commit d1a942a7fa9b2fe709187b04981433b519d6142a Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Fri Apr 20 12:19:32
+	2012 -0500
+
+2012-04-06  Tommy Reynolds <Tommy.Reynolds@Oracle.com>
+
+	* vlm-tool.spec.in: Claim all our man pages.
+
+2012-04-06  Tommy Reynolds <Tommy.Reynolds@Oracle.com>
+
+	* INSTALL, configure.ac, pool.c: Nowadays, perror() is in stdio, not
+	errno.h
+
+2012-03-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, vlm-tool.c: Drop PCRE for now.  Probably want to make
+	it optional later.
+
+2012-03-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Flag "invalid" extended content.
+
+2012-03-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Hilight all of stack trace line.
+
+2012-03-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Capture more of "failed:" lines.
+
+2012-03-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : commit 43decd9d0c7678fbbe8f0f13acb10d259b9b9c50 Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Thu Mar 29 08:27:45
+	2012 -0500
+
+2012-03-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Better hilighting of o2cb/o2net messages
+
+2012-03-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Flag "machine check event" (mce) messages.
+
+2012-03-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, vlm-tool.c: Would we rather use PCRE regular
+	expressions?
+
+2012-03-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Flag the kernel command line.
+
+2012-03-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Start host colors at red+1
+
+2012-03-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1, vlm-tool.c: Allow bulk loading of ignore patterns,
+	too.
+
+2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1, vlm-tool.c: No stats!
+
+2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Implemented "-l" switch to display known triggers.
+
+2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1: Truth in lending... er, sorting.
+
+2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1: Brought documentation up to date.
+
+2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Try to catch bad kdump setup.
+
+2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Initialize the pool, fool!
+
+2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1: Documented '-i re' switch.
+
+2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Added '-i pattern' to ignore a line.
+
+2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Recognize 'rds:' as well as 'rds/ib'.
+
+2012-03-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : commit f1bb157acc451557c2dffcfb63b43340b7de94ca Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Sat Mar 17 14:31:44
+	2012 -0500
+
+2012-03-16  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Added note about not re-ordering; order matters when
+	using regular expressions.
+
+2012-03-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Gobble up VLAN bonds, too.
+
+2012-03-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Highlight "bond", "bonding", "bond0"...
+
+2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Recognize a 'call trace' block using the [<hex>]
+	pattern.
+
+2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c, builtins.h, pool.c, pool.h, vlm-tool.c: Added block
+	recognition to the post-processing step.
+
+2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, pool.c: Initialize the chain->next to NULL to prevent
+	running off into the weeds.
+
+2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, vlm-tool.c, xprintf.h: Added multi-level debug for
+	undocumented "-X" switch.
+
+2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* xprintf.h: Logger
+
+2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Complain if we can't read default files
+	"/var/log/messages*".
+
+2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* release-script: Added script to build release delta.
+
+2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Re-derived "entries.h", which I managed to lose.
+
+2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* pool.c: Correct uninitialized variable warning.
+
+2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Defer computing the colorization until just before we
+	print the entry.
+
+2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Can't sort 'em until you've counted 'em.
+
+2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, vlm-tool.c: Use the pool facilities.
+
+2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* messages: Reorder so that timestamps are not monotonic.
+
+2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* pool.c, pool.h, vlm-tool.c: Use segmented list instead of all
+	those nasty realloc's.
+
+2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Use the saved string for matching.
+
+2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* pool.h, vlm-tool.c: Clean compile
+
+2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, pool.c, pool.h: Object manipulation routines.
+
+2012-03-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Added scaffolding for post-processing() step.
+
+2012-03-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Refactored trigger actioning routine.
+
+2012-03-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Recognize ".xz" files as well, while we're at it.
+
+2012-03-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Recognize ".bz2" and ".gz" file extentions and handle
+	properly.
+
+2012-03-03  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Also "killing".
+
+2012-03-03  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Also detect "bonding".
+
+2012-03-03  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Notice "qla...LOOP UP" and "qla...LOOP DOWN"
+
+2012-03-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Match full name of ocfs2.
+
+2012-03-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c, vlm-tool.c: Have "-r" imply also using "-m".
+
+2012-03-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Oops: "erro" not "error".
+
+2012-03-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.spec.in: Fleshed out the RPM description.  I don't like
+	the formatting, but it's late.
+
+2012-03-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am: Include man page.
+
+2012-03-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.spec.in: Can now build as RPM.
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1: Documented "-v" switch.
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, autogen.sh, configure.ac, vlm-tool.c: Get the program
+	versioning right.
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Added '-v' switch to display the version.
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c: Catch all of 'fail' permutations.
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, configure.ac, vlm-tool.1, vlm-tool.c,
+	vlm-tool.spec.in, vlm_tool.1, vlm_tool.c, vlm_tool.spec.in: Move
+	back to 'vlm-tool'.
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm_tool.c: Display first 15 characters of matching trigger.
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm_tool.c: Odd, didn't really load default triggers (blush).
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlmtool.c: Goner
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Don't use python version.
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* .gitignore: Ignorables
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* .gitignore: Ignorables
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* .gitignore: Ignorables
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile: Goner
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* .gitignore: Ignorables
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, autogen.sh, configure.ac, vlm-tool.1, vlm-tool.c,
+	vlm-tool.spec, vlm_tool.1, vlm_tool.spec.in, vlmtool.c: Auto tools.
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm_tool.c: Remove dash from name.
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* .gitignore: Ignorables
+
+2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile: OK
+
+2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile: Can't strip man(1) pages, Dolt!
+
+2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile, messages, vlm-tool.c: Now does everything except display
+	chosen rule and display all rules.
+
+2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* .gitignore: Ignorables
+
+2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Improved, but not really working yet.
+
+2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Primitive (aka wrong) colorization.
+
+2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Calculate internal form of timestamp.
+
+2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* messages: Make column numbers zero-based.
+
+2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Isolate timestamp and hostname.
+
+2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Added "-y year" option; default to current year.
+
+2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: All preliminaries in place, ready to process files.
+
+2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.c: Handles "-a re" and "-b bulkfile" options.
+
+2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* builtins.c, builtins.h, vlm-tool.c: Checkpoint
+
+2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* .gitignore: Ignorables
+
+2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* gcc-compat.h: GCC-friently flags and definitions.
+
+2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Missing comma in "dlm" entry.
+
+2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile, builtins.c, builtins.h, messages: Skeleton for builtin
+	rules.
+
+2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile, vlm-tool.c: Must reimplement this in C to get reasonable
+	regex behavior.
+
+2012-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : commit c7e8e48aeb8341cf7a6a75d34c67fec3bfc6f4cf Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Sat Feb 25 18:51:24
+	2012 -0600
+
+2012-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Notice kdump strings.
+
+2012-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Catch kernel Eeek! in postprocess() routine.
+
+2012-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Catch 'no space left'
+
+2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Highlight kernel's page allocation failures.  Be more
+	conservative in matching time-out texts.
+
+2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1, vlm-tool.py: No, use a '-' for the thumb; vi(1) treats
+	a /^+ as looking for multiple line starts.  Sheesh.
+
+2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1, vlm-tool.py: Change thumb from '*' to '+' to make
+	searching for it easier [I think].
+
+2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: 'line' --> 'resid'
+
+2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Get all of 'registered'
+
+2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Use RED last, since we use that to highlight
+	triggers.
+
+2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Catch the proper exception.
+
+2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile: Force reconstruction of compressed man(1) page.
+
+2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Use python idiom to populate host colors.
+
+2012-02-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1, vlm-tool.py: Colorize host names, too.
+
+2012-02-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Checkpoint
+
+2012-02-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Checkpoint
+
+2012-02-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* messages: Representative line, for a model.
+
+2012-02-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile, vlm-tool.spec, vlm-tool.spec.in: Hardcoded
+
+2012-02-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile: Install into /usr/local, including a man(1) page.
+
+2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1: Built a man(1) page.
+
+2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1: Doco
+
+2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1: Doco
+
+2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, autogen.sh, configure.ac, vlm-tool.py,
+	vlm-tool.py.in: Dropping autotools, they are just in the way.
+
+2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile: How to.
+
+2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py.in: Checkpoint
+
+2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py.in: Flag 'Unknown symbol foo' entries.  Flag
+	'disagrees about version of' entries.
+
+2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py.in: Try to catch both "debug" and "bug".
+
+2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py.in: More.
+
+2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py.in: Highlight 'power states:'
+
+2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile.am, autogen.sh, configure.ac, vlm-tool.py,
+	vlm-tool.py.in, vlm-tool.spec.in: The VERSION macro does propagate
+	down to the script.
+
+2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* COPYING, INSTALL, NEWS, README: Boilerplate
+
+2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* COPYING, INSTALL, Makefile.am, NEWS, README, configure.ac,
+	vlm-tool.py: Checkpoint
+
+2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* AUTHORS: Me
+
+2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* AUTHORS, COPYING, ChangeLog, INSTALL, NEWS: Basic autotools
+	configuration in place, but not working.
+
+2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* .gitignore: Ignorables
+
+2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.spec.in: RPM installation metadata.
+
+2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* autogen.sh: Configuration file generator added
+
+2012-02-19  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile, Makefile.am, configure.ac: Welcome to the AutoZone
+
+2012-02-19  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Expanded the epilog.  Now, if it were just
+	formatted..
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Drop gratuitious SGR clearing before each output
+	line.
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Catch read-only.
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Change 'reading' to 'injesting' in error message for
+	unreadable file.
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Handle .gz and .bz2 compressed files.
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Found a generic 'kernel: unable to handle' leadin for
+	bugs, oops, and panics.
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Added '-t THUMB' capability.
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Dropped the rule number out of the self.lines tuples
+	since we can backtrack to the oritinal input patten like this:
+	mo.re.pattern
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Postprocess to highlight kernel stack traces.
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : commit 66356fa50f056091646a29b87c5a5b5d6edd2043 Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Sat Feb 18 15:17:35
+	2012 -0600
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: First flush at marking range of a kernel stack trace.
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Identify components of self.lines tuples correctly.
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile, ansicolors.py, vlm-tool.py: Merge into one file, to make
+	installation simpler.
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Find 'panic', 'oom' and 'out of memory' kills
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Don't fail if the date is poorly-formatted, just
+	ignore the line.
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Check for "fence" or "fencing".
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Silently ignore badly-formatted lines.
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Added version string
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Allow '-' to be used to read from stdin and not
+	"/var/log/messages*"
+
+2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : commit e72f87ea93868d6864bdc0d9bda5d16fdbd65d07 Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Sat Feb 18 11:07:33
+	2012 -0600
+
+2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile: Uninstall helper files, too.
+
+2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Cleaned up output line formatting logic.
+
+2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* TODO: Bugs I know of, but are not interested in fixing.
+
+2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile, vlm-tool.py: Install the helper files, too.
+
+2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Don't keep the original rules strings around, they're
+	in the re object.
+
+2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ansicolors.py, vlm-tool.py: Added '-c' switch to colorize output.
+
+2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Drop excess spaces.
+
+2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Change marker from '-->' to '* '.
+
+2012-02-16  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.py: Continue applying filters using the one that last
+	matched; maybe helps speed identical lines.
+
+2012-02-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile, vlm-tool.py: Added tool and maintenance script.
+
+2012-02-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* First commit.
+
