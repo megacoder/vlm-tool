@@ -30,6 +30,7 @@ char const * const	builtin_triggers[] =	{
 	"dazed and confused",
 	"device-mapper",
 	"(de)?bug",
+	"dhcpd:.*",
 	"dlm",
 	"disagrees.*symbol.*",
 	"disk.*,.*o:.*$",
