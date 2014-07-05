@@ -1,3 +1,11 @@
+2014-07-05  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Flag DHCPD activities.
+
+2014-06-19  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Populate the changelog.
+
 2014-06-19  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac, src/builtins.c, vlm-tool.spec.in: Reduce the number
