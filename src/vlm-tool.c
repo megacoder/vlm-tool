@@ -130,6 +130,8 @@ calc_timestamp(
 				{ "Nov\0" },
 				{ "Dec\0" },
 			};
+			static	char	last_month[ 3 ];
+			static	int	last_index = -1;
 			char		mmddhhmmss[16];
 			/*	     11111				 */
 			/* 012345678901234				 */
@@ -144,13 +146,31 @@ calc_timestamp(
 			tm.tm_hour     = strtoul( mmddhhmmss+7, NULL, 10 );
 			tm.tm_mday     = strtoul( mmddhhmmss+4, NULL, 10 );
 			/* Pick the month out of the line-up		 */
-			for( tm.tm_mon = 0; tm.tm_mon < 12; tm.tm_mon += 1 )	{
-				if(!strcasecmp(
-					mmddhhmmss,
-					months[tm.tm_mon]
-				) )	{
-					break;
+			if( likely(last_index >= 0) && !memcmp(
+				mmddhhmmss,
+				last_month,
+				3
+			) )	{
+				tm.tm_mon = last_index;
+			} else	{
+				for(
+					tm.tm_mon = 0;
+					tm.tm_mon < 12;
+					tm.tm_mon += 1
+				)	{
+					if(!strcasecmp(
+						mmddhhmmss,
+						months[tm.tm_mon]
+					) )	{
+						break;
+					}
 				}
+				last_index = tm.tm_mon;
+				memcpy(
+					last_month,
+					mmddhhmmss,
+					3
+				);
 			}
 			/* Fill in intuited year			 */
 			tm.tm_year = year - 1900;
