@@ -1,3 +1,12 @@
+2014-09-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: Cache month comparison to avoid
+	extra linear searches.
+
+2014-07-05  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Flag DHCP daemon activities.
+
 2014-07-05  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac, src/builtins.c: Flag DHCPD activities.
