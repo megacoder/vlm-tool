@@ -1,3 +1,11 @@
+2014-09-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Flag 'NUMA turned (on|off)'
+
+2014-09-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: 2.1.7
+
 2014-09-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac, src/vlm-tool.c: Cache month comparison to avoid
