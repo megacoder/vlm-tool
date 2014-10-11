@@ -1,3 +1,4 @@
+#define	_XOPEN_SOURCE
 #define	_GNU_SOURCE
 
 #include <config.h>
@@ -44,6 +45,33 @@ typedef	struct	log_stats_s	{
 	unsigned long	poorly_formed;
 } log_stats_t;
 
+typedef	struct	timekind_s	{
+	char const *	name;
+	size_t const	len;
+	size_t const	extra;
+	char const *	in;
+	char const *	out;
+} timekind_t;
+
+typedef	enum	timekind_e	{
+	TIMEKIND_USA	= 0,
+	TIMEKIND_ISO
+} timekind;
+
+static	timekind_t	timekinds[] =	{
+	[TIMEKIND_USA] =	{
+		"USA",	16,	0,
+		"%B%n%d%n%T%n",
+		"%b %d %T"
+	},
+	[TIMEKIND_ISO] =	{
+		"ISO",	33,	13,
+		"%Y-%m-%dT%H:%M:%S",
+		"%Y-%m-%dT%H:%M:%S%z"
+	},
+};
+static	size_t		Ntimekinds = sizeof( timekinds ) / sizeof( timekinds[0] );
+
 static	char const *	me = "vlm_tool";
 static	unsigned	nonfatal;
 static	char const *	thumb = "- ";
@@ -70,7 +98,7 @@ static	log_stats_t	log_stats;
 static	unsigned	do_stats;
 static	time_t		gap_threshold = 10 * 60;
 static	unsigned	do_gap;
-static	unsigned	iso_date;
+static	timekind	date_kind = TIMEKIND_USA;
 static	char const *	about;
 static	time_t		incident;
 static	time_t		window;
@@ -83,105 +111,55 @@ static char const	sgr_reset[] =	{
 	"\033[0m"
 };
 
-static	int
+static	char	*
 calc_timestamp(
 	char const *	timestamp,
 	time_t *	t
 )
 {
-	int		retval;
-	struct tm	tm;
+	char *		retval;
 
-	retval = -1;
+	retval = NULL;
 	do	{
-		if( unlikely(iso_date) )	{
-			char		yyyymmddhhmmss[ 20 ];
-			/*           1111111111				 */
-			/* 01234567890123456789				 */
-			/* YYYY-MM-DDTHH:MM:SS				 */
-			memcpy( yyyymmddhhmmss, timestamp, 19 );
-			yyyymmddhhmmss[  4 ] = '\0';	/* Year		 */
-			yyyymmddhhmmss[  7 ] = '\0';	/* Month	 */
-			yyyymmddhhmmss[ 10 ] = '\0';	/* Day		 */
-			yyyymmddhhmmss[ 13 ] = '\0';	/* Hour		 */
-			yyyymmddhhmmss[ 16 ] = '\0';	/* Minute	 */
-			yyyymmddhhmmss[ 19 ] = '\0';	/* Second	 */
+		timekind_t *	tk = timekinds + date_kind;
+		struct tm	tm;
 
-			tm.tm_year  = strtoul( yyyymmddhhmmss +  0, NULL, 10 ) - 1900;
-			tm.tm_mon   = strtoul( yyyymmddhhmmss +  5, NULL, 10 );
-			tm.tm_mday  = strtoul( yyyymmddhhmmss +  8, NULL, 10 );
-			tm.tm_hour  = strtoul( yyyymmddhhmmss + 10, NULL, 10 );
-			tm.tm_min   = strtoul( yyyymmddhhmmss + 14, NULL, 10 );
-			tm.tm_sec   = strtoul( yyyymmddhhmmss + 17, NULL, 10 );
-			tm.tm_isdst = -1;
-
-		} else	{
-			static char const months[12][4] =	{
-				{ "Jan\0" },
-				{ "Feb\0" },
-				{ "Mar\0" },
-				{ "Apr\0" },
-				{ "May\0" },
-				{ "Jun\0" },
-				{ "Jul\0" },
-				{ "Aug\0" },
-				{ "Sep\0" },
-				{ "Oct\0" },
-				{ "Nov\0" },
-				{ "Dec\0" },
-			};
-			static	char	last_month[ 3 ];
-			static	int	last_index = -1;
-			char		mmddhhmmss[16];
-			/*	     11111				 */
-			/* 012345678901234				 */
-			/* MMM DD HH:MM:SS				 */
-			memcpy( mmddhhmmss, timestamp, 15 );
-			mmddhhmmss[ 3] = '\0';
-			mmddhhmmss[ 6] = '\0';
-			mmddhhmmss[ 9] = '\0';
-			mmddhhmmss[12] = '\0';
-			tm.tm_sec      = strtoul( mmddhhmmss+13, NULL, 10 );
-			tm.tm_min      = strtoul( mmddhhmmss+10, NULL, 10 );
-			tm.tm_hour     = strtoul( mmddhhmmss+7, NULL, 10 );
-			tm.tm_mday     = strtoul( mmddhhmmss+4, NULL, 10 );
-			/* Pick the month out of the line-up		 */
-			if( likely(last_index >= 0) && !memcmp(
-				mmddhhmmss,
-				last_month,
-				3
-			) )	{
-				tm.tm_mon = last_index;
-			} else	{
-				for(
-					tm.tm_mon = 0;
-					tm.tm_mon < 12;
-					tm.tm_mon += 1
-				)	{
-					if(!strcasecmp(
-						mmddhhmmss,
-						months[tm.tm_mon]
-					) )	{
-						break;
-					}
-				}
-				last_index = tm.tm_mon;
-				memcpy(
-					last_month,
-					mmddhhmmss,
-					3
-				);
-			}
-			/* Fill in intuited year			 */
-			tm.tm_year = year - 1900;
-			tm.tm_isdst = -1;
+		memset( &tm, 0, sizeof( tm ) );
+		tm.tm_year = year;
+		retval = strptime( timestamp, tk->in, &tm );
+		if( ! retval )	{
+			fprintf(
+				stderr,
+				"%s: unknown date format.\n",
+				me
+			);
+			fprintf(
+				stderr,
+				"%s: fmt '%s'\n",
+				me,
+				tk->in
+			);
+			fprintf(
+				stderr,
+				"%s: dat '%*s'\n",
+				me,
+				(int) tk->len,
+				timestamp
+			);
+			break;
 		}
 		/* Convert to time_t					 */
+#if	0
+		if( tm.tm_year > 1900 )	{
+			tm.tm_year -= 1900;
+		}
+#endif	/* NOPE */
 		*t = mktime( &tm );
 		/* Tell if we've screwed up the date			 */
-		if( *t != (time_t) -1 )	{
-			retval = 0;
+		if( *t == (time_t) -1 )	{
+			retval = NULL;
 		}
+		retval += tk->extra;
 	} while( 0 );
 	return( retval );
 }
@@ -283,7 +261,6 @@ process(
 	while( fgets( buf, sizeof(buf), fyle ) )	{
 		int const	l = strlen( buf );
 		char *		bp;
-		char *		ts;
 		char *		host;
 		char *		resid;
 		trigger_t *	fired;
@@ -297,15 +274,13 @@ process(
 		for( bp = buf + l; (bp > buf) && isspace(bp[-1]); --bp ) {
 			bp[-1] = '\0';
 		}
-		/* Isolate timestamp, hostname, and resid		 */
-		ts = buf;
-		buf[15] = '\0';
-		host = buf + 16;
 		/* Convert info to timestamp				 */
-		if(calc_timestamp( ts, &when ) ) {
-			/* Bad date, show it first in list		 */
+		host = calc_timestamp( buf, &when );
+		/* Bad date, show it first in list			 */
+		if( !host )	{
 			log_stats.poorly_formed += 1;
 			when = (time_t) 0;
+			host = buf + 16;
 		}
 		xprintf(
 			3,
@@ -332,7 +307,7 @@ process(
 		if( window && (abs(when - incident) > window) )	{
 			continue;
 		}
-		for( resid = host+1; *resid && !isspace( *resid ); ++resid );
+		for( resid = host; *resid && !isspace( *resid ); ++resid );
 		if( *resid )	{
 			(*resid++) = '\0';
 		}
@@ -459,7 +434,9 @@ print_one_entry(
 )
 {
 	static const char	fmt[] = "%-*s ";
+	timekind_t const * const tk = timekinds + date_kind;
 	struct tm *		tm;
+	char			when[ 80 ];
 
 	/* Count it							 */
 	log_stats.output += 1;
@@ -535,25 +512,17 @@ print_one_entry(
 		);
 	}
 	/* Second, the date						 */
-	if( unlikely( iso_date ) )	{
-		/* yyyy-mm-ddThh:mm:ss					 */
-		char	iso8601[ 20 ];
-
-		if( strftime(
-			iso8601,
-			sizeof(iso8601),
-			"%Y-%m-%dT%H:%M:%S",
-			localtime( &e->timestamp )
-		) > sizeof( iso8601 ) )	{
-			fprintf( stderr, "ISO date printing failed.\n" );
-			exit( 1 );
-		}
-		printf( iso8601 );
-	} else	{
-		/* Print only MMM DD %H:%M:%S				 */
-		tm = localtime( &e->timestamp );
-		printf( "%.15s ", asctime(tm)+4 );
-	}
+	tm = localtime( &e->timestamp );
+	strftime(
+		when,
+		sizeof( when ) - 1,
+		(char *) tk->out ? tk->out : tk->in,
+		tm
+	);
+	printf(
+		"%s ",
+		when
+	);
 	/* Third, the host name					 */
 	if( colorize )	{
 		sgr_host( e->host_id );
@@ -769,7 +738,7 @@ main(
 	entries  = pool_new( sizeof(entry_t), NULL, NULL );
 	ignores  = pool_new( sizeof(trigger_t), NULL, NULL );
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "Xa:A:cdG:gi:I:lmnNO:o:rst:w:W:vy:" )) != EOF ) {
+	while( (c = getopt( argc, argv, "Xa:A:cd:G:gi:I:lmnNO:o:rst:w:W:vy:" )) != EOF ) {
 		switch( c )	{
 		default:
 			fprintf(
@@ -804,7 +773,23 @@ main(
 			mark_entries = 1;
 			break;
 		case 'd':
-			iso_date = 1;
+			{
+				for(
+					date_kind = 0;
+					date_kind < Ntimekinds;
+					++date_kind
+				)	{
+					if( !strcasecmp(
+						optarg,
+						timekinds[date_kind].name
+					) )	{
+						break;
+					}
+				}
+				if( date_kind >= Ntimekinds )	{
+					date_kind = 0;
+				}
+			}
 			break;
 		case 'g':
 			do_gap = 1;
@@ -900,11 +885,11 @@ main(
 	if( !year )	{
 		time_t const	now = time( NULL );
 		struct tm const *	tm = localtime(&now);
-		year = tm->tm_year + 1900;
+		year = tm->tm_year;
 	}
 	/* Figure out about when the incident was supposed to happen	 */
 	if( about )	{
-		if( calc_timestamp( about, &incident ) )	{
+		if( ! calc_timestamp( about, &incident ) )	{
 			fprintf(
 				stderr,
 				"%s: illegal incident time '%s'.\n",
