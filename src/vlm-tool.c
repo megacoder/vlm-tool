@@ -251,6 +251,39 @@ bulk_load(
 }
 
 static	void
+announce_ignored(
+	void
+)
+{
+	trigger_t *	trigger;
+	pool_iter_t *	iter;
+
+	iter = pool_iter_new( ignores );
+	do	{
+		int		others;
+
+		for(
+			others = 0, trigger = pool_iter_next( iter );
+			trigger;
+			trigger = pool_iter_next( iter )
+		)	{
+			if( !others )	{
+				printf(
+					"# Lines matching these patterns "
+					"have been ignored:\n"
+				);
+				++others;
+			}
+			printf(
+				"# %s\n",
+				trigger->s
+			);
+		}
+	} while( 0 );
+	pool_iter_free( &iter );
+}
+
+static	void
 process(
 	FILE * const	fyle		/* Syslogd output to scan	 */
 )
@@ -993,6 +1026,7 @@ main(
 	flatten_and_sort_entries();
 	/* Post-processing phase					 */
 	if( mark_entries )	{
+		announce_ignored();
 		post_process();
 	}
 	/* Print results						 */
