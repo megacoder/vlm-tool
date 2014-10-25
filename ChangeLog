@@ -1,3 +1,21 @@
+2014-10-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: If we are ignoring items, list them
+	if producing marked output.
+
+2014-10-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Bumped rev for new date functionality.
+
+2014-10-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.c: Added '-d <date_kind>' with 'USA' and 'ISO' time
+	formats.
+
+2014-09-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Updated revision history
+
 2014-09-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac, src/builtins.c: Flag 'NUMA turned (on|off)'
