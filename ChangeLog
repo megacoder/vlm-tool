@@ -1,3 +1,12 @@
+2015-01-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: Correct wrong offset when specifying
+	year manually (year-1900)
+
+2014-10-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Log ignored patterns
+
 2014-10-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac, src/vlm-tool.c: If we are ignoring items, list them
