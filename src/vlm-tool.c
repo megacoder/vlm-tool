@@ -910,12 +910,12 @@ main(
 			}
 			break;
 		case 'y':
-			year = strtol( optarg, NULL, 10 );
+			year = strtol( optarg, NULL, 10 ) - 1900;
 			break;
 		}
 	}
 	/* Choose current year unless we've be told otherwise		 */
-	if( !year )	{
+	if( year <= 0 )	{
 		time_t const	now = time( NULL );
 		struct tm const *	tm = localtime(&now);
 		year = tm->tm_year;
