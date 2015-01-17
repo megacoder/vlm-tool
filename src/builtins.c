@@ -54,6 +54,7 @@ char const * const	builtin_triggers[] =	{
 	"is down",
 	"is up",
 	"kdump(:.*)?",
+	"kernel: linux version.*",
 	"kernel command line:.*",
 	"khash_super_prune_nolock",
 	"kill(ing)?",
