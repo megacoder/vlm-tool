@@ -1,3 +1,16 @@
+2015-01-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Bumped revision.
+
+2015-01-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Mark kernel version information.  It's not an
+	error, but is useful in all contexts.
+
+2015-01-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Updated changelog.
+
 2015-01-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac, src/vlm-tool.c: Correct wrong offset when specifying
