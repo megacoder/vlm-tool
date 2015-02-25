@@ -12,7 +12,8 @@ License       : GPLv2
 Group         : User Interface/Desktops
 Source        : %{name}-%{version}.tar.gz
 BuildRoot     : %{_tmppath}/%{name}-%{version}-root
-BuildRequires : lynx python-markdown2
+# BuildRequires : lynx python-markdown2
+BuildRequires : lynx
 
 %description
 The vlm-tool(1) reads one or more system log files (/var/log/messages) from
