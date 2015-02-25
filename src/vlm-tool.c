@@ -103,6 +103,8 @@ static	char const *	about;
 static	time_t		incident;
 static	time_t		window;
 static	time_t		delta_hours;
+static	int		in_lineno;	/* Incoming linenumber		 */
+static	char const *	in_filename;	/* Filename being processes	 */
 
 static char const	sgr_red[] =	{
 	"\033[1;31;22;47m"		/* Bright red text, dirty white bg */
@@ -110,6 +112,36 @@ static char const	sgr_red[] =	{
 static char const	sgr_reset[] =	{
 	"\033[0m"
 };
+
+static	void
+error_intro(
+	int const		e,	/* Errno in disguise		 */
+	char const * const	fmt,
+	...
+)
+{
+	va_list		ap;
+
+	fprintf(
+		stderr,
+		"%s: File \"%s\", line %d: ",
+		me,
+		in_filename ? in_filename : "<unknown>",
+		in_lineno
+	);
+	va_start( ap, fmt );
+	vfprintf( stderr, fmt, ap );
+	va_end( ap );
+	if( e )	{
+		fprintf(
+			stderr,
+			"; %s (errno=%d)",
+			strerror( e ),
+			e
+		);
+	}
+	fprintf( stderr, ".\n" );
+}
 
 static	char	*
 calc_timestamp(
@@ -128,11 +160,7 @@ calc_timestamp(
 		tm.tm_year = year;
 		retval = strptime( timestamp, tk->in, &tm );
 		if( ! retval )	{
-			fprintf(
-				stderr,
-				"%s: unknown date format.\n",
-				me
-			);
+			error_intro( 0, "unknown date format" );
 			fprintf(
 				stderr,
 				"%s: fmt '%s'\n",
@@ -301,6 +329,7 @@ process(
 		pool_iter_t *	iter;
 		time_t		when;
 
+		in_lineno += 1;
 		/* Count this line					 */
 		log_stats.read += 1;
 		/* Drop trailing whitespace				 */
@@ -690,28 +719,31 @@ do_file(
 		fyle = fopen( fn, "rt" );
 		closer = fclose;
 	}
+	in_filename = fn;
+	in_lineno   = 0;
 	if( !fyle )	{
-		fprintf(
-			stderr,
-			"%s: cannot read [%s].\n",
-			me,
-			fn
+		error_intro(
+			errno,
+			"could not open file"
 		);
 		++nonfatal;
 	} else	{
 		if( setvbuf( fyle, NULL, _IOFBF, getpagesize() * 16 ) )	{
-			fprintf(
-				stderr,
-				"%s: failed to set buffer size"
-				"; continuing bravely onward.\n",
-				me
+			error_intro(
+				errno,
+				"failed to set buffer size"
 			);
 		}
 		process( fyle );
 		if( (*closer)( fyle ) )	{
-			perror( optarg );
+			error_intro(
+				errno,
+				"cannot close file"
+			);
 			++nonfatal;
 		}
+		in_filename = NULL;
+		in_lineno   = -1;
 	}
 }
 
@@ -967,7 +999,7 @@ main(
 		if( freopen( ofile, "wt", stdout ) != stdout )	{
 			fprintf(
 				stderr,
-				"%s: cannot redirect output [%s].\n",
+				"%s: cannot redirect output to \"%s\".\n",
 				me,
 				ofile
 			);
