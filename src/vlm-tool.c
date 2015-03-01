@@ -303,7 +303,7 @@ announce_ignored(
 				++others;
 			}
 			printf(
-				"# %s\n",
+				"#\t%s\n",
 				trigger->s
 			);
 		}
