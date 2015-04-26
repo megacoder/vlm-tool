@@ -24,8 +24,10 @@ Colorize the output.
 This assigns each host a different color, so that finding related entries is easier.
 You do not get any choice about the color selection.
 .TP
-\fB\-d\fP
-Log entries have an ISO 8601 date instead of the usual.
+\fB\-d\fP \fIregion\fP
+Change the date parsing to \fIregion\fP.
+The default is \fIUSA\fP.
+Region \fIISO\fP attempts to decode using the ISO 8601 standard and most of its variations.
 .TP
 \fB\-G\fP \fIsecs\fP
 Recognize a time gap if two log entries for this host are \fIsecs\fP apart.
