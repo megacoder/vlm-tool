@@ -46,7 +46,7 @@ char const * const	builtin_triggers[] =	{
 	"floating-point",
 	"fsck",
 	"general protection rip:",
-	"h[au]ng",
+	"h[au]ng[^[:alnum:]]",
 	"illegal(:.*)?",
 	"init:",
 	"invalid(:.*)?",
