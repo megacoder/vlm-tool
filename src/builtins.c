@@ -60,6 +60,7 @@ char const * const	builtin_triggers[] =	{
 	"kill(ing)?",
 	"link",
 	"redhat.com",			/* Keep before 'linux version'	 */
+	"leap[[:space:]]*second",
 	"linux[[:space:]]version",	/* Keep after 'redhat.com'	 */
 	"ll header:.*",
 	"lpfc",
