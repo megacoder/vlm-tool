@@ -1,3 +1,42 @@
+2015-09-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Bumped version number
+
+2015-09-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.c: Use fadvise trying to preload as much of the
+	messages file as we can into the page cache to improve performance.
+
+2015-07-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: bump
+
+2015-07-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Highlight 'leap second' notices.
+
+2015-07-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Try to be not fooled by an enbedded 'hang' or
+	'hung' string.
+
+2015-06-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Bumped revision number.
+
+2015-04-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.1: Corrected man(1) page: the '-d' switch actually takes
+	'-d <region>' and defaults to USA.
+
+2015-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.c: Indent ignored patterns by a tab, not a space.
+
+2015-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Updated changelog.
+
 2015-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac: Bumped rev
