@@ -1,5 +1,13 @@
 2015-09-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
+	* configure.ac, src/pool.c: Allocate storage pool in larger chunks.
+
+2015-09-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Noted use of fadvise
+
+2015-09-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
 	* configure.ac: Bumped version number
 
 2015-09-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
