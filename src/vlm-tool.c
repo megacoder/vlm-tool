@@ -4,6 +4,7 @@
 #include <config.h>
 
 #include <sys/types.h>
+#include <fcntl.h>
 #include <ctype.h>
 #include <getopt.h>
 #include <malloc.h>
@@ -728,6 +729,17 @@ do_file(
 		);
 		++nonfatal;
 	} else	{
+		if( posix_fadvise(
+			fileno(fyle),
+			(off_t) 0,
+			(off_t) 0,
+			(POSIX_FADV_SEQUENTIAL)
+		) )	{
+			error_intro(
+				errno,
+				"failed to fadvise(2)"
+			);
+		}
 		if( setvbuf( fyle, NULL, _IOFBF, getpagesize() * 16 ) )	{
 			error_intro(
 				errno,
