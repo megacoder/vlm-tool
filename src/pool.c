@@ -9,7 +9,7 @@
 
 #include <pool.h>
 
-#define	POOL_CHUNK_SIZE	(getpagesize() * 4)
+#define	POOL_CHUNK_SIZE	(getpagesize() * 32)
 
 static	void *
 xmalloc(
