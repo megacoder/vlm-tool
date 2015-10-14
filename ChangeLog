@@ -1,3 +1,11 @@
+2015-10-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Highlight D-bus references
+
+2015-09-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Bumped revision
+
 2015-09-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac, src/pool.c: Allocate storage pool in larger chunks.
