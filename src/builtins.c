@@ -112,6 +112,7 @@ char const * const	builtin_triggers[] =	{
 	"udev:",
 	"uhhuh",
 	"unable",
+	"unauthorized",
 	"unknown[[:space:]]symbol.*",
 	"unsupported",
 	"vfs:",
