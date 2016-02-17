@@ -4,6 +4,7 @@
 #include <config.h>
 
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <fcntl.h>
 #include <ctype.h>
 #include <getopt.h>
@@ -729,7 +730,16 @@ do_file(
 		);
 		++nonfatal;
 	} else	{
-		if( posix_fadvise(
+		struct stat	st;
+
+		if( fstat( fileno( fyle ), &st ) )	{
+			error_intro(
+				errno,
+				"cannot determine if pipe or not"
+			);
+			st.st_mode = S_IFREG;
+		}
+		if( !S_ISREG(st.st_mode) && posix_fadvise(
 			fileno(fyle),
 			(off_t) 0,
 			(off_t) 0,
