@@ -1,3 +1,20 @@
+2016-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: Don't issue fadvise() for piped
+	input, used if log file is compressed.
+
+2015-10-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Added "unauthorized" as a red flag
+
+2015-10-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Bumped version
+
+2015-10-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Versioning.
+
 2015-10-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac, src/builtins.c: Highlight D-bus references
