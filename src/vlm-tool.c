@@ -739,17 +739,14 @@ do_file(
 			);
 			st.st_mode = S_IFREG;
 		}
-		if( !S_ISREG(st.st_mode) && posix_fadvise(
+		/* If this doesn't work, nobody cares			 */
+		(void) posix_fadvise(
 			fileno(fyle),
 			(off_t) 0,
 			(off_t) 0,
 			(POSIX_FADV_SEQUENTIAL)
-		) )	{
-			error_intro(
-				errno,
-				"failed to fadvise(2)"
-			);
-		}
+		);
+		/* Buffer in 1-page chunks				 */
 		if( setvbuf( fyle, NULL, _IOFBF, getpagesize() * 16 ) )	{
 			error_intro(
 				errno,
