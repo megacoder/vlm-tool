@@ -36,6 +36,7 @@ char const * const	builtin_triggers[] =	{
 	"disagrees.*symbol.*",
 	"disk.*,.*o:.*$",
 	"don't",
+	"drop(ped)?",
 	"el[0-9]debug",
 	"end_request",
 	"enforcing=[[:digit:]]*",
@@ -51,7 +52,7 @@ char const * const	builtin_triggers[] =	{
 	"illegal(:.*)?",
 	"init:",
 	"invalid(:.*)?",
-	"i?scsi",
+	"i?scsi([[:digit:]]*)?",
 	"is down",
 	"is up",
 	"kdump(:.*)?",
@@ -68,6 +69,7 @@ char const * const	builtin_triggers[] =	{
 	"lpfc",
 	"machine check events logged",
 	"mark as failed",
+	"mismatch(ed)?",
 	"remaining active paths:[[:space:]]*[[:digit:]]*",	/* Keep before 'multipathd'	 */
 	"multipathd",			/* after 'remaining active p..'  */
 	"netdev",
