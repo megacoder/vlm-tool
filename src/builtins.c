@@ -17,6 +17,7 @@ char const * const	builtin_triggers[] =	{
 	"bcm5709",
 	"martian source.*",	/* Keep this before "bonding" 		 */
 	"blocked[[:space:]]for[[:space:]]more",
+	"badness.*",
 	"becomes",
 	"bond(ing|[a-zA-Z]*[0-9.]+)",
 	"c-state",
