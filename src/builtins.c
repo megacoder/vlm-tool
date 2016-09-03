@@ -70,6 +70,7 @@ char const * const	builtin_triggers[] =	{
 	"lpfc",
 	"machine check events logged",
 	"mark as failed",
+	"md(:|[[:digit:]]*|s.*)",	/* Try to show all the mdstat	 */
 	"mismatch(ed)?",
 	"remaining active paths:[[:space:]]*[[:digit:]]*",	/* Keep before 'multipathd'	 */
 	"multipathd",			/* after 'remaining active p..'  */
