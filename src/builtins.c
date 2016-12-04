@@ -75,6 +75,7 @@ char const * const	builtin_triggers[] =	{
 	"remaining active paths:[[:space:]]*[[:digit:]]*",	/* Keep before 'multipathd'	 */
 	"multipathd",			/* after 'remaining active p..'  */
 	"netdev",
+	"nfs server.*",
 	"nfs:.*not[[:space:]]responding",
 	"nfsd:",
 	"nss_ldap:.*",
