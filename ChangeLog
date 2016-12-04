@@ -1,3 +1,31 @@
+2016-12-04  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Flag NFS server OK/not responding
+	flags.
+
+2016-09-03  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Try to flag software raid
+	(md:,md<n>,mds*) lines
+
+2016-07-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/builtins.c: Added "badness" as a search term.
+
+2016-06-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Added keywords like "dropped", "mismatch" and
+	added optional unit number to "scsi" recognition.
+
+2016-06-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Try to identify D-state processes.  They have a
+	"D" as the third token of a "kernel:" line.
+
+2016-04-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Change log.
+
 2016-04-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac, src/vlm-tool.c: Don't grumble about posix_fadvise(2)
