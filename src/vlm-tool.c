@@ -721,7 +721,7 @@ do_file(
 		char	cmd[ BUFSIZ ];
 		int	n;
 
-		n = snprintf( cmd, sizeof(cmd), "/bin/uncompress -- %s", fn );
+		n = snprintf( cmd, sizeof(cmd), "/bin/uncompress %s", fn );
 		if( n > sizeof(cmd) )	{
 			perror( fn );
 			exit( 1 );
