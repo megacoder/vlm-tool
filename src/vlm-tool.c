@@ -699,7 +699,7 @@ do_file(
 		char	cmd[ BUFSIZ ];
 		int	n;
 
-		n = snprintf( cmd, sizeof(cmd), "/usr/bin/bzcat -- %s", fn );
+		n = snprintf( cmd, sizeof(cmd), "/bin/bzcat -- %s", fn );
 		if( n > sizeof(cmd) )	{
 			perror( fn );
 			exit( 1 );
@@ -710,7 +710,18 @@ do_file(
 		char	cmd[ BUFSIZ ];
 		int	n;
 
-		n = snprintf( cmd, sizeof(cmd), "/usr/bin/xzcat -- %s", fn );
+		n = snprintf( cmd, sizeof(cmd), "/bin/xzcat -- %s", fn );
+		if( n > sizeof(cmd) )	{
+			perror( fn );
+			exit( 1 );
+		}
+		fyle = popen( cmd, "r" );
+		closer = pclose;
+	} else if( has_ext( fn, ".Z" ) )	{
+		char	cmd[ BUFSIZ ];
+		int	n;
+
+		n = snprintf( cmd, sizeof(cmd), "/bin/uncompress -- %s", fn );
 		if( n > sizeof(cmd) )	{
 			perror( fn );
 			exit( 1 );
