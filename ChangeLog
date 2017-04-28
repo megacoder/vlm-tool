@@ -1,3 +1,15 @@
+2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Bumped version number
+
+2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.c: Added ".Z" uncompress support.
+
+2016-12-04  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: 2.2.15
+
 2016-12-04  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac, src/builtins.c: Flag NFS server OK/not responding
@@ -581,8 +593,7 @@
 
 2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
-	* src/messages, tests/messages: Moved test case out of source
-	directory.
+	* {src => tests}/messages: Moved test case out of source directory.
 
 2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
@@ -618,8 +629,8 @@
 
 2012-06-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
-	* autogen.sh, bootstrap.sh: Change 'autogen.sh' to 'bootstrap.sh' to
-	avoid auto-complete collision.
+	* autogen.sh => bootstrap.sh: Change 'autogen.sh' to 'bootstrap.sh'
+	to avoid auto-complete collision.
 
 2012-06-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
@@ -764,7 +775,7 @@
 
 2012-05-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
-	* configure.ac, src/vlm-tool.1, src/vlm-tool.1.in: Added version
+	* configure.ac, src/{vlm-tool.1 => vlm-tool.1.in}: Added version
 	information to the man(1) page..
 
 2012-05-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
@@ -800,20 +811,21 @@
 
 2012-05-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
-	* configure.ac, src/vlm-tool.spec.in, vlm-tool.spec.in: Rebuild
+	* configure.ac, src/vlm-tool.spec.in => vlm-tool.spec.in: Rebuild
 	using a 'src/' subdirectory.
 
 2012-05-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
-	* gcc-compat.h, messages, src/gcc-compat.h, src/messages: Checkpoint
+	* gcc-compat.h => src/gcc-compat.h, messages => src/messages: 
+	Checkpoint
 
 2012-05-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
-	* Makefile.am, builtins.c, builtins.h, pool.c, pool.h,
-	src/Makefile.am, src/builtins.c, src/builtins.h, src/pool.c,
-	src/pool.h, src/vlm-tool.1, src/vlm-tool.c, src/vlm-tool.spec.in,
-	src/xprintf.h, vlm-tool.1, vlm-tool.c, vlm-tool.spec.in, xprintf.h: 
-	Isolated sources into a subdirectory.
+	* Makefile.am, src/Makefile.am, builtins.c => src/builtins.c,
+	builtins.h => src/builtins.h, pool.c => src/pool.c, pool.h =>
+	src/pool.h, vlm-tool.1 => src/vlm-tool.1, vlm-tool.c =>
+	src/vlm-tool.c, vlm-tool.spec.in => src/vlm-tool.spec.in, xprintf.h
+	=> src/xprintf.h: Isolated sources into a subdirectory.
 
 2012-04-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
@@ -1126,9 +1138,9 @@
 
 2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
-	* Makefile.am, configure.ac, vlm-tool.1, vlm-tool.c,
-	vlm-tool.spec.in, vlm_tool.1, vlm_tool.c, vlm_tool.spec.in: Move
-	back to 'vlm-tool'.
+	* Makefile.am, configure.ac, vlm_tool.1 => vlm-tool.1, vlm_tool.c
+	=> vlm-tool.c, vlm_tool.spec.in => vlm-tool.spec.in: Move back to
+	'vlm-tool'.
 
 2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
@@ -1168,8 +1180,9 @@
 
 2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
-	* Makefile.am, autogen.sh, configure.ac, vlm-tool.1, vlm-tool.c,
-	vlm-tool.spec, vlm_tool.1, vlm_tool.spec.in, vlmtool.c: Auto tools.
+	* Makefile.am, autogen.sh, configure.ac, vlm-tool.1 => vlm_tool.1,
+	vlm-tool.spec => vlm_tool.spec.in, vlm-tool.c => vlmtool.c: Auto
+	tools.
 
 2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
@@ -1330,7 +1343,7 @@
 
 2012-02-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
-	* Makefile, vlm-tool.spec, vlm-tool.spec.in: Hardcoded
+	* Makefile, vlm-tool.spec.in => vlm-tool.spec: Hardcoded
 
 2012-02-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
@@ -1350,8 +1363,8 @@
 
 2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
-	* Makefile.am, autogen.sh, configure.ac, vlm-tool.py,
-	vlm-tool.py.in: Dropping autotools, they are just in the way.
+	* Makefile.am, autogen.sh, configure.ac, vlm-tool.py.in =>
+	vlm-tool.py: Dropping autotools, they are just in the way.
 
 2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
@@ -1380,7 +1393,7 @@
 
 2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
-	* Makefile.am, autogen.sh, configure.ac, vlm-tool.py,
+	* Makefile.am, autogen.sh, configure.ac, vlm-tool.py =>
 	vlm-tool.py.in, vlm-tool.spec.in: The VERSION macro does propagate
 	down to the script.
 
