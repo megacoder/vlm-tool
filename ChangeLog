@@ -1,5 +1,18 @@
 2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
+	* configure.ac, src/vlm-tool.c: Must use zcat for in-place
+	expanding.
+
+2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/vlm-tool.c: uncompress(1) does not honor '--'
+
+2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Bumped
+
+2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
 	* configure.ac: Bumped version number
 
 2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
