@@ -23,6 +23,7 @@ char const * const	builtin_triggers[] =	{
 	"c-state",
 	"can't contact ldap server",
 	"call[[:space:]]trace:",
+	"certificate(s)",
 	"checker failed path",
 	"clocksource",
 	"conflict",
