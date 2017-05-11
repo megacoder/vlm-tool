@@ -1,3 +1,16 @@
+2017-05-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Bumped version number
+
+2017-05-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Added "certificate(s)" to help detect SSL
+	validation issues.
+
+2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Bumped
+
 2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac, src/vlm-tool.c: Must use zcat for in-place
