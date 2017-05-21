@@ -1,3 +1,23 @@
+2017-05-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac: Bumped version.
+
+2017-05-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Notice Ethernet references.
+
+2017-05-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Notice Ethernet references.
+
+2017-05-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Highlith "o2hbmonitor" if present
+
+2017-05-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Update ChangeLog
+
 2017-05-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac: Bumped version number
