@@ -45,7 +45,7 @@ char const * const	builtin_triggers[] =	{
 	"errno([[:space:]]*[[:digit:]][[:digit:]]*)?",
 	"error",
 	"/etc/sysconfig/network-scripts",
-	"eth([[:digit:].])*",
+	"eth([[:digit:].:])*",
 	"fail(ed(:.*)?|ure|ing|-?over)?",
 	"fenc(e,ing)",
 	"floating-point",
