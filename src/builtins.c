@@ -85,7 +85,7 @@ char const * const	builtin_triggers[] =	{
 	"not[[:space:]]*within[[:space:]]*permissible[[:space:]]range",
 	"[^_]nmi",
 	"numa turned (on|off)",
-	"o2(cb|hb|net)?",
+	"o2(cb|hb(monitor)?|net)?",
 	"ocfs2?",
 	"oom",
 	"oops",
