@@ -1,3 +1,16 @@
+2017-06-03  Tommy Reynolds <Oldest.Software.Guy@gmail.com>
+
+	* configure.ac, src/builtins.c: Added "ENERGY_PERF_BIAS:" to spot
+	potential CPU throttling performance issues.
+
+2017-05-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* src/builtins.c: Recognize "eth0:1" too
+
+2017-05-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Updated
+
 2017-05-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac: Bumped version.
