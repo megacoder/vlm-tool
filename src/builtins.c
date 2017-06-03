@@ -40,6 +40,7 @@ char const * const	builtin_triggers[] =	{
 	"don't",
 	"drop(ped)?",
 	"el[0-9]debug",
+	"energy_perf_bias:.*",
 	"end_request",
 	"enforcing=[[:digit:]]*",
 	"errno([[:space:]]*[[:digit:]][[:digit:]]*)?",
