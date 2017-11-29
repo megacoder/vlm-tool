@@ -35,6 +35,8 @@
 
 #include <vlm-tool.h>
 
+#define	SHOW_IGNORED	0
+
 #define	SEC_PER_MINUTE	(60UL)
 #define	SEC_PER_HOUR	(SEC_PER_MINUTE * 60UL)
 #define	SEC_PER_DAY	(SEC_PER_HOUR * 24UL)
@@ -280,6 +282,7 @@ bulk_load(
 	fclose( fyle );
 }
 
+#if	SHOW_IGNORED
 static	void
 announce_ignored(
 	void
@@ -312,6 +315,7 @@ announce_ignored(
 	} while( 0 );
 	pool_iter_free( &iter );
 }
+#endif	/* SHOW_IGNORED */
 
 static	void
 process(
@@ -699,7 +703,7 @@ do_file(
 		char	cmd[ BUFSIZ ];
 		int	n;
 
-		n = snprintf( cmd, sizeof(cmd), "/usr/bin/bzcat -- %s", fn );
+		n = snprintf( cmd, sizeof(cmd), "/bin/bzcat -- %s", fn );
 		if( n > sizeof(cmd) )	{
 			perror( fn );
 			exit( 1 );
@@ -710,7 +714,18 @@ do_file(
 		char	cmd[ BUFSIZ ];
 		int	n;
 
-		n = snprintf( cmd, sizeof(cmd), "/usr/bin/xzcat -- %s", fn );
+		n = snprintf( cmd, sizeof(cmd), "/bin/xzcat -- %s", fn );
+		if( n > sizeof(cmd) )	{
+			perror( fn );
+			exit( 1 );
+		}
+		fyle = popen( cmd, "r" );
+		closer = pclose;
+	} else if( has_ext( fn, ".Z" ) )	{
+		char	cmd[ BUFSIZ ];
+		int	n;
+
+		n = snprintf( cmd, sizeof(cmd), "/bin/zcat %s", fn );
 		if( n > sizeof(cmd) )	{
 			perror( fn );
 			exit( 1 );
@@ -802,6 +817,46 @@ only_messages(
 		retval = !strncmp( de->d_name, "messages", 8 );
 	} while( 0 );
 	return( retval );
+}
+
+static	void
+introspect(
+	int		argc,
+	char * *	argv
+)
+{
+	char * *	thumb;
+	char *		sep;
+	char *		token;
+
+	if( getuid() == 0 )	{
+		sep = "# ";
+	} else	{
+		sep = "$ ";
+	}
+	for( thumb = argv; (token = *thumb); ++thumb )	{
+		char *	bp;
+		char *	fmt;
+		/* Check for embedded whitespace			 */
+		bp = strchr( token, ' ' );
+		if( !bp )	{
+			bp = strchr( token, '\t' );
+		}
+		if( bp )	{
+			/* Has embedded whitespace, so quote it		 */
+			if( strchr( token, '\'' ) )	{
+				fmt = "%s\"%s\"";
+			} else	{
+				fmt = "%s'%s'";
+			}
+		} else	{
+			/* Plain token, just print it			 */
+			fmt = "%s%s";
+		}
+		printf( fmt, sep, token );
+		sep = " ";
+	}
+	printf( ";\n" );
 }
 
 int
@@ -1025,6 +1080,11 @@ main(
 			exit(1);
 		}
 	}
+	/* Record the command line					 */
+	if( mark_entries )	{
+		introspect( argc, argv );
+		printf( "\n" );
+	}
 	/* Here we go							 */
 	if( optind < argc )	{
 		/* Named files						 */
@@ -1077,7 +1137,9 @@ main(
 	flatten_and_sort_entries();
 	/* Post-processing phase					 */
 	if( mark_entries )	{
+#if	SHOW_IGNORED
 		announce_ignored();
+#endif	/* SHOW_IGNORED */
 		post_process();
 	}
 	/* Print results						 */
