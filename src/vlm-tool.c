@@ -35,7 +35,9 @@
 
 #include <vlm-tool.h>
 
-#define	SHOW_IGNORED	0
+#ifndef	SHOW_IGNORED
+# define	SHOW_IGNORED	0
+#endif	/* SHOW_IGNORED */
 
 #define	SEC_PER_MINUTE	(60UL)
 #define	SEC_PER_HOUR	(SEC_PER_MINUTE * 60UL)
@@ -828,33 +830,28 @@ introspect(
 	char * *	thumb;
 	char *		sep;
 	char *		token;
+	int		quote_it;
 
 	if( getuid() == 0 )	{
 		sep = "# ";
 	} else	{
 		sep = "$ ";
 	}
+	quote_it = 0;
 	for( thumb = argv; (token = *thumb); ++thumb )	{
-		char *	bp;
 		char *	fmt;
-		/* Check for embedded whitespace			 */
-		bp = strchr( token, ' ' );
-		if( !bp )	{
-			bp = strchr( token, '\t' );
-		}
-		if( bp )	{
-			/* Has embedded whitespace, so quote it		 */
-			if( strchr( token, '\'' ) )	{
-				fmt = "%s\"%s\"";
-			} else	{
+		if( quote_it )	{
+			if( strchr( token, '\'' ) == NULL )	{
 				fmt = "%s'%s'";
+			} else	{
+				fmt = "%s\"%s\"";
 			}
 		} else	{
-			/* Plain token, just print it			 */
 			fmt = "%s%s";
 		}
 		printf( fmt, sep, token );
 		sep = " ";
+		quote_it = 1;
 	}
 	printf( ";\n" );
 }

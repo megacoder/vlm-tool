@@ -1,3 +1,26 @@
+2017-11-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: Quote everything except the program
+	name.
+
+2017-11-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Added command line reconstruction if marking is
+	enabled.
+
+2017-11-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: Reconstruct command line if marking
+	is enabled.
+
+2017-06-13  Tommy Reynolds <Oldest.Software.Guy@gmail.com>
+
+	* .gitignore: Detritus
+
+2017-06-03  Tommy Reynolds <Oldest.Software.Guy@gmail.com>
+
+	* ChangeLog: History
+
 2017-06-03  Tommy Reynolds <Oldest.Software.Guy@gmail.com>
 
 	* configure.ac, src/builtins.c: Added "ENERGY_PERF_BIAS:" to spot
