@@ -1,3 +1,13 @@
+2017-11-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: Quote everything except the program
+	name.
+
+2017-11-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Added command line reconstruction if marking is
+	enabled.
+
 2017-11-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac, src/vlm-tool.c: Reconstruct command line if marking
