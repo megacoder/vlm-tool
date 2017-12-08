@@ -14,6 +14,7 @@ char const * const	builtin_triggers[] =	{
 	"addrconf[(].*",
 	"access[[:space:]]beyond",
 	"asked[[:space:]]fo",
+	"avc:.*denied",
 	"bcm5709",
 	"martian source.*",	/* Keep this before "bonding" 		 */
 	"blocked[[:space:]]for[[:space:]]more",
@@ -39,6 +40,7 @@ char const * const	builtin_triggers[] =	{
 	"disk.*,.*o:.*$",
 	"don't",
 	"drop(ped)?",
+	"drop_caches:",
 	"el[0-9]debug",
 	"energy_perf_bias:.*",
 	"end_request",
