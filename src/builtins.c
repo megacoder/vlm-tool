@@ -14,6 +14,7 @@ char const * const	builtin_triggers[] =	{
 	"addrconf[(].*",
 	"access[[:space:]]beyond",
 	"asked[[:space:]]fo",
+	"avc:.*denied",
 	"bcm5709",
 	"martian source.*",	/* Keep this before "bonding" 		 */
 	"blocked[[:space:]]for[[:space:]]more",
