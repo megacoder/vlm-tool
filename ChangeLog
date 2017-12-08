@@ -1,5 +1,13 @@
 2017-12-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
+	* configure.ac, src/builtins.c: Flag "avc: denied" entries
+
+2017-12-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ChangeLog: Flag "drop_caches:"
+
+2017-12-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
 	* configure.ac, src/builtins.c: Add "drop_caches:" rule, since
 	seeing that is usually a sign someone is frobbing around when they
 	shouldn't be.
