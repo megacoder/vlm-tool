@@ -821,6 +821,28 @@ only_messages(
 	return( retval );
 }
 
+static	int
+needs_quoting(
+	char const *	s
+)
+{
+	int		retval;
+
+	retval = 0;
+	do	{
+		static char const	shell_only[] = "\n\t $`{}()[]*#\"";
+		int			c;
+
+		while( (c = *s++ & 0xFF) )	{
+			if( strchr( shell_only, c ) )	{
+				retval = 1;
+				break;
+			}
+		}
+	} while( 0 );
+	return( retval );
+}
+
 static	void
 introspect(
 	int		argc,
@@ -830,17 +852,16 @@ introspect(
 	char * *	thumb;
 	char *		sep;
 	char *		token;
-	int		quote_it;
 
 	if( getuid() == 0 )	{
 		sep = "# ";
 	} else	{
 		sep = "$ ";
 	}
-	quote_it = 0;
 	for( thumb = argv; (token = *thumb); ++thumb )	{
 		char *	fmt;
-		if( quote_it )	{
+
+		if( needs_quoting( token ) )	{
 			if( strchr( token, '\'' ) == NULL )	{
 				fmt = "%s'%s'";
 			} else	{
@@ -851,7 +872,6 @@ introspect(
 		}
 		printf( fmt, sep, token );
 		sep = " ";
-		quote_it = 1;
 	}
 	printf( ";\n" );
 }
