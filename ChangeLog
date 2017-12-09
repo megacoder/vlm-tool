@@ -1,3 +1,19 @@
+2017-12-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* configure.ac, src/vlm-tool.c: OK, I couldn't stand quoting
+	qnything that didn't need quoting.
+
+2017-12-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* vlm-tool.spec.in: Modernize (more or less) the markdown utility
+	RPM name.
+
+2017-12-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : commit 65bc0da18bdb8479c1c910ed07150f4ef4b07bc0 Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Fri Dec 8 13:20:00
+	2017 -0600
+
 2017-12-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
 	* configure.ac, src/builtins.c: Flag "avc: denied" entries
@@ -14,7 +30,9 @@
 
 2017-11-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
-	* ChangeLog: History
+	* : commit d7157b91b2764d5acd23f1d9909e18e8ffbb02b0 Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Thu Nov 30 11:07:01
+	2017 -0600
 
 2017-11-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
@@ -23,8 +41,9 @@
 
 2017-11-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
-	* ChangeLog: Added command line reconstruction if marking is
-	enabled.
+	* : commit dd94a92365823cea869b0b9f766a2d9690832336 Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Wed Nov 29 11:49:38
+	2017 -0600
 
 2017-11-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
@@ -119,6 +138,12 @@
 
 	* configure.ac, src/builtins.c: Try to flag software raid
 	(md:,md<n>,mds*) lines
+
+2016-07-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* : commit eedce9a8146d3c2a686e4e7f25ea0b4d449321f6 Author: Tommy
+	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Thu Jul 21 10:26:22
+	2016 -0500
 
 2016-07-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 
