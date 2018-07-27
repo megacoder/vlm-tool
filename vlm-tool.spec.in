@@ -53,3 +53,1200 @@ For example, suppose one node of a five-server cluster starts having I/O issues 
 %{_mandir}/man1/vlm-tool.1.gz
 
 %changelog
+* Fri Jul 27 2018 Tommy Reynolds
+- (d516fce) Checkpoint (HEAD, tag: v2.2.26, origin/master, origin/HEAD, master)
+
+* Fri Jul 27 2018 Tommy Reynolds
+- (fa8edf6) Highlight hypervisor detection.
+
+* Sat Dec 9 2017 Tommy Reynolds
+- (9f6af0d) History (tag: v2.2.25)
+
+* Sat Dec 9 2017 Tommy Reynolds
+- (d1deba5) OK, I couldn't stand quoting qnything that didn't need quoting.
+
+* Fri Dec 8 2017 Tommy Reynolds
+- (6fbdf31) Modernize (more or less) the markdown utility RPM name.
+
+* Fri Dec 8 2017 Tommy Reynolds
+- (c311ba9) Merge branch 'master' of github.com:megacoder/vlm-tool
+
+* Fri Dec 8 2017 Tommy Reynolds
+- (65bc0da) Flag avc denials (tag: v2.2.24)
+
+* Fri Dec 8 2017 Tommy Reynolds
+- (879d018) Flag "avc: denied" entries
+
+* Fri Dec 8 2017 Tommy Reynolds
+- (238a7b8) Flag "drop_caches:" (tag: v2.2.23)
+
+* Fri Dec 8 2017 Tommy Reynolds
+- (85ad276) Add "drop_caches:" rule, since seeing that is usually a sign someone is frobbing around when they shouldn't be.
+
+* Thu Nov 30 2017 Tommy Reynolds
+- (636f70f) Merge branch 'master' of github.com:megacoder/vlm-tool
+
+* Thu Nov 30 2017 Tommy Reynolds
+- (d7157b9) History (tag: v2.2.22)
+
+* Thu Nov 30 2017 Tommy Reynolds
+- (20c2606) Quote everything except the program name.
+
+* Wed Nov 29 2017 Tommy Reynolds
+- (6ae7c15) Merge branch 'master' of github.com:megacoder/vlm-tool
+
+* Wed Nov 29 2017 Tommy Reynolds
+- (dd94a92) Added command line reconstruction if marking is enabled.
+
+* Wed Nov 29 2017 Tommy Reynolds
+- (4f5bd18) Reconstruct command line if marking is enabled. (tag: v2.2.21)
+
+* Tue Jun 13 2017 Tommy Reynolds
+- (5879249) Detritus
+
+* Sat Jun 3 2017 Tommy Reynolds
+- (ec05288) History (tag: v2.2.20)
+
+* Sat Jun 3 2017 Tommy Reynolds
+- (33b28d0) Added "ENERGY_PERF_BIAS:" to spot potential CPU throttling performance issues.
+
+* Sun May 21 2017 Tommy Reynolds
+- (7e38aa1) Recognize "eth0:1" too
+
+* Sun May 21 2017 Tommy Reynolds
+- (c95e029) Updated
+
+* Sun May 21 2017 Tommy Reynolds
+- (6988600) Bumped version. (tag: v2.2.19)
+
+* Sun May 21 2017 Tommy Reynolds
+- (e8284ed) Notice Ethernet references.
+
+* Sun May 21 2017 Tommy Reynolds
+- (3ab102d) Notice Ethernet references.
+
+* Sun May 21 2017 Tommy Reynolds
+- (3fd9079) Highlith "o2hbmonitor" if present
+
+* Thu May 11 2017 Tommy Reynolds
+- (ef1a1a5) Update ChangeLog (tag: 2.2.18)
+
+* Thu May 11 2017 Tommy Reynolds
+- (cc82f0e) Bumped version number
+
+* Thu May 11 2017 Tommy Reynolds
+- (d57fe75) Added "certificate(s)" to help detect SSL validation issues.
+
+* Fri Apr 28 2017 Tommy Reynolds
+- (12b560d) Bumped (tag: 2.2.17)
+
+* Fri Apr 28 2017 Tommy Reynolds
+- (37dc7d9) Must use zcat for in-place expanding.
+
+* Fri Apr 28 2017 Tommy Reynolds
+- (5c3a725) uncompress(1) does not honor '--'
+
+* Fri Apr 28 2017 Tommy Reynolds
+- (f27ab8e) Bumped (tag: 2.2.16)
+
+* Fri Apr 28 2017 Tommy Reynolds
+- (2e5f434) Bumped version number
+
+* Fri Apr 28 2017 Tommy Reynolds
+- (06f42db) Added ".Z" uncompress support.
+
+* Sun Dec 4 2016 Tommy Reynolds
+- (d97a9c4) 2.2.15 (tag: 2.2.15)
+
+* Sun Dec 4 2016 Tommy Reynolds
+- (15dd739) Flag NFS server OK/not responding flags.
+
+* Sat Sep 3 2016 Tommy Reynolds
+- (3a7b375) Try to flag software raid (md:,md<n>,mds*) lines (tag: 2.2.14)
+
+* Thu Jul 21 2016 Tommy Reynolds
+- (0dbcedc) Merge branch 'devel'
+
+* Thu Jul 21 2016 Tommy Reynolds
+- (eedce9a) Try to flag D-state processes.
+
+* Thu Jul 14 2016 Tommy Reynolds
+- (7a95a66) Added "badness" as a search term. (tag: 2.2.13)
+
+* Wed Jun 29 2016 Tommy Reynolds
+- (3a7c8bc) Added keywords like "dropped", "mismatch" and added optional unit number to "scsi" recognition.
+
+* Fri Jun 24 2016 Tommy Reynolds
+- (4fce848) Try to identify D-state processes.  They have a "D" as the third token of a "kernel:" line.
+
+* Sat Apr 9 2016 Tommy Reynolds
+- (76e010d) Change log. (tag: 2.2.12)
+
+* Sat Apr 9 2016 Tommy Reynolds
+- (8235e56) Don't grumble about posix_fadvise(2) failing.
+
+* Wed Feb 17 2016 Tommy Reynolds
+- (8ac1040) Updated changelog
+
+* Wed Feb 17 2016 Tommy Reynolds
+- (2bab99b) Don't issue fadvise() for piped input, used if log file is compressed.
+
+* Wed Oct 14 2015 Tommy Reynolds
+- (585d97a) Added "unauthorized" as a red flag (tag: 2.2.11, tag: 2.2.10)
+
+* Wed Oct 14 2015 Tommy Reynolds
+- (056cf30) Bumped version
+
+* Wed Oct 14 2015 Tommy Reynolds
+- (b0465a0) Versioning. (tag: 2.2.9)
+
+* Wed Oct 14 2015 Tommy Reynolds
+- (58256a5) Highlight D-bus references
+
+* Tue Sep 22 2015 Tommy Reynolds
+- (8e346e7) Bumped revision (tag: 2.2.8)
+
+* Tue Sep 22 2015 Tommy Reynolds
+- (51b6a8a) Allocate storage pool in larger chunks.
+
+* Tue Sep 22 2015 Tommy Reynolds
+- (c71fb25) Noted use of fadvise (tag: 2.2.7)
+
+* Tue Sep 22 2015 Tommy Reynolds
+- (e4b2270) Bumped version number
+
+* Tue Sep 22 2015 Tommy Reynolds
+- (5c3f154) Use fadvise trying to preload as much of the messages file as we can into the page cache to improve performance.
+
+* Fri Jul 10 2015 Tommy Reynolds
+- (9764c14) bump (tag: 2.2.6)
+
+* Fri Jul 10 2015 Tommy Reynolds
+- (067c3fc) Highlight 'leap second' notices.
+
+* Fri Jul 10 2015 Tommy Reynolds
+- (814c756) Try to be not fooled by an enbedded 'hang' or 'hung' string.
+
+* Sat Jun 20 2015 Tommy Reynolds
+- (1367d1f) Bumped revision number.
+
+* Sun Apr 26 2015 Tommy Reynolds
+- (127e8f1) Corrected man(1) page: the '-d' switch actually takes '-d <region>' and defaults to USA.
+
+* Sun Mar 1 2015 Tommy Reynolds
+- (0ef7e7c) Indent ignored patterns by a tab, not a space.
+
+* Wed Feb 25 2015 Tommy Reynolds
+- (8b2c4fc) Updated changelog. (tag: 2.2.4)
+
+* Wed Feb 25 2015 Tommy Reynolds
+- (17b202f) Bumped rev
+
+* Wed Feb 25 2015 Tommy Reynolds
+- (4f4699d) Show filename and line number when complaining about timestamp format.
+
+* Wed Feb 25 2015 Tommy Reynolds
+- (cd2d868) Try using "markdown2" else "markdown" else punt.
+
+* Wed Feb 25 2015 Tommy Reynolds
+- (adba464) Softened required packages for build.
+
+* Sat Jan 17 2015 Tommy Reynolds
+- (8d3ebdd) Updated change log. (tag: 2.2.3)
+
+* Sat Jan 17 2015 Tommy Reynolds
+- (9db4318) Bumped revision.
+
+* Sat Jan 17 2015 Tommy Reynolds
+- (fa90d43) Mark kernel version information.  It's not an error, but is useful in all contexts.
+
+* Sat Jan 10 2015 Tommy Reynolds
+- (13e65f8) Updated changelog.
+
+* Sat Jan 10 2015 Tommy Reynolds
+- (1a046df) Correct wrong offset when specifying year manually (year-1900) (tag: 2.2.2)
+
+* Sat Oct 25 2014 Tommy Reynolds
+- (3d5be7d) Log ignored patterns (tag: 2.2.1)
+
+* Sat Oct 25 2014 Tommy Reynolds
+- (a50aceb) If we are ignoring items, list them if producing marked output.
+
+* Sat Oct 11 2014 Tommy Reynolds
+- (db30801) Bumped rev for new date functionality. (tag: 2.2.0)
+
+* Sat Oct 11 2014 Tommy Reynolds
+- (b2b7850) Added '-d <date_kind>' with 'USA' and 'ISO' time formats.
+
+* Sun Sep 14 2014 Tommy Reynolds
+- (b0ea796) Updated revision history (tag: 2.1.8)
+
+* Sun Sep 14 2014 Tommy Reynolds
+- (241376c) Flag 'NUMA turned (on|off)'
+
+* Tue Sep 9 2014 Tommy Reynolds
+- (72d153f) 2.1.7 (tag: 2.1.7)
+
+* Tue Sep 9 2014 Tommy Reynolds
+- (1dc421f) Cache month comparison to avoid extra linear searches.
+
+* Sat Jul 5 2014 Tommy Reynolds
+- (f2d4d8f) Flag DHCP daemon activities. (tag: 2.1.6)
+
+* Sat Jul 5 2014 Tommy Reynolds
+- (5c59e64) Flag DHCPD activities.
+
+* Thu Jun 19 2014 Tommy Reynolds
+- (b5ee705) Populate the changelog. (tag: 2.1.5)
+
+* Thu Jun 19 2014 Tommy Reynolds
+- (e461af9) Reduce the number of false-positive indications by ignoring "_NMI" entries but still marking NMI significant events.
+
+* Fri Jun 6 2014 Tommy Reynolds
+- (d383402) Construct README from the README.md file.
+
+* Mon Jun 2 2014 Tommy Reynolds
+- (eaada32) Use setvbuf(3) to manage a larger-than-default buffer for reading the logs. (tag: 2.1.4)
+
+* Sat May 17 2014 Tommy Reynolds
+- (47d8e82) Updated changelog.
+
+* Sat May 17 2014 Tommy Reynolds
+- (92c08f4) Recognize "illegal" in more contexts than "illegal:" (tag: 2.1.3)
+
+* Thu Apr 24 2014 Tommy Reynolds
+- (7b6ce5d) Detect "is down" and "is up". Build RPM locally on everything not RHEL5 (tag: 2.1.2)
+
+* Fri Apr 18 2014 Tommy Reynolds
+- (7ff1841) Bumped version
+
+* Fri Apr 18 2014 Tommy Reynolds
+- (8b45f40) Cannot build locally under version 5
+
+* Tue Apr 15 2014 Tommy Reynolds
+- (2402569) Merge branch 'master' into devel
+
+* Tue Apr 15 2014 Tommy Reynolds
+- (0549bce) Flag snmp traps received.
+
+* Tue Apr 15 2014 Tommy Reynolds
+- (40ea3b7) If we accept an ISO8601 timestamp, we should generate an ISO8601 too.
+
+* Thu Mar 20 2014 Tommy Reynolds
+- (3e1ed45) Added '-O delta_hours' option that adds "delta_hours" to the current time before comparing the incoming entry's timestamp against the current time.  Since the log files omit the year, we assume the current year; a log entry timestamp in the future probably came from a year ago, so we just throw that away.
+
+* Thu Mar 13 2014 Tommy Reynolds
+- (da67a3f) Notice "enforcing=N" and build RPM locally. (tag: 2.0.23)
+
+* Sun Jan 19 2014 Tommy Reynolds
+- (4cf3d91) Flag "can't contact ldap server" as an interesting message. (tag: 2.0.22)
+
+* Sun Jan 5 2014 Tommy Reynolds
+- (d6a1540) Highlight "errno" and option following numeric value.
+
+* Sun Oct 20 2013 Tommy Reynolds
+- (683f249) Documented the new switches. (tag: 2.0.20)
+
+* Sun Oct 20 2013 Tommy Reynolds
+- (2a9fce3) Added '-w when' and '-W window' arguments.
+
+* Sun Sep 29 2013 Tommy Reynolds
+- (daa332d) Bumped version (tag: 2.0.19)
+
+* Sun Sep 29 2013 Tommy Reynolds
+- (318ee0d) Added Mem-info: stanza marking
+
+* Sun Sep 29 2013 Tommy Reynolds
+- (801f605) Bump rev. (tag: 2.0.18)
+
+* Sun Sep 29 2013 Tommy Reynolds
+- (e27d065) Don't mark gap notice; it's easy to notice as it is.
+
+* Wed Sep 25 2013 Tommy Reynolds
+- (e4e3581) Mention 'stanzas'
+
+* Wed Sep 25 2013 Tommy Reynolds
+- (68898f1) Bumped version (tag: 2.0.17)
+
+* Wed Sep 25 2013 Tommy Reynolds
+- (d3ed7c9) Fleshed out man(1) page.
+
+* Wed Sep 25 2013 Tommy Reynolds
+- (f82d4f5) Include man(1) page in distribution.
+
+* Wed Sep 25 2013 Tommy Reynolds
+- (8f7d2a6) man(1) page coming
+
+* Sat May 11 2013 Tommy Reynolds
+- (b9e8ed9) Highlight entire 'remaining paths' messages.
+
+* Sat May 11 2013 Tommy Reynolds
+- (31ba62c) Mystery message: khash_super_prune_nolock
+
+* Thu Apr 11 2013 Tommy Reynolds
+- (83c8608) Include stdio.h to pick up perror(3) definition.
+
+* Thu Mar 28 2013 Tommy Reynolds
+- (85bd3cd) Catch "floating-point" errors
+
+* Sat Mar 23 2013 Tommy Reynolds
+- (d411161) Also flag "Dazed and confused" and "Uhhuh".
+
+* Sat Mar 2 2013 Tommy Reynolds
+- (671fb9e) Flag "nss_ldap:" messages.
+
+* Sun Jan 27 2013 Tommy Reynolds
+- (1212b11) Recognize ISO timestamps if the "-d" switch is used. (tag: 2.0.13)
+
+* Sat Jan 12 2013 Tommy Reynolds
+- (6c2bc98) Nope, too much after all.
+
+* Sat Jan 12 2013 Tommy Reynolds
+- (19290d2) Extra leading space on note.
+
+* Sat Jan 12 2013 Tommy Reynolds
+- (df26c29) Output calculated gap time in meaningful form.
+
+* Sat Jan 12 2013 Tommy Reynolds
+- (1fa99c2) Show gap delta in meaningful units.
+
+* Sun Jan 6 2013 Tommy Reynolds
+- (a6465de) Output using localtime() instead of gmtime(), so the times correspond to what you see in the "/var/log/messages" file.
+
+* Sun Dec 30 2012 Tommy Reynolds
+- (e1c2861) Highlight the gap instead of flagging it.
+
+* Sun Dec 30 2012 Tommy Reynolds
+- (2c09405) Documentation.
+
+* Sun Dec 30 2012 Tommy Reynolds
+- (39dd275) Added "-g" switch to perform gap analysis.
+
+* Sat Dec 29 2012 Tommy Reynolds
+- (a5099f7) Write statistics to stderr because stdout can be redirected.
+
+* Sat Dec 29 2012 Tommy Reynolds
+- (ef99829) Added "-s" switch to output statistics; we may be losing content somewhere.
+
+* Sat Dec 1 2012 Tommy Reynolds
+- (9619668) Increase PVM budget.
+
+* Sat Dec 1 2012 Tommy Reynolds
+- (bf7621a) If a kernel is switched to use the XEN blkfront driver, the name of the root defice could change.  Highlight the kernel's recommendation about that.
+
+* Fri Nov 9 2012 Tommy Reynolds
+- (52c0853) Don't archive generated files.
+
+* Fri Nov 9 2012 Tommy Reynolds
+- (da630ba) No RPM's please.
+
+* Fri Nov 9 2012 Tommy Reynolds
+- (cdcd30f) Expand bonding text
+
+* Fri Nov 9 2012 Tommy Reynolds
+- (d318364) Merge branch 'master' of github.com:megacoder/vlm-tool
+
+* Mon Sep 24 2012 Tommy Reynolds
+- (493d152) Remove "suggest-pure" attribute since older gcc can't
+
+* Sat Sep 1 2012 Tommy Reynolds
+- (3292e3c) Do more.
+
+* Sat Sep 1 2012 Tommy Reynolds
+- (30b43b6) Flag "martian source" and "addrconf(" changes more completely.
+
+* Fri Aug 31 2012 Tommy Reynolds
+- (ef65e66) Use a character class "[(]" instead of an escape "\(".
+
+* Sat Aug 25 2012 Tommy Reynolds
+- (13712d3) Also match "loop ready".
+
+* Fri Aug 17 2012 Tommy Reynolds
+- (413a945) Flags "taints" too
+
+* Fri Aug 17 2012 Tommy Reynolds
+- (10f9ecf) Merge branch 'master' of github.com:megacoder/vlm-tool
+
+* Fri Aug 17 2012 Tommy Reynolds
+- (d29e66a) Flag NIC address changes. Flag network-scripts/ entries.
+
+* Fri Aug 17 2012 Tommy Reynolds
+- (33e4a7c) Flag NIC address entries
+
+* Fri Aug 17 2012 Tommy Reynolds
+- (37981da) Flag UDEV: entries.
+
+* Sat Aug 11 2012 Tommy Reynolds
+- (c071ab4) Flag lines with "c-state".
+
+* Wed Aug 8 2012 Tommy Reynolds
+- (e07a2f5) Well, flag "Oracle"...
+
+* Sun Aug 5 2012 Tommy Reynolds
+- (6c1fef3) Flag "checker failed path", "mark as failed".
+
+* Sun Aug 5 2012 Tommy Reynolds
+- (90b54b4) Flag 'failover', 'fail-over' as well.
+
+* Sat Jul 28 2012 Tommy Reynolds
+- (c2e26c0) Don't dereference null pointer first time through post-processing loop.
+
+* Sat Jul 28 2012 Tommy Reynolds
+- (cb355a5) Simplifying stanza recognition logic.
+
+* Fri Jul 27 2012 Tommy Reynolds
+- (fa8fed2) When a line stops a "match" stanza, rescan to see if it might start another stanza.
+
+* Fri Jul 27 2012 Tommy Reynolds
+- (a20a56d) Hilight the "INFO: task xxx blocked for more than" segment; which is usually followed by a Call Trace.
+
+* Thu Jul 19 2012 Tommy Reynolds
+- (c3c54df) Typo for "ntpd".
+
+* Tue Jul 17 2012 Tommy Reynolds
+- (8a59c6c) Generated
+
+* Tue Jul 17 2012 Tommy Reynolds
+- (cf8c5d3) Generated documentation.
+
+* Tue Jul 17 2012 Tommy Reynolds
+- (8d4d4e4) Generate README on the fly.
+
+* Tue Jul 17 2012 Tommy Reynolds
+- (269ed2d) Removed rules.
+
+* Tue Jul 17 2012 Tommy Reynolds
+- (acfeccc) Generate README
+
+* Tue Jul 17 2012 Tommy Reynolds
+- (31dbda6) Automake was complaining.
+
+* Tue Jul 17 2012 Tommy Reynolds
+- (9ded67e) Include README.md
+
+* Tue Jul 17 2012 Tommy Reynolds
+- (d4a5fac) Renamed
+
+* Tue Jul 17 2012 Tommy Reynolds
+- (22c33ff) More details
+
+* Tue Jul 17 2012 Tommy Reynolds
+- (33a4ed9) More details.
+
+* Tue Jul 17 2012 Tommy Reynolds
+- (2c60949) Renamed because I'm going to provide the content in markdown syntax.
+
+* Mon Jul 2 2012 Tommy Reynolds
+- (2d25fb4) Version 2.0.1
+
+* Mon Jul 2 2012 Tommy Reynolds
+- (de49164) Zeroize the entire size of the dynamic arrays.
+
+* Sun Jul 1 2012 Tommy Reynolds
+- (3cd5f0a) Checkpoint.
+
+* Sun Jul 1 2012 Tommy Reynolds
+- (afff517) '$ make dist' expects 'autogen.sh'.
+
+* Sun Jul 1 2012 Tommy Reynolds
+- (2f1f558) Recognizes the cut stanza.
+
+* Sun Jul 1 2012 Tommy Reynolds
+- (5c8b61f) Added "STANZA_CONT" to clarify logic.
+
+* Sun Jul 1 2012 Tommy Reynolds
+- (19ec447) Simplified logic for marking stanzas.
+
+* Sun Jul 1 2012 Tommy Reynolds
+- (00a5d58) Recognized 'call trace', but not cut list.
+
+* Sun Jul 1 2012 Tommy Reynolds
+- (e381567) Moved test case out of source directory.
+
+* Sun Jul 1 2012 Tommy Reynolds
+- (cf45414) Consolidated regular expression matching as well.
+
+* Sun Jul 1 2012 Tommy Reynolds
+- (5da02f8) List all the files.
+
+* Sun Jul 1 2012 Tommy Reynolds
+- (c373501) Isolate regular expression compilation into a single place.
+
+* Sat Jun 30 2012 Tommy Reynolds
+- (ce9fcaa) Can now initialize itself without core dump.
+
+* Sat Jun 30 2012 Tommy Reynolds
+- (16bcb92) Reference gcc-compat.h only in header files that need it.  No "*.c" file should call it directly.
+
+* Thu Jun 28 2012 Tommy Reynolds
+- (6ee4af5) Remove unnecessary lines from the test case.
+
+* Thu Jun 28 2012 Tommy Reynolds
+- (3e6f416) Bumped version.
+
+* Thu Jun 28 2012 Tommy Reynolds
+- (598c61a) Change 'autogen.sh' to 'bootstrap.sh' to avoid auto-complete collision.
+
+* Thu Jun 28 2012 Tommy Reynolds
+- (ceb95fd) Cleanup
+
+* Thu Jun 28 2012 Tommy Reynolds
+- (58908fe) Added test case for cut-block
+
+* Wed Jun 20 2012 Tommy Reynolds
+- (2549175) Remove the "_inline" attributes until I can ken this new GCC out.
+
+* Thu Jun 14 2012 Tommy Reynolds
+- (3869443) Don't ignore stuff because 'git clean -d -f' can't see it.
+
+* Wed Jun 13 2012 Tommy Reynolds
+- (4210d99) Archive
+
+* Wed Jun 13 2012 Tommy Reynolds
+- (7514b57) Ship it.
+
+* Sun Jun 10 2012 Tommy Reynolds
+- (81eb47c) Fancy post-processing tested.
+
+* Sun Jun 10 2012 Tommy Reynolds
+- (5f13fd3) Flag "el[0-9]debug" string.  Found in debug kernels.
+
+* Fri Jun 1 2012 Tommy Reynolds
+- (a450fe3) Flag "o2hb".
+
+* Fri Jun 1 2012 Tommy Reynolds
+- (a7b6177) Updated
+
+* Fri Jun 1 2012 Tommy Reynolds
+- (be3a844) Flag run level.
+
+* Fri Jun 1 2012 Tommy Reynolds
+- (71d9fd4) Don't match "register", it has been boring.
+
+* Mon May 28 2012 Tommy Reynolds
+- (ec292be) Better :)
+
+* Mon May 28 2012 Tommy Reynolds
+- (d1f0133) Highlight remaining path count.
+
+* Mon May 28 2012 Tommy Reynolds
+- (45ae6a2) Match and capture potential PID information on "shutdown:" entries.
+
+* Mon May 28 2012 Tommy Reynolds
+- (d4272ea) Catch messages about 'shutdown:'
+
+* Mon May 28 2012 Tommy Reynolds
+- (a2aae74) Highlight 'redhat.com'
+
+* Sun May 27 2012 Tommy Reynolds
+- (5832a03) Goner
+
+* Sun May 27 2012 Tommy Reynolds
+- (427a57a) First cut at generalized stanzas.  Marks matches, no stanzas found yet.
+
+* Sun May 27 2012 Tommy Reynolds
+- (ae69d12) Include stanzas in build.
+
+* Sun May 27 2012 Tommy Reynolds
+- (84f5a96) Add recognition for both OOPS and Call Trace: stanzas.
+
+* Sun May 27 2012 Tommy Reynolds
+- (77374df) Unified stanza theory.
+
+* Fri May 25 2012 Tommy Reynolds
+- (39da82b) Moved post-processing into its own files and stuff still works.
+
+* Fri May 25 2012 Tommy Reynolds
+- (046bb89) Moved post-processing into separate files.
+
+* Fri May 25 2012 Tommy Reynolds
+- (a282b1c) Move xprintf() to its own files.
+
+* Fri May 25 2012 Tommy Reynolds
+- (0e6ca5a) Split xprintf() to a separate file and forget about that hideously ugly #define macro.
+
+* Fri May 25 2012 Tommy Reynolds
+- (edf6850) Flag anything from that troublemaker "setroubleshoot".
+
+* Fri May 25 2012 Tommy Reynolds
+- (082953a) Merge branch 'master' into devel
+
+* Fri May 25 2012 Tommy Reynolds
+- (1f0c713) Flag general protection faults.
+
+* Fri May 25 2012 Tommy Reynolds
+- (b0792d6) Flag kernel general protection faults.
+
+* Thu May 24 2012 Tommy Reynolds
+- (313fcc8) Flag multipath active paths count change.
+
+* Tue May 15 2012 Tommy Reynolds
+- (0a23e5b) Dropped extraneous dot.
+
+* Tue May 15 2012 Tommy Reynolds
+- (06383d0) Added version information to the man(1) page..
+
+* Tue May 15 2012 Tommy Reynolds
+- (08264a5) Added "-N" switch to have line numbers between the thumb and the matched rule.
+
+* Sun May 13 2012 Tommy Reynolds
+- (1a7ad7e) Didn't isolate the input basename before searching for an extention, so a dot in the path fooled me.
+
+* Sun May 13 2012 Tommy Reynolds
+- (76e1914) Checkpoint
+
+* Sun May 13 2012 Tommy Reynolds
+- (676cbeb) Complain about unknown extensions.
+
+* Sun May 13 2012 Tommy Reynolds
+- (d41f143) Complain about unrecognized filename extentions.
+
+* Sat May 12 2012 Tommy Reynolds
+- (b0e961e) Bump for update.
+
+* Sat May 12 2012 Tommy Reynolds
+- (b2c399d) Er, ever heard of the bonny month of May?
+
+* Sat May 12 2012 Tommy Reynolds
+- (7ddf846) Rebuild using a 'src/' subdirectory.
+
+* Sat May 12 2012 Tommy Reynolds
+- (e6c1e7b) Checkpoint
+
+* Sat May 12 2012 Tommy Reynolds
+- (fdc06db) Isolated sources into a subdirectory.
+
+* Fri Apr 27 2012 Tommy Reynolds
+- (564fbd8) Use bright red text with dirty white background.  This stands out better on transparent windows.
+
+* Thu Apr 26 2012 Tommy Reynolds
+- (b0c261f) Add some RAID / md triggers.
+
+* Thu Apr 26 2012 Tommy Reynolds
+- (f108ef2) Drop PCRE foolishness
+
+* Sat Apr 21 2012 Tommy Reynolds
+- (2fd4b86) Boilerplate
+
+* Sat Apr 21 2012 Tommy Reynolds
+- (ef330f8) Merge branch 'master' of github.com:megacoder/vlm-tool
+
+* Fri Apr 20 2012 Tommy Reynolds
+- (ac7af56) Oh, by the way: get the martian, too.
+
+* Fri Apr 20 2012 Tommy Reynolds
+- (9ea91c0) Also pick up link-level headers for martian detections.
+
+* Fri Apr 20 2012 Tommy Reynolds
+- (533d0f6) Checkpoint
+
+* Fri Apr 20 2012 Tommy Reynolds
+- (0b6fe1c) PCRE
+
+* Fri Apr 20 2012 Tommy Reynolds
+- (1fc132f) PCRE
+
+* Fri Apr 20 2012 Tommy Reynolds
+- (a19f14c) Use an m4/ subdirectory.
+
+* Fri Apr 20 2012 Tommy Reynolds
+- (ed40f82) Merge branch 'master' of github.com:megacoder/vlm-tool
+
+* Fri Apr 20 2012 Tommy Reynolds
+- (d1a942a) Added '--with-pcre' flag.
+
+* Fri Apr 6 2012 Tommy Reynolds
+- (57804f0) Claim all our man pages.
+
+* Fri Apr 6 2012 Tommy Reynolds
+- (719471b) Nowadays, perror() is in stdio, not errno.h
+
+* Thu Mar 29 2012 Tommy Reynolds
+- (7a97444) Drop PCRE for now.  Probably want to make it optional later.
+
+* Thu Mar 29 2012 Tommy Reynolds
+- (dbfea3f) Flag "invalid" extended content.
+
+* Thu Mar 29 2012 Tommy Reynolds
+- (9d7decd) Hilight all of stack trace line.
+
+* Thu Mar 29 2012 Tommy Reynolds
+- (27775fc) Capture more of "failed:" lines.
+
+* Thu Mar 29 2012 Tommy Reynolds
+- (2fe24cd) Merge branch 'devel'
+
+* Thu Mar 29 2012 Tommy Reynolds
+- (43decd9) Hilight entire line of "warning:...."
+
+* Thu Mar 29 2012 Tommy Reynolds
+- (6071304) Better hilighting of o2cb/o2net messages
+
+* Wed Mar 28 2012 Tommy Reynolds
+- (4ec292c) Flag "machine check event" (mce) messages.
+
+* Wed Mar 28 2012 Tommy Reynolds
+- (c9d36cb) Would we rather use PCRE regular expressions?
+
+* Sat Mar 24 2012 Tommy Reynolds
+- (df370fb) Flag the kernel command line.
+
+* Fri Mar 23 2012 Tommy Reynolds
+- (9d59ab2) Start host colors at red+1
+
+* Fri Mar 23 2012 Tommy Reynolds
+- (d828514) Allow bulk loading of ignore patterns, too.
+
+* Thu Mar 22 2012 Tommy Reynolds
+- (d78dfbf) No stats!
+
+* Thu Mar 22 2012 Tommy Reynolds
+- (f9f7edb) Implemented "-l" switch to display known triggers.
+
+* Thu Mar 22 2012 Tommy Reynolds
+- (25854ec) Truth in lending... er, sorting.
+
+* Thu Mar 22 2012 Tommy Reynolds
+- (b6eb40d) Brought documentation up to date.
+
+* Thu Mar 22 2012 Tommy Reynolds
+- (92ffd3c) Try to catch bad kdump setup.
+
+* Thu Mar 22 2012 Tommy Reynolds
+- (e5472c1) Initialize the pool, fool!
+
+* Thu Mar 22 2012 Tommy Reynolds
+- (71a9a88) Documented '-i re' switch.
+
+* Thu Mar 22 2012 Tommy Reynolds
+- (27adc15) Added '-i pattern' to ignore a line.
+
+* Thu Mar 22 2012 Tommy Reynolds
+- (8140f53) Recognize 'rds:' as well as 'rds/ib'.
+
+* Sat Mar 17 2012 Tommy Reynolds
+- (9f3798c) Merge branch 'devel'
+
+* Sat Mar 17 2012 Tommy Reynolds
+- (f1bb157) Added "kobjecxt_add failed" post-processing block starter.
+
+* Fri Mar 16 2012 Tommy Reynolds
+- (b73ccf0) Added note about not re-ordering; order matters when using regular expressions.
+
+* Thu Mar 15 2012 Tommy Reynolds
+- (ac68d91) Gobble up VLAN bonds, too.
+
+* Thu Mar 15 2012 Tommy Reynolds
+- (6ccf6b4) Highlight "bond", "bonding", "bond0"...
+
+* Mon Mar 12 2012 Tommy Reynolds
+- (1b46761) Recognize a 'call trace' block using the [<hex>] pattern.
+
+* Mon Mar 12 2012 Tommy Reynolds
+- (c04eeab) Added block recognition to the post-processing step.
+
+* Mon Mar 12 2012 Tommy Reynolds
+- (d32943b) Initialize the chain->next to NULL to prevent running off into the weeds.
+
+* Mon Mar 12 2012 Tommy Reynolds
+- (44432a5) Added multi-level debug for undocumented "-X" switch.
+
+* Mon Mar 12 2012 Tommy Reynolds
+- (1cd2666) Logger
+
+* Mon Mar 12 2012 Tommy Reynolds
+- (d1fece0) Complain if we can't read default files "/var/log/messages*".
+
+* Mon Mar 12 2012 Tommy Reynolds
+- (7dd327c) Added script to build release delta.
+
+* Mon Mar 12 2012 Tommy Reynolds
+- (fa4af58) Re-derived "entries.h", which I managed to lose.
+
+* Mon Mar 12 2012 Tommy Reynolds
+- (bbcbd9f) Correct uninitialized variable warning.
+
+* Sun Mar 11 2012 Tommy Reynolds
+- (ffd025e) Defer computing the colorization until just before we print the entry.
+
+* Sun Mar 11 2012 Tommy Reynolds
+- (eea2cc8) Can't sort 'em until you've counted 'em.
+
+* Sun Mar 11 2012 Tommy Reynolds
+- (aed7919) Use the pool facilities.
+
+* Sun Mar 11 2012 Tommy Reynolds
+- (d5e1ba1) Reorder so that timestamps are not monotonic.
+
+* Sun Mar 11 2012 Tommy Reynolds
+- (606fb85) Use segmented list instead of all those nasty realloc's.
+
+* Sun Mar 11 2012 Tommy Reynolds
+- (5b71093) Use the saved string for matching.
+
+* Sun Mar 11 2012 Tommy Reynolds
+- (66211a9) Clean compile
+
+* Sun Mar 11 2012 Tommy Reynolds
+- (c70b92e) Object manipulation routines.
+
+* Sat Mar 10 2012 Tommy Reynolds
+- (2fb7590) Added scaffolding for post-processing() step.
+
+* Thu Mar 8 2012 Tommy Reynolds
+- (b686bce) Refactored trigger actioning routine.
+
+* Thu Mar 8 2012 Tommy Reynolds
+- (0a66f18) Recognize ".xz" files as well, while we're at it.
+
+* Thu Mar 8 2012 Tommy Reynolds
+- (4aa7d0b) Recognize ".bz2" and ".gz" file extentions and handle properly.
+
+* Sat Mar 3 2012 Tommy Reynolds
+- (eb32bc3) Also "killing".
+
+* Sat Mar 3 2012 Tommy Reynolds
+- (7b591a0) Also detect "bonding".
+
+* Sat Mar 3 2012 Tommy Reynolds
+- (9816a7a) Notice "qla...LOOP UP" and "qla...LOOP DOWN"
+
+* Fri Mar 2 2012 Tommy Reynolds
+- (2ed7ae6) Match full name of ocfs2.
+
+* Fri Mar 2 2012 Tommy Reynolds
+- (63bd3b8) Have "-r" imply also using "-m".
+
+* Fri Mar 2 2012 Tommy Reynolds
+- (f2d79c0) Oops: "erro" not "error".
+
+* Fri Mar 2 2012 Tommy Reynolds
+- (585f682) Fleshed out the RPM description.  I don't like the formatting, but it's late.
+
+* Fri Mar 2 2012 Tommy Reynolds
+- (8085f0f) Include man page.
+
+* Fri Mar 2 2012 Tommy Reynolds
+- (83507c8) Can now build as RPM.
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (85b8e0a) Documented "-v" switch.
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (8838620) Get the program versioning right.
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (71b16d2) Added '-v' switch to display the version.
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (8f3d7bb) Catch all of 'fail' permutations.
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (13769d8) Move back to 'vlm-tool'.
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (ace8014) Display first 15 characters of matching trigger.
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (11a5796) Odd, didn't really load default triggers (blush).
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (b8c7823) Goner
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (a5e072e) Don't use python version.
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (baba131) Ignorables
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (04a9c54) Ignorables
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (12655b4) Ignorables
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (2df60dc) Goner
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (4cf80e8) Ignorables
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (534df01) Auto tools.
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (fe8c849) Remove dash from name.
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (4480c39) Ignorables
+
+* Thu Mar 1 2012 Tommy Reynolds
+- (13f2f9f) OK
+
+* Tue Feb 28 2012 Tommy Reynolds
+- (0b52fa4) Can't strip man(1) pages, Dolt!
+
+* Tue Feb 28 2012 Tommy Reynolds
+- (2fc6325) Now does everything except display chosen rule and display all rules.
+
+* Tue Feb 28 2012 Tommy Reynolds
+- (b27c099) Ignorables
+
+* Tue Feb 28 2012 Tommy Reynolds
+- (70376ec) Improved, but not really working yet.
+
+* Tue Feb 28 2012 Tommy Reynolds
+- (3018c32) Primitive (aka wrong) colorization.
+
+* Tue Feb 28 2012 Tommy Reynolds
+- (e448dd1) Calculate internal form of timestamp.
+
+* Tue Feb 28 2012 Tommy Reynolds
+- (ae115e2) Make column numbers zero-based.
+
+* Tue Feb 28 2012 Tommy Reynolds
+- (d4e5c16) Isolate timestamp and hostname.
+
+* Tue Feb 28 2012 Tommy Reynolds
+- (85f4d3f) Added "-y year" option; default to current year.
+
+* Sun Feb 26 2012 Tommy Reynolds
+- (c63703e) All preliminaries in place, ready to process files.
+
+* Sun Feb 26 2012 Tommy Reynolds
+- (0d3e620) Handles "-a re" and "-b bulkfile" options.
+
+* Sun Feb 26 2012 Tommy Reynolds
+- (cf59a3a) Checkpoint
+
+* Sun Feb 26 2012 Tommy Reynolds
+- (67d2999) Ignorables
+
+* Sun Feb 26 2012 Tommy Reynolds
+- (8942afa) GCC-friently flags and definitions.
+
+* Sun Feb 26 2012 Tommy Reynolds
+- (ad3950c) Missing comma in "dlm" entry.
+
+* Sun Feb 26 2012 Tommy Reynolds
+- (19173dd) Skeleton for builtin rules.
+
+* Sun Feb 26 2012 Tommy Reynolds
+- (95251b6) Must reimplement this in C to get reasonable regex behavior.
+
+* Sat Feb 25 2012 Tommy Reynolds
+- (d21b32c) Merge branch 'master' of github.com:megacoder/vlm-tool
+
+* Sat Feb 25 2012 Tommy Reynolds
+- (c7e8e48) Get the right strings; this is because 'foo(bar)' also matches the 'bar' pattern.
+
+* Sat Feb 25 2012 Tommy Reynolds
+- (76beabf) Notice kdump strings.
+
+* Sat Feb 25 2012 Tommy Reynolds
+- (520d878) Catch kernel Eeek! in postprocess() routine.
+
+* Sat Feb 25 2012 Tommy Reynolds
+- (30eb336) Catch 'no space left'
+
+* Fri Feb 24 2012 Tommy Reynolds
+- (d81fbfb) Highlight kernel's page allocation failures.  Be more conservative in matching time-out texts.
+
+* Fri Feb 24 2012 Tommy Reynolds
+- (6f66ace) No, use a '-' for the thumb; vi(1) treats a /^+ as looking for multiple line starts.  Sheesh.
+
+* Fri Feb 24 2012 Tommy Reynolds
+- (67e710b) Change thumb from '*' to '+' to make searching for it easier [I think].
+
+* Fri Feb 24 2012 Tommy Reynolds
+- (2d94831) 'line' --> 'resid'
+
+* Fri Feb 24 2012 Tommy Reynolds
+- (7c6ace5) Get all of 'registered'
+
+* Fri Feb 24 2012 Tommy Reynolds
+- (6339bfc) Use RED last, since we use that to highlight triggers.
+
+* Fri Feb 24 2012 Tommy Reynolds
+- (ae1dbcd) Catch the proper exception.
+
+* Fri Feb 24 2012 Tommy Reynolds
+- (b9a4e96) Force reconstruction of compressed man(1) page.
+
+* Fri Feb 24 2012 Tommy Reynolds
+- (d960aa6) Use python idiom to populate host colors.
+
+* Thu Feb 23 2012 Tommy Reynolds
+- (1469704) Colorize host names, too.
+
+* Thu Feb 23 2012 Tommy Reynolds
+- (d0acfe4) Checkpoint
+
+* Thu Feb 23 2012 Tommy Reynolds
+- (5a01b41) Checkpoint
+
+* Thu Feb 23 2012 Tommy Reynolds
+- (083acd4) Representative line, for a model.
+
+* Thu Feb 23 2012 Tommy Reynolds
+- (a2b0c80) Hardcoded
+
+* Thu Feb 23 2012 Tommy Reynolds
+- (41224f9) Install into /usr/local, including a man(1) page.
+
+* Wed Feb 22 2012 Tommy Reynolds
+- (7a428e1) Built a man(1) page.
+
+* Wed Feb 22 2012 Tommy Reynolds
+- (65597f4) Doco
+
+* Wed Feb 22 2012 Tommy Reynolds
+- (32cf694) Doco
+
+* Wed Feb 22 2012 Tommy Reynolds
+- (e926c4b) Dropping autotools, they are just in the way.
+
+* Wed Feb 22 2012 Tommy Reynolds
+- (0e10a03) How to.
+
+* Wed Feb 22 2012 Tommy Reynolds
+- (308a680) Checkpoint
+
+* Wed Feb 22 2012 Tommy Reynolds
+- (f27ec75) Flag 'Unknown symbol foo' entries. Flag 'disagrees about version of' entries.
+
+* Wed Feb 22 2012 Tommy Reynolds
+- (8047d87) Try to catch both "debug" and "bug".
+
+* Wed Feb 22 2012 Tommy Reynolds
+- (f1d8409) More.
+
+* Wed Feb 22 2012 Tommy Reynolds
+- (1b18122) Highlight 'power states:'
+
+* Tue Feb 21 2012 Tommy Reynolds
+- (0746802) The VERSION macro does propagate down to the script.
+
+* Tue Feb 21 2012 Tommy Reynolds
+- (7dcdfa3) Boilerplate
+
+* Tue Feb 21 2012 Tommy Reynolds
+- (9ef61b1) Checkpoint
+
+* Tue Feb 21 2012 Tommy Reynolds
+- (f960a09) Me
+
+* Tue Feb 21 2012 Tommy Reynolds
+- (d984acb) Basic autotools configuration in place, but not working.
+
+* Tue Feb 21 2012 Tommy Reynolds
+- (fe313ff) Ignorables
+
+* Tue Feb 21 2012 Tommy Reynolds
+- (4176364) RPM installation metadata.
+
+* Tue Feb 21 2012 Tommy Reynolds
+- (1c88939) Configuration file generator added
+
+* Sun Feb 19 2012 Tommy Reynolds
+- (cfcb924) Welcome to the AutoZone
+
+* Sun Feb 19 2012 Tommy Reynolds
+- (20f4b59) Expanded the epilog.  Now, if it were just formatted..
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (ff72a2d) Drop gratuitious SGR clearing before each output line.
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (843a805) Catch read-only.
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (fceb095) Change 'reading' to 'injesting' in error message for unreadable file.
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (1904374) Handle .gz and .bz2 compressed files.
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (88c6ef2) Found a generic 'kernel: unable to handle' leadin for bugs, oops, and panics.
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (3617c94) Added '-t THUMB' capability.
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (84c33fd) Dropped the rule number out of the self.lines tuples since we can backtrack to the oritinal input patten like this: mo.re.pattern
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (5669740) Postprocess to highlight kernel stack traces.
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (3938836) Merge branch 'master' of github.com:megacoder/vlm-tool
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (66356fa) Drop reference to merged file.
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (ac61da6) First flush at marking range of a kernel stack trace.
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (563d7ae) Identify components of self.lines tuples correctly.
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (4ba0c3c) Merge into one file, to make installation simpler.
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (3038297) Find 'panic', 'oom' and 'out of memory' kills
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (3a09bd0) Don't fail if the date is poorly-formatted, just ignore the line.
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (7be4061) Check for "fence" or "fencing".
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (ed4812e) Silently ignore badly-formatted lines.
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (53981fa) Added version string
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (a92161d) Allow '-' to be used to read from stdin and not "/var/log/messages*"
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (3393aad) Merge branch 'master' of github.com:megacoder/vlm-tool
+
+* Sat Feb 18 2012 Tommy Reynolds
+- (e72f87e) Dropped idea of 'dumping' filters and just 'list' them.
+
+* Fri Feb 17 2012 Tommy Reynolds
+- (672e2c4) Uninstall helper files, too.
+
+* Fri Feb 17 2012 Tommy Reynolds
+- (b36d5ba) Cleaned up output line formatting logic.
+
+* Fri Feb 17 2012 Tommy Reynolds
+- (c58bddc) Bugs I know of, but are not interested in fixing.
+
+* Fri Feb 17 2012 Tommy Reynolds
+- (a29f921) Install the helper files, too.
+
+* Fri Feb 17 2012 Tommy Reynolds
+- (5e0c3d5) Don't keep the original rules strings around, they're in the re object.
+
+* Fri Feb 17 2012 Tommy Reynolds
+- (f70a1c1) Added '-c' switch to colorize output.
+
+* Fri Feb 17 2012 Tommy Reynolds
+- (bab808f) Drop excess spaces.
+
+* Fri Feb 17 2012 Tommy Reynolds
+- (61c6abf) Change marker from '-->' to '* '.
+
+* Thu Feb 16 2012 Tommy Reynolds
+- (9f605ea) Continue applying filters using the one that last matched; maybe helps speed identical lines.
+
+* Wed Feb 15 2012 Tommy Reynolds
+- (047a993) Added tool and maintenance script.
+
+* Wed Feb 15 2012 Tommy Reynolds
+- (0b53f9a) First commit.
+
