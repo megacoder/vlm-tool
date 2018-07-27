@@ -1,1697 +1,1194 @@
-2017-12-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Jul 27 2018 Tommy Reynolds
+- (fa8edf6) Highlight hypervisor detection. (HEAD, master)
 
-	* configure.ac, src/vlm-tool.c: OK, I couldn't stand quoting
-	qnything that didn't need quoting.
+* Sat Dec 9 2017 Tommy Reynolds
+- (9f6af0d) History (tag: v2.2.25, origin/master, origin/HEAD)
 
-2017-12-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Dec 9 2017 Tommy Reynolds
+- (d1deba5) OK, I couldn't stand quoting qnything that didn't need quoting.
 
-	* vlm-tool.spec.in: Modernize (more or less) the markdown utility
-	RPM name.
+* Fri Dec 8 2017 Tommy Reynolds
+- (6fbdf31) Modernize (more or less) the markdown utility RPM name.
 
-2017-12-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Dec 8 2017 Tommy Reynolds
+- (c311ba9) Merge branch 'master' of github.com:megacoder/vlm-tool
 
-	* : commit 65bc0da18bdb8479c1c910ed07150f4ef4b07bc0 Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Fri Dec 8 13:20:00
-	2017 -0600
+* Fri Dec 8 2017 Tommy Reynolds
+- (65bc0da) Flag avc denials (tag: v2.2.24)
 
-2017-12-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Dec 8 2017 Tommy Reynolds
+- (879d018) Flag "avc: denied" entries
 
-	* configure.ac, src/builtins.c: Flag "avc: denied" entries
+* Fri Dec 8 2017 Tommy Reynolds
+- (238a7b8) Flag "drop_caches:" (tag: v2.2.23)
 
-2017-12-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Dec 8 2017 Tommy Reynolds
+- (85ad276) Add "drop_caches:" rule, since seeing that is usually a sign someone is frobbing around when they shouldn't be.
 
-	* ChangeLog: Flag "drop_caches:"
+* Thu Nov 30 2017 Tommy Reynolds
+- (636f70f) Merge branch 'master' of github.com:megacoder/vlm-tool
 
-2017-12-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Nov 30 2017 Tommy Reynolds
+- (d7157b9) History (tag: v2.2.22)
 
-	* configure.ac, src/builtins.c: Add "drop_caches:" rule, since
-	seeing that is usually a sign someone is frobbing around when they
-	shouldn't be.
+* Thu Nov 30 2017 Tommy Reynolds
+- (20c2606) Quote everything except the program name.
 
-2017-11-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Nov 29 2017 Tommy Reynolds
+- (6ae7c15) Merge branch 'master' of github.com:megacoder/vlm-tool
 
-	* : commit d7157b91b2764d5acd23f1d9909e18e8ffbb02b0 Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Thu Nov 30 11:07:01
-	2017 -0600
+* Wed Nov 29 2017 Tommy Reynolds
+- (dd94a92) Added command line reconstruction if marking is enabled.
 
-2017-11-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Nov 29 2017 Tommy Reynolds
+- (4f5bd18) Reconstruct command line if marking is enabled. (tag: v2.2.21)
 
-	* configure.ac, src/vlm-tool.c: Quote everything except the program
-	name.
+* Tue Jun 13 2017 Tommy Reynolds
+- (5879249) Detritus
 
-2017-11-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Jun 3 2017 Tommy Reynolds
+- (ec05288) History (tag: v2.2.20)
 
-	* : commit dd94a92365823cea869b0b9f766a2d9690832336 Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Wed Nov 29 11:49:38
-	2017 -0600
+* Sat Jun 3 2017 Tommy Reynolds
+- (33b28d0) Added "ENERGY_PERF_BIAS:" to spot potential CPU throttling performance issues.
 
-2017-11-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun May 21 2017 Tommy Reynolds
+- (7e38aa1) Recognize "eth0:1" too
 
-	* configure.ac, src/vlm-tool.c: Reconstruct command line if marking
-	is enabled.
+* Sun May 21 2017 Tommy Reynolds
+- (c95e029) Updated
 
-2017-06-13  Tommy Reynolds <Oldest.Software.Guy@gmail.com>
+* Sun May 21 2017 Tommy Reynolds
+- (6988600) Bumped version. (tag: v2.2.19)
 
-	* .gitignore: Detritus
+* Sun May 21 2017 Tommy Reynolds
+- (e8284ed) Notice Ethernet references.
 
-2017-06-03  Tommy Reynolds <Oldest.Software.Guy@gmail.com>
+* Sun May 21 2017 Tommy Reynolds
+- (3ab102d) Notice Ethernet references.
 
-	* ChangeLog: History
+* Sun May 21 2017 Tommy Reynolds
+- (3fd9079) Highlith "o2hbmonitor" if present
 
-2017-06-03  Tommy Reynolds <Oldest.Software.Guy@gmail.com>
+* Thu May 11 2017 Tommy Reynolds
+- (ef1a1a5) Update ChangeLog (tag: 2.2.18)
 
-	* configure.ac, src/builtins.c: Added "ENERGY_PERF_BIAS:" to spot
-	potential CPU throttling performance issues.
+* Thu May 11 2017 Tommy Reynolds
+- (cc82f0e) Bumped version number
 
-2017-05-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu May 11 2017 Tommy Reynolds
+- (d57fe75) Added "certificate(s)" to help detect SSL validation issues.
 
-	* src/builtins.c: Recognize "eth0:1" too
+* Fri Apr 28 2017 Tommy Reynolds
+- (12b560d) Bumped (tag: 2.2.17)
 
-2017-05-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Apr 28 2017 Tommy Reynolds
+- (37dc7d9) Must use zcat for in-place expanding.
 
-	* ChangeLog: Updated
+* Fri Apr 28 2017 Tommy Reynolds
+- (5c3a725) uncompress(1) does not honor '--'
 
-2017-05-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Apr 28 2017 Tommy Reynolds
+- (f27ab8e) Bumped (tag: 2.2.16)
 
-	* configure.ac: Bumped version.
+* Fri Apr 28 2017 Tommy Reynolds
+- (2e5f434) Bumped version number
 
-2017-05-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Apr 28 2017 Tommy Reynolds
+- (06f42db) Added ".Z" uncompress support.
 
-	* src/builtins.c: Notice Ethernet references.
+* Sun Dec 4 2016 Tommy Reynolds
+- (d97a9c4) 2.2.15 (tag: 2.2.15)
 
-2017-05-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Dec 4 2016 Tommy Reynolds
+- (15dd739) Flag NFS server OK/not responding flags.
 
-	* src/builtins.c: Notice Ethernet references.
+* Sat Sep 3 2016 Tommy Reynolds
+- (3a7b375) Try to flag software raid (md:,md<n>,mds*) lines (tag: 2.2.14)
 
-2017-05-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Jul 21 2016 Tommy Reynolds
+- (0dbcedc) Merge branch 'devel'
 
-	* src/builtins.c: Highlith "o2hbmonitor" if present
+* Thu Jul 21 2016 Tommy Reynolds
+- (eedce9a) Try to flag D-state processes.
 
-2017-05-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Jul 14 2016 Tommy Reynolds
+- (7a95a66) Added "badness" as a search term. (tag: 2.2.13)
 
-	* ChangeLog: Update ChangeLog
+* Wed Jun 29 2016 Tommy Reynolds
+- (3a7c8bc) Added keywords like "dropped", "mismatch" and added optional unit number to "scsi" recognition.
 
-2017-05-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Jun 24 2016 Tommy Reynolds
+- (4fce848) Try to identify D-state processes.  They have a "D" as the third token of a "kernel:" line.
 
-	* configure.ac: Bumped version number
+* Sat Apr 9 2016 Tommy Reynolds
+- (76e010d) Change log. (tag: 2.2.12)
 
-2017-05-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Apr 9 2016 Tommy Reynolds
+- (8235e56) Don't grumble about posix_fadvise(2) failing.
 
-	* src/builtins.c: Added "certificate(s)" to help detect SSL
-	validation issues.
+* Wed Feb 17 2016 Tommy Reynolds
+- (8ac1040) Updated changelog
 
-2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Feb 17 2016 Tommy Reynolds
+- (2bab99b) Don't issue fadvise() for piped input, used if log file is compressed.
 
-	* ChangeLog: Bumped
+* Wed Oct 14 2015 Tommy Reynolds
+- (585d97a) Added "unauthorized" as a red flag (tag: 2.2.11, tag: 2.2.10)
 
-2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Oct 14 2015 Tommy Reynolds
+- (056cf30) Bumped version
 
-	* configure.ac, src/vlm-tool.c: Must use zcat for in-place
-	expanding.
+* Wed Oct 14 2015 Tommy Reynolds
+- (b0465a0) Versioning. (tag: 2.2.9)
 
-2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Oct 14 2015 Tommy Reynolds
+- (58256a5) Highlight D-bus references
 
-	* src/vlm-tool.c: uncompress(1) does not honor '--'
+* Tue Sep 22 2015 Tommy Reynolds
+- (8e346e7) Bumped revision (tag: 2.2.8)
 
-2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Sep 22 2015 Tommy Reynolds
+- (51b6a8a) Allocate storage pool in larger chunks.
 
-	* ChangeLog: Bumped
+* Tue Sep 22 2015 Tommy Reynolds
+- (c71fb25) Noted use of fadvise (tag: 2.2.7)
 
-2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Sep 22 2015 Tommy Reynolds
+- (e4b2270) Bumped version number
 
-	* configure.ac: Bumped version number
+* Tue Sep 22 2015 Tommy Reynolds
+- (5c3f154) Use fadvise trying to preload as much of the messages file as we can into the page cache to improve performance.
 
-2017-04-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Jul 10 2015 Tommy Reynolds
+- (9764c14) bump (tag: 2.2.6)
 
-	* src/vlm-tool.c: Added ".Z" uncompress support.
+* Fri Jul 10 2015 Tommy Reynolds
+- (067c3fc) Highlight 'leap second' notices.
 
-2016-12-04  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Jul 10 2015 Tommy Reynolds
+- (814c756) Try to be not fooled by an enbedded 'hang' or 'hung' string.
 
-	* ChangeLog: 2.2.15
+* Sat Jun 20 2015 Tommy Reynolds
+- (1367d1f) Bumped revision number.
 
-2016-12-04  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Apr 26 2015 Tommy Reynolds
+- (127e8f1) Corrected man(1) page: the '-d' switch actually takes '-d <region>' and defaults to USA.
 
-	* configure.ac, src/builtins.c: Flag NFS server OK/not responding
-	flags.
+* Sun Mar 1 2015 Tommy Reynolds
+- (0ef7e7c) Indent ignored patterns by a tab, not a space.
 
-2016-09-03  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Feb 25 2015 Tommy Reynolds
+- (8b2c4fc) Updated changelog. (tag: 2.2.4)
 
-	* configure.ac, src/builtins.c: Try to flag software raid
-	(md:,md<n>,mds*) lines
+* Wed Feb 25 2015 Tommy Reynolds
+- (17b202f) Bumped rev
 
-2016-07-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Feb 25 2015 Tommy Reynolds
+- (4f4699d) Show filename and line number when complaining about timestamp format.
 
-	* : commit eedce9a8146d3c2a686e4e7f25ea0b4d449321f6 Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Thu Jul 21 10:26:22
-	2016 -0500
+* Wed Feb 25 2015 Tommy Reynolds
+- (cd2d868) Try using "markdown2" else "markdown" else punt.
 
-2016-07-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Feb 25 2015 Tommy Reynolds
+- (adba464) Softened required packages for build.
 
-	* configure.ac, src/builtins.c: Added "badness" as a search term.
+* Sat Jan 17 2015 Tommy Reynolds
+- (8d3ebdd) Updated change log. (tag: 2.2.3)
 
-2016-06-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Jan 17 2015 Tommy Reynolds
+- (9db4318) Bumped revision.
 
-	* src/builtins.c: Added keywords like "dropped", "mismatch" and
-	added optional unit number to "scsi" recognition.
+* Sat Jan 17 2015 Tommy Reynolds
+- (fa90d43) Mark kernel version information.  It's not an error, but is useful in all contexts.
 
-2016-06-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Jan 10 2015 Tommy Reynolds
+- (13e65f8) Updated changelog.
 
-	* src/builtins.c: Try to identify D-state processes.  They have a
-	"D" as the third token of a "kernel:" line.
+* Sat Jan 10 2015 Tommy Reynolds
+- (1a046df) Correct wrong offset when specifying year manually (year-1900) (tag: 2.2.2)
 
-2016-04-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Oct 25 2014 Tommy Reynolds
+- (3d5be7d) Log ignored patterns (tag: 2.2.1)
 
-	* ChangeLog: Change log.
+* Sat Oct 25 2014 Tommy Reynolds
+- (a50aceb) If we are ignoring items, list them if producing marked output.
 
-2016-04-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Oct 11 2014 Tommy Reynolds
+- (db30801) Bumped rev for new date functionality. (tag: 2.2.0)
 
-	* configure.ac, src/vlm-tool.c: Don't grumble about posix_fadvise(2)
-	failing.
+* Sat Oct 11 2014 Tommy Reynolds
+- (b2b7850) Added '-d <date_kind>' with 'USA' and 'ISO' time formats.
 
-2016-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Sep 14 2014 Tommy Reynolds
+- (b0ea796) Updated revision history (tag: 2.1.8)
 
-	* ChangeLog: Updated changelog
+* Sun Sep 14 2014 Tommy Reynolds
+- (241376c) Flag 'NUMA turned (on|off)'
 
-2016-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Sep 9 2014 Tommy Reynolds
+- (72d153f) 2.1.7 (tag: 2.1.7)
 
-	* configure.ac, src/vlm-tool.c: Don't issue fadvise() for piped
-	input, used if log file is compressed.
+* Tue Sep 9 2014 Tommy Reynolds
+- (1dc421f) Cache month comparison to avoid extra linear searches.
 
-2015-10-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Jul 5 2014 Tommy Reynolds
+- (f2d4d8f) Flag DHCP daemon activities. (tag: 2.1.6)
 
-	* src/builtins.c: Added "unauthorized" as a red flag
+* Sat Jul 5 2014 Tommy Reynolds
+- (5c59e64) Flag DHCPD activities.
 
-2015-10-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Jun 19 2014 Tommy Reynolds
+- (b5ee705) Populate the changelog. (tag: 2.1.5)
 
-	* configure.ac: Bumped version
+* Thu Jun 19 2014 Tommy Reynolds
+- (e461af9) Reduce the number of false-positive indications by ignoring "_NMI" entries but still marking NMI significant events.
 
-2015-10-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Jun 6 2014 Tommy Reynolds
+- (d383402) Construct README from the README.md file.
 
-	* ChangeLog: Versioning.
+* Mon Jun 2 2014 Tommy Reynolds
+- (eaada32) Use setvbuf(3) to manage a larger-than-default buffer for reading the logs. (tag: 2.1.4)
 
-2015-10-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat May 17 2014 Tommy Reynolds
+- (47d8e82) Updated changelog.
 
-	* configure.ac, src/builtins.c: Highlight D-bus references
+* Sat May 17 2014 Tommy Reynolds
+- (92c08f4) Recognize "illegal" in more contexts than "illegal:" (tag: 2.1.3)
 
-2015-09-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Apr 24 2014 Tommy Reynolds
+- (7b6ce5d) Detect "is down" and "is up". Build RPM locally on everything not RHEL5 (tag: 2.1.2)
 
-	* ChangeLog: Bumped revision
+* Fri Apr 18 2014 Tommy Reynolds
+- (7ff1841) Bumped version
 
-2015-09-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Apr 18 2014 Tommy Reynolds
+- (8b45f40) Cannot build locally under version 5
 
-	* configure.ac, src/pool.c: Allocate storage pool in larger chunks.
+* Tue Apr 15 2014 Tommy Reynolds
+- (2402569) Merge branch 'master' into devel
 
-2015-09-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Apr 15 2014 Tommy Reynolds
+- (0549bce) Flag snmp traps received.
 
-	* ChangeLog: Noted use of fadvise
+* Tue Apr 15 2014 Tommy Reynolds
+- (40ea3b7) If we accept an ISO8601 timestamp, we should generate an ISO8601 too.
 
-2015-09-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 20 2014 Tommy Reynolds
+- (3e1ed45) Added '-O delta_hours' option that adds "delta_hours" to the current time before comparing the incoming entry's timestamp against the current time.  Since the log files omit the year, we assume the current year; a log entry timestamp in the future probably came from a year ago, so we just throw that away.
 
-	* configure.ac: Bumped version number
+* Thu Mar 13 2014 Tommy Reynolds
+- (da67a3f) Notice "enforcing=N" and build RPM locally. (tag: 2.0.23)
 
-2015-09-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Jan 19 2014 Tommy Reynolds
+- (4cf3d91) Flag "can't contact ldap server" as an interesting message. (tag: 2.0.22)
 
-	* src/vlm-tool.c: Use fadvise trying to preload as much of the
-	messages file as we can into the page cache to improve performance.
+* Sun Jan 5 2014 Tommy Reynolds
+- (d6a1540) Highlight "errno" and option following numeric value.
 
-2015-07-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Oct 20 2013 Tommy Reynolds
+- (683f249) Documented the new switches. (tag: 2.0.20)
 
-	* configure.ac: bump
+* Sun Oct 20 2013 Tommy Reynolds
+- (2a9fce3) Added '-w when' and '-W window' arguments.
 
-2015-07-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Sep 29 2013 Tommy Reynolds
+- (daa332d) Bumped version (tag: 2.0.19)
 
-	* src/builtins.c: Highlight 'leap second' notices.
+* Sun Sep 29 2013 Tommy Reynolds
+- (318ee0d) Added Mem-info: stanza marking
 
-2015-07-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Sep 29 2013 Tommy Reynolds
+- (801f605) Bump rev. (tag: 2.0.18)
 
-	* src/builtins.c: Try to be not fooled by an enbedded 'hang' or
-	'hung' string.
+* Sun Sep 29 2013 Tommy Reynolds
+- (e27d065) Don't mark gap notice; it's easy to notice as it is.
 
-2015-06-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Sep 25 2013 Tommy Reynolds
+- (e4e3581) Mention 'stanzas'
 
-	* configure.ac: Bumped revision number.
+* Wed Sep 25 2013 Tommy Reynolds
+- (68898f1) Bumped version (tag: 2.0.17)
 
-2015-04-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Sep 25 2013 Tommy Reynolds
+- (d3ed7c9) Fleshed out man(1) page.
 
-	* vlm-tool.1: Corrected man(1) page: the '-d' switch actually takes
-	'-d <region>' and defaults to USA.
+* Wed Sep 25 2013 Tommy Reynolds
+- (f82d4f5) Include man(1) page in distribution.
 
-2015-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Sep 25 2013 Tommy Reynolds
+- (8f7d2a6) man(1) page coming
 
-	* src/vlm-tool.c: Indent ignored patterns by a tab, not a space.
+* Sat May 11 2013 Tommy Reynolds
+- (b9e8ed9) Highlight entire 'remaining paths' messages.
 
-2015-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat May 11 2013 Tommy Reynolds
+- (31ba62c) Mystery message: khash_super_prune_nolock
 
-	* ChangeLog: Updated changelog.
+* Thu Apr 11 2013 Tommy Reynolds
+- (83c8608) Include stdio.h to pick up perror(3) definition.
 
-2015-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 28 2013 Tommy Reynolds
+- (85bd3cd) Catch "floating-point" errors
 
-	* configure.ac: Bumped rev
+* Sat Mar 23 2013 Tommy Reynolds
+- (d411161) Also flag "Dazed and confused" and "Uhhuh".
 
-2015-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Mar 2 2013 Tommy Reynolds
+- (671fb9e) Flag "nss_ldap:" messages.
 
-	* src/vlm-tool.c: Show filename and line number when complaining
-	about timestamp format.
+* Sun Jan 27 2013 Tommy Reynolds
+- (1212b11) Recognize ISO timestamps if the "-d" switch is used. (tag: 2.0.13)
 
-2015-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Jan 12 2013 Tommy Reynolds
+- (6c2bc98) Nope, too much after all.
 
-	* bootstrap.sh: Try using "markdown2" else "markdown" else punt.
+* Sat Jan 12 2013 Tommy Reynolds
+- (19290d2) Extra leading space on note.
 
-2015-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Jan 12 2013 Tommy Reynolds
+- (df26c29) Output calculated gap time in meaningful form.
 
-	* vlm-tool.spec.in: Softened required packages for build.
+* Sat Jan 12 2013 Tommy Reynolds
+- (1fa99c2) Show gap delta in meaningful units.
 
-2015-01-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Jan 6 2013 Tommy Reynolds
+- (a6465de) Output using localtime() instead of gmtime(), so the times correspond to what you see in the "/var/log/messages" file.
 
-	* ChangeLog: Updated change log.
+* Sun Dec 30 2012 Tommy Reynolds
+- (e1c2861) Highlight the gap instead of flagging it.
 
-2015-01-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Dec 30 2012 Tommy Reynolds
+- (2c09405) Documentation.
 
-	* configure.ac: Bumped revision.
+* Sun Dec 30 2012 Tommy Reynolds
+- (39dd275) Added "-g" switch to perform gap analysis.
 
-2015-01-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Dec 29 2012 Tommy Reynolds
+- (a5099f7) Write statistics to stderr because stdout can be redirected.
 
-	* src/builtins.c: Mark kernel version information.  It's not an
-	error, but is useful in all contexts.
+* Sat Dec 29 2012 Tommy Reynolds
+- (ef99829) Added "-s" switch to output statistics; we may be losing content somewhere.
 
-2015-01-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Dec 1 2012 Tommy Reynolds
+- (9619668) Increase PVM budget.
 
-	* ChangeLog: Updated changelog.
+* Sat Dec 1 2012 Tommy Reynolds
+- (bf7621a) If a kernel is switched to use the XEN blkfront driver, the name of the root defice could change.  Highlight the kernel's recommendation about that.
 
-2015-01-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Nov 9 2012 Tommy Reynolds
+- (52c0853) Don't archive generated files.
 
-	* configure.ac, src/vlm-tool.c: Correct wrong offset when specifying
-	year manually (year-1900)
+* Fri Nov 9 2012 Tommy Reynolds
+- (da630ba) No RPM's please.
 
-2014-10-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Nov 9 2012 Tommy Reynolds
+- (cdcd30f) Expand bonding text
 
-	* ChangeLog: Log ignored patterns
+* Fri Nov 9 2012 Tommy Reynolds
+- (d318364) Merge branch 'master' of github.com:megacoder/vlm-tool
 
-2014-10-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Mon Sep 24 2012 Tommy Reynolds
+- (493d152) Remove "suggest-pure" attribute since older gcc can't
 
-	* configure.ac, src/vlm-tool.c: If we are ignoring items, list them
-	if producing marked output.
+* Sat Sep 1 2012 Tommy Reynolds
+- (3292e3c) Do more.
 
-2014-10-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Sep 1 2012 Tommy Reynolds
+- (30b43b6) Flag "martian source" and "addrconf(" changes more completely.
 
-	* configure.ac: Bumped rev for new date functionality.
+* Fri Aug 31 2012 Tommy Reynolds
+- (ef65e66) Use a character class "[(]" instead of an escape "\(".
 
-2014-10-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Aug 25 2012 Tommy Reynolds
+- (13712d3) Also match "loop ready".
 
-	* src/vlm-tool.c: Added '-d <date_kind>' with 'USA' and 'ISO' time
-	formats.
+* Fri Aug 17 2012 Tommy Reynolds
+- (413a945) Flags "taints" too
 
-2014-09-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Aug 17 2012 Tommy Reynolds
+- (10f9ecf) Merge branch 'master' of github.com:megacoder/vlm-tool
 
-	* ChangeLog: Updated revision history
+* Fri Aug 17 2012 Tommy Reynolds
+- (d29e66a) Flag NIC address changes. Flag network-scripts/ entries.
 
-2014-09-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Aug 17 2012 Tommy Reynolds
+- (33e4a7c) Flag NIC address entries
 
-	* configure.ac, src/builtins.c: Flag 'NUMA turned (on|off)'
+* Fri Aug 17 2012 Tommy Reynolds
+- (37981da) Flag UDEV: entries.
 
-2014-09-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Aug 11 2012 Tommy Reynolds
+- (c071ab4) Flag lines with "c-state".
 
-	* ChangeLog: 2.1.7
+* Wed Aug 8 2012 Tommy Reynolds
+- (e07a2f5) Well, flag "Oracle"...
 
-2014-09-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Aug 5 2012 Tommy Reynolds
+- (6c1fef3) Flag "checker failed path", "mark as failed".
 
-	* configure.ac, src/vlm-tool.c: Cache month comparison to avoid
-	extra linear searches.
+* Sun Aug 5 2012 Tommy Reynolds
+- (90b54b4) Flag 'failover', 'fail-over' as well.
 
-2014-07-05  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Jul 28 2012 Tommy Reynolds
+- (c2e26c0) Don't dereference null pointer first time through post-processing loop.
 
-	* ChangeLog: Flag DHCP daemon activities.
+* Sat Jul 28 2012 Tommy Reynolds
+- (cb355a5) Simplifying stanza recognition logic.
 
-2014-07-05  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Jul 27 2012 Tommy Reynolds
+- (fa8fed2) When a line stops a "match" stanza, rescan to see if it might start another stanza.
 
-	* configure.ac, src/builtins.c: Flag DHCPD activities.
+* Fri Jul 27 2012 Tommy Reynolds
+- (a20a56d) Hilight the "INFO: task xxx blocked for more than" segment; which is usually followed by a Call Trace.
 
-2014-06-19  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Jul 19 2012 Tommy Reynolds
+- (c3c54df) Typo for "ntpd".
 
-	* ChangeLog: Populate the changelog.
+* Tue Jul 17 2012 Tommy Reynolds
+- (8a59c6c) Generated
 
-2014-06-19  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Jul 17 2012 Tommy Reynolds
+- (cf8c5d3) Generated documentation.
 
-	* configure.ac, src/builtins.c, vlm-tool.spec.in: Reduce the number
-	of false-positive indications by ignoring "_NMI" entries but still
-	marking NMI significant events.
+* Tue Jul 17 2012 Tommy Reynolds
+- (8d4d4e4) Generate README on the fly.
 
-2014-06-06  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Jul 17 2012 Tommy Reynolds
+- (269ed2d) Removed rules.
 
-	* autogen.sh: Construct README from the README.md file.
+* Tue Jul 17 2012 Tommy Reynolds
+- (acfeccc) Generate README
 
-2014-06-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Jul 17 2012 Tommy Reynolds
+- (31dbda6) Automake was complaining.
 
-	* configure.ac, src/vlm-tool.c: Use setvbuf(3) to manage a
-	larger-than-default buffer for reading the logs.
+* Tue Jul 17 2012 Tommy Reynolds
+- (9ded67e) Include README.md
 
-2014-05-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Jul 17 2012 Tommy Reynolds
+- (d4a5fac) Renamed
 
-	* ChangeLog: Updated changelog.
+* Tue Jul 17 2012 Tommy Reynolds
+- (22c33ff) More details
 
-2014-05-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Jul 17 2012 Tommy Reynolds
+- (33a4ed9) More details.
 
-	* configure.ac, src/builtins.c: Recognize "illegal" in more contexts
-	than "illegal:"
+* Tue Jul 17 2012 Tommy Reynolds
+- (2c60949) Renamed because I'm going to provide the content in markdown syntax.
 
-2014-04-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Mon Jul 2 2012 Tommy Reynolds
+- (2d25fb4) Version 2.0.1
 
-	* bootstrap.sh, configure.ac, src/builtins.c, vlm-tool.spec.in: 
-	Detect "is down" and "is up".  Build RPM locally on everything not
-	RHEL5
+* Mon Jul 2 2012 Tommy Reynolds
+- (de49164) Zeroize the entire size of the dynamic arrays.
 
-2014-04-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Jul 1 2012 Tommy Reynolds
+- (3cd5f0a) Checkpoint.
 
-	* configure.ac: Bumped version
+* Sun Jul 1 2012 Tommy Reynolds
+- (afff517) '$ make dist' expects 'autogen.sh'.
 
-2014-04-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Jul 1 2012 Tommy Reynolds
+- (2f1f558) Recognizes the cut stanza.
 
-	* bootstrap.sh, vlm-tool.spec.in: Cannot build locally under version
-	5
+* Sun Jul 1 2012 Tommy Reynolds
+- (5c8b61f) Added "STANZA_CONT" to clarify logic.
 
-2014-04-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Jul 1 2012 Tommy Reynolds
+- (19ec447) Simplified logic for marking stanzas.
 
-	* : commit 0549bce35f35fbc49812c6e1488235e4fd6323f4 Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Tue Apr 15 08:55:19
-	2014 -0500
+* Sun Jul 1 2012 Tommy Reynolds
+- (00a5d58) Recognized 'call trace', but not cut list.
 
-2014-04-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Jul 1 2012 Tommy Reynolds
+- (e381567) Moved test case out of source directory.
 
-	* configure.ac, src/vlm-tool.c: If we accept an ISO8601 timestamp,
-	we should generate an ISO8601 too.
+* Sun Jul 1 2012 Tommy Reynolds
+- (cf45414) Consolidated regular expression matching as well.
 
-2014-03-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Jul 1 2012 Tommy Reynolds
+- (5da02f8) List all the files.
 
-	* configure.ac, src/vlm-tool.1.in, src/vlm-tool.c: Added '-O
-	delta_hours' option that adds "delta_hours" to the current time
-	before comparing the incoming entry's timestamp against the current
-	time.  Since the log files omit the year, we assume the current
-	year; a log entry timestamp in the future probably came from a year
-	ago, so we just throw that away.
+* Sun Jul 1 2012 Tommy Reynolds
+- (c373501) Isolate regular expression compilation into a single place.
 
-2014-03-13  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Jun 30 2012 Tommy Reynolds
+- (ce9fcaa) Can now initialize itself without core dump.
 
-	* Makefile.am, bootstrap.sh, configure.ac, src/builtins.c: Notice
-	"enforcing=N" and build RPM locally.
+* Sat Jun 30 2012 Tommy Reynolds
+- (16bcb92) Reference gcc-compat.h only in header files that need it.  No "*.c" file should call it directly.
 
-2014-01-19  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Jun 28 2012 Tommy Reynolds
+- (6ee4af5) Remove unnecessary lines from the test case.
 
-	* configure.ac, src/builtins.c: Flag "can't contact ldap server" as
-	an interesting message.
+* Thu Jun 28 2012 Tommy Reynolds
+- (3e6f416) Bumped version.
 
-2014-01-05  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Jun 28 2012 Tommy Reynolds
+- (598c61a) Change 'autogen.sh' to 'bootstrap.sh' to avoid auto-complete collision.
 
-	* configure.ac, src/builtins.c: Highlight "errno" and option
-	following numeric value.
+* Thu Jun 28 2012 Tommy Reynolds
+- (ceb95fd) Cleanup
 
-2013-10-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Jun 28 2012 Tommy Reynolds
+- (58908fe) Added test case for cut-block
 
-	* vlm-tool.1: Documented the new switches.
+* Wed Jun 20 2012 Tommy Reynolds
+- (2549175) Remove the "_inline" attributes until I can ken this new GCC out.
 
-2013-10-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Jun 14 2012 Tommy Reynolds
+- (3869443) Don't ignore stuff because 'git clean -d -f' can't see it.
 
-	* configure.ac, src/vlm-tool.c: Added '-w when' and '-W window'
-	arguments.
+* Wed Jun 13 2012 Tommy Reynolds
+- (4210d99) Archive
 
-2013-09-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Jun 13 2012 Tommy Reynolds
+- (7514b57) Ship it.
 
-	* configure.ac: Bumped version
+* Sun Jun 10 2012 Tommy Reynolds
+- (81eb47c) Fancy post-processing tested.
 
-2013-09-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Jun 10 2012 Tommy Reynolds
+- (5f13fd3) Flag "el[0-9]debug" string.  Found in debug kernels.
 
-	* src/post-process.c, src/stanzas.c, src/stanzas.h, tests/mem-info: 
-	Added Mem-info: stanza marking
+* Fri Jun 1 2012 Tommy Reynolds
+- (a450fe3) Flag "o2hb".
 
-2013-09-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Jun 1 2012 Tommy Reynolds
+- (a7b6177) Updated
 
-	* configure.ac: Bump rev.
+* Fri Jun 1 2012 Tommy Reynolds
+- (be3a844) Flag run level.
 
-2013-09-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Jun 1 2012 Tommy Reynolds
+- (71d9fd4) Don't match "register", it has been boring.
 
-	* src/vlm-tool.c: Don't mark gap notice; it's easy to notice as it
-	is.
+* Mon May 28 2012 Tommy Reynolds
+- (ec292be) Better :)
 
-2013-09-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Mon May 28 2012 Tommy Reynolds
+- (d1f0133) Highlight remaining path count.
 
-	* vlm-tool.1: Mention 'stanzas'
+* Mon May 28 2012 Tommy Reynolds
+- (45ae6a2) Match and capture potential PID information on "shutdown:" entries.
 
-2013-09-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Mon May 28 2012 Tommy Reynolds
+- (d4272ea) Catch messages about 'shutdown:'
 
-	* configure.ac: Bumped version
+* Mon May 28 2012 Tommy Reynolds
+- (a2aae74) Highlight 'redhat.com'
 
-2013-09-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun May 27 2012 Tommy Reynolds
+- (5832a03) Goner
 
-	* Makefile.am, vlm-tool.1, vlm-tool.spec.in: Fleshed out man(1)
-	page.
+* Sun May 27 2012 Tommy Reynolds
+- (427a57a) First cut at generalized stanzas.  Marks matches, no stanzas found yet.
 
-2013-09-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun May 27 2012 Tommy Reynolds
+- (ae69d12) Include stanzas in build.
 
-	* Makefile.am: Include man(1) page in distribution.
+* Sun May 27 2012 Tommy Reynolds
+- (84f5a96) Add recognition for both OOPS and Call Trace: stanzas.
 
-2013-09-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun May 27 2012 Tommy Reynolds
+- (77374df) Unified stanza theory.
 
-	* vlm-tool.1: man(1) page coming
+* Fri May 25 2012 Tommy Reynolds
+- (39da82b) Moved post-processing into its own files and stuff still works.
 
-2013-05-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri May 25 2012 Tommy Reynolds
+- (046bb89) Moved post-processing into separate files.
 
-	* src/builtins.c: Highlight entire 'remaining paths' messages.
+* Fri May 25 2012 Tommy Reynolds
+- (a282b1c) Move xprintf() to its own files.
 
-2013-05-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri May 25 2012 Tommy Reynolds
+- (0e6ca5a) Split xprintf() to a separate file and forget about that hideously ugly #define macro.
 
-	* src/builtins.c: Mystery message: khash_super_prune_nolock
+* Fri May 25 2012 Tommy Reynolds
+- (edf6850) Flag anything from that troublemaker "setroubleshoot".
 
-2013-04-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri May 25 2012 Tommy Reynolds
+- (082953a) Merge branch 'master' into devel
 
-	* src/x-funcs.h: Include stdio.h to pick up perror(3) definition.
+* Fri May 25 2012 Tommy Reynolds
+- (1f0c713) Flag general protection faults.
 
-2013-03-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri May 25 2012 Tommy Reynolds
+- (b0792d6) Flag kernel general protection faults.
 
-	* configure.ac, src/builtins.c: Catch "floating-point" errors
+* Thu May 24 2012 Tommy Reynolds
+- (313fcc8) Flag multipath active paths count change.
 
-2013-03-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue May 15 2012 Tommy Reynolds
+- (0a23e5b) Dropped extraneous dot.
 
-	* configure.ac, src/builtins.c: Also flag "Dazed and confused" and
-	"Uhhuh".
+* Tue May 15 2012 Tommy Reynolds
+- (06383d0) Added version information to the man(1) page..
 
-2013-03-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue May 15 2012 Tommy Reynolds
+- (08264a5) Added "-N" switch to have line numbers between the thumb and the matched rule.
 
-	* configure.ac, src/builtins.c: Flag "nss_ldap:" messages.
+* Sun May 13 2012 Tommy Reynolds
+- (1a7ad7e) Didn't isolate the input basename before searching for an extention, so a dot in the path fooled me.
 
-2013-01-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun May 13 2012 Tommy Reynolds
+- (76e1914) Checkpoint
 
-	* configure.ac, src/vlm-tool.1, src/vlm-tool.1.in, src/vlm-tool.c: 
-	Recognize ISO timestamps if the "-d" switch is used.
+* Sun May 13 2012 Tommy Reynolds
+- (676cbeb) Complain about unknown extensions.
 
-2013-01-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun May 13 2012 Tommy Reynolds
+- (d41f143) Complain about unrecognized filename extentions.
 
-	* src/vlm-tool.c: Nope, too much after all.
+* Sat May 12 2012 Tommy Reynolds
+- (b0e961e) Bump for update.
 
-2013-01-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat May 12 2012 Tommy Reynolds
+- (b2c399d) Er, ever heard of the bonny month of May?
 
-	* src/vlm-tool.c: Extra leading space on note.
+* Sat May 12 2012 Tommy Reynolds
+- (7ddf846) Rebuild using a 'src/' subdirectory.
 
-2013-01-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat May 12 2012 Tommy Reynolds
+- (e6c1e7b) Checkpoint
 
-	* configure.ac, src/vlm-tool.1, src/vlm-tool.c: Output calculated
-	gap time in meaningful form.
+* Sat May 12 2012 Tommy Reynolds
+- (fdc06db) Isolated sources into a subdirectory.
 
-2013-01-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Apr 27 2012 Tommy Reynolds
+- (564fbd8) Use bright red text with dirty white background.  This stands out better on transparent windows.
 
-	* src/vlm-tool.c: Show gap delta in meaningful units.
+* Thu Apr 26 2012 Tommy Reynolds
+- (b0c261f) Add some RAID / md triggers.
 
-2013-01-06  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Apr 26 2012 Tommy Reynolds
+- (f108ef2) Drop PCRE foolishness
 
-	* configure.ac, src/vlm-tool.c: Output using localtime() instead of
-	gmtime(), so the times correspond to what you see in the
-	"/var/log/messages" file.
+* Sat Apr 21 2012 Tommy Reynolds
+- (2fd4b86) Boilerplate
 
-2012-12-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Apr 21 2012 Tommy Reynolds
+- (ef330f8) Merge branch 'master' of github.com:megacoder/vlm-tool
 
-	* configure.ac, src/vlm-tool.1, src/vlm-tool.c: Highlight the gap
-	instead of flagging it.
+* Fri Apr 20 2012 Tommy Reynolds
+- (ac7af56) Oh, by the way: get the martian, too.
 
-2012-12-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Apr 20 2012 Tommy Reynolds
+- (9ea91c0) Also pick up link-level headers for martian detections.
 
-	* src/vlm-tool.1: Documentation.
+* Fri Apr 20 2012 Tommy Reynolds
+- (533d0f6) Checkpoint
 
-2012-12-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Apr 20 2012 Tommy Reynolds
+- (0b6fe1c) PCRE
 
-	* configure.ac, src/vlm-tool.c: Added "-g" switch to perform gap
-	analysis.
+* Fri Apr 20 2012 Tommy Reynolds
+- (1fc132f) PCRE
 
-2012-12-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Apr 20 2012 Tommy Reynolds
+- (a19f14c) Use an m4/ subdirectory.
 
-	* src/vlm-tool.c: Write statistics to stderr because stdout can be
-	redirected.
+* Fri Apr 20 2012 Tommy Reynolds
+- (ed40f82) Merge branch 'master' of github.com:megacoder/vlm-tool
 
-2012-12-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Apr 20 2012 Tommy Reynolds
+- (d1a942a) Added '--with-pcre' flag.
 
-	* configure.ac, src/vlm-tool.c: Added "-s" switch to output
-	statistics; we may be losing content somewhere.
+* Fri Apr 6 2012 Tommy Reynolds
+- (57804f0) Claim all our man pages.
 
-2012-12-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Apr 6 2012 Tommy Reynolds
+- (719471b) Nowadays, perror() is in stdio, not errno.h
 
-	* src/stanzas.c: Increase PVM budget.
+* Thu Mar 29 2012 Tommy Reynolds
+- (7a97444) Drop PCRE for now.  Probably want to make it optional later.
 
-2012-12-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 29 2012 Tommy Reynolds
+- (dbfea3f) Flag "invalid" extended content.
 
-	* configure.ac, src/stanzas.c: If a kernel is switched to use the
-	XEN blkfront driver, the name of the root defice could change.
-	Highlight the kernel's recommendation about that.
+* Thu Mar 29 2012 Tommy Reynolds
+- (9d7decd) Hilight all of stack trace line.
 
-2012-11-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 29 2012 Tommy Reynolds
+- (27775fc) Capture more of "failed:" lines.
 
-	* INSTALL, README, README.html, bootstrap.sh: Don't archive
-	generated files.
+* Thu Mar 29 2012 Tommy Reynolds
+- (2fe24cd) Merge branch 'devel'
 
-2012-11-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 29 2012 Tommy Reynolds
+- (43decd9) Hilight entire line of "warning:...."
 
-	* : No RPM's please.
+* Thu Mar 29 2012 Tommy Reynolds
+- (6071304) Better hilighting of o2cb/o2net messages
 
-2012-11-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Mar 28 2012 Tommy Reynolds
+- (4ec292c) Flag "machine check event" (mce) messages.
 
-	* configure.ac, src/builtins.c: Expand bonding text
+* Wed Mar 28 2012 Tommy Reynolds
+- (c9d36cb) Would we rather use PCRE regular expressions?
 
-2012-11-09  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Mar 24 2012 Tommy Reynolds
+- (df370fb) Flag the kernel command line.
 
-	* : commit 493d152917793617fe9105b256c9b953ae7148c7 Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Mon Sep 24 19:50:43
-	2012 -0500
+* Fri Mar 23 2012 Tommy Reynolds
+- (9d59ab2) Start host colors at red+1
 
-2012-09-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Mar 23 2012 Tommy Reynolds
+- (d828514) Allow bulk loading of ignore patterns, too.
 
-	* bootstrap.sh: Do more.
+* Thu Mar 22 2012 Tommy Reynolds
+- (d78dfbf) No stats!
 
-2012-09-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 22 2012 Tommy Reynolds
+- (f9f7edb) Implemented "-l" switch to display known triggers.
 
-	* configure.ac, src/builtins.c: Flag "martian source" and
-	"addrconf(" changes more completely.
+* Thu Mar 22 2012 Tommy Reynolds
+- (25854ec) Truth in lending... er, sorting.
 
-2012-08-31  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 22 2012 Tommy Reynolds
+- (b6eb40d) Brought documentation up to date.
 
-	* src/builtins.c: Use a character class "[(]" instead of an escape
-	"\(".
+* Thu Mar 22 2012 Tommy Reynolds
+- (92ffd3c) Try to catch bad kdump setup.
 
-2012-08-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 22 2012 Tommy Reynolds
+- (e5472c1) Initialize the pool, fool!
 
-	* src/builtins.c: Also match "loop ready".
+* Thu Mar 22 2012 Tommy Reynolds
+- (71a9a88) Documented '-i re' switch.
 
-2012-08-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 22 2012 Tommy Reynolds
+- (27adc15) Added '-i pattern' to ignore a line.
 
-	* src/builtins.c: Flags "taints" too
+* Thu Mar 22 2012 Tommy Reynolds
+- (8140f53) Recognize 'rds:' as well as 'rds/ib'.
 
-2012-08-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Mar 17 2012 Tommy Reynolds
+- (9f3798c) Merge branch 'devel'
 
-	* : commit d29e66a1e43a55b917cfddfe9c1cf648326b3afc Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Fri Aug 17 11:16:14
-	2012 -0500
+* Sat Mar 17 2012 Tommy Reynolds
+- (f1bb157) Added "kobjecxt_add failed" post-processing block starter.
 
-2012-08-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Mar 16 2012 Tommy Reynolds
+- (b73ccf0) Added note about not re-ordering; order matters when using regular expressions.
 
-	* src/builtins.c: Flag NIC address entries
+* Thu Mar 15 2012 Tommy Reynolds
+- (ac68d91) Gobble up VLAN bonds, too.
 
-2012-08-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 15 2012 Tommy Reynolds
+- (6ccf6b4) Highlight "bond", "bonding", "bond0"...
 
-	* src/builtins.c: Flag UDEV: entries.
+* Mon Mar 12 2012 Tommy Reynolds
+- (1b46761) Recognize a 'call trace' block using the [<hex>] pattern.
 
-2012-08-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Mon Mar 12 2012 Tommy Reynolds
+- (c04eeab) Added block recognition to the post-processing step.
 
-	* src/builtins.c: Flag lines with "c-state".
+* Mon Mar 12 2012 Tommy Reynolds
+- (d32943b) Initialize the chain->next to NULL to prevent running off into the weeds.
 
-2012-08-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Mon Mar 12 2012 Tommy Reynolds
+- (44432a5) Added multi-level debug for undocumented "-X" switch.
 
-	* src/builtins.c: Well, flag "Oracle"...
+* Mon Mar 12 2012 Tommy Reynolds
+- (1cd2666) Logger
 
-2012-08-05  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Mon Mar 12 2012 Tommy Reynolds
+- (d1fece0) Complain if we can't read default files "/var/log/messages*".
 
-	* src/builtins.c: Flag "checker failed path", "mark as failed".
+* Mon Mar 12 2012 Tommy Reynolds
+- (7dd327c) Added script to build release delta.
 
-2012-08-05  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Mon Mar 12 2012 Tommy Reynolds
+- (fa4af58) Re-derived "entries.h", which I managed to lose.
 
-	* src/builtins.c: Flag 'failover', 'fail-over' as well.
+* Mon Mar 12 2012 Tommy Reynolds
+- (bbcbd9f) Correct uninitialized variable warning.
 
-2012-07-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Mar 11 2012 Tommy Reynolds
+- (ffd025e) Defer computing the colorization until just before we print the entry.
 
-	* src/post-process.c: Don't dereference null pointer first time
-	through post-processing loop.
+* Sun Mar 11 2012 Tommy Reynolds
+- (eea2cc8) Can't sort 'em until you've counted 'em.
 
-2012-07-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Mar 11 2012 Tommy Reynolds
+- (aed7919) Use the pool facilities.
 
-	* configure.ac, src/post-process.c: Simplifying stanza recognition
-	logic.
+* Sun Mar 11 2012 Tommy Reynolds
+- (d5e1ba1) Reorder so that timestamps are not monotonic.
 
-2012-07-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Mar 11 2012 Tommy Reynolds
+- (606fb85) Use segmented list instead of all those nasty realloc's.
 
-	* configure.ac, src/post-process.c: When a line stops a "match"
-	stanza, rescan to see if it might start another stanza.
+* Sun Mar 11 2012 Tommy Reynolds
+- (5b71093) Use the saved string for matching.
 
-2012-07-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Mar 11 2012 Tommy Reynolds
+- (66211a9) Clean compile
 
-	* README, README.html, configure.ac, src/stanzas.c: Hilight the
-	"INFO: task xxx blocked for more than" segment; which is usually
-	followed by a Call Trace.
+* Sun Mar 11 2012 Tommy Reynolds
+- (c70b92e) Object manipulation routines.
 
-2012-07-19  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Mar 10 2012 Tommy Reynolds
+- (2fb7590) Added scaffolding for post-processing() step.
 
-	* README.md: Typo for "ntpd".
+* Thu Mar 8 2012 Tommy Reynolds
+- (b686bce) Refactored trigger actioning routine.
 
-2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 8 2012 Tommy Reynolds
+- (0a66f18) Recognize ".xz" files as well, while we're at it.
 
-	* README: Generated
+* Thu Mar 8 2012 Tommy Reynolds
+- (4aa7d0b) Recognize ".bz2" and ".gz" file extentions and handle properly.
 
-2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Mar 3 2012 Tommy Reynolds
+- (eb32bc3) Also "killing".
 
-	* README.html: Generated documentation.
+* Sat Mar 3 2012 Tommy Reynolds
+- (7b591a0) Also detect "bonding".
 
-2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Mar 3 2012 Tommy Reynolds
+- (9816a7a) Notice "qla...LOOP UP" and "qla...LOOP DOWN"
 
-	* Makefile.am, README, configure.ac, vlm-tool.spec.in: Generate
-	README on the fly.
+* Fri Mar 2 2012 Tommy Reynolds
+- (2ed7ae6) Match full name of ocfs2.
 
-2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Mar 2 2012 Tommy Reynolds
+- (63bd3b8) Have "-r" imply also using "-m".
 
-	* Makefile.am: Removed rules.
+* Fri Mar 2 2012 Tommy Reynolds
+- (f2d79c0) Oops: "erro" not "error".
 
-2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Mar 2 2012 Tommy Reynolds
+- (585f682) Fleshed out the RPM description.  I don't like the formatting, but it's late.
 
-	* Makefile.am: Generate README
+* Fri Mar 2 2012 Tommy Reynolds
+- (8085f0f) Include man page.
 
-2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Mar 2 2012 Tommy Reynolds
+- (83507c8) Can now build as RPM.
 
-	* README: Automake was complaining.
+* Thu Mar 1 2012 Tommy Reynolds
+- (85b8e0a) Documented "-v" switch.
 
-2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 1 2012 Tommy Reynolds
+- (8838620) Get the program versioning right.
 
-	* Makefile.am: Include README.md
+* Thu Mar 1 2012 Tommy Reynolds
+- (71b16d2) Added '-v' switch to display the version.
 
-2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 1 2012 Tommy Reynolds
+- (8f3d7bb) Catch all of 'fail' permutations.
 
-	* README: Renamed
+* Thu Mar 1 2012 Tommy Reynolds
+- (13769d8) Move back to 'vlm-tool'.
 
-2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 1 2012 Tommy Reynolds
+- (ace8014) Display first 15 characters of matching trigger.
 
-	* README.md: More details
+* Thu Mar 1 2012 Tommy Reynolds
+- (11a5796) Odd, didn't really load default triggers (blush).
 
-2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 1 2012 Tommy Reynolds
+- (b8c7823) Goner
 
-	* README.md: More details.
+* Thu Mar 1 2012 Tommy Reynolds
+- (a5e072e) Don't use python version.
 
-2012-07-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 1 2012 Tommy Reynolds
+- (baba131) Ignorables
 
-	* README.md: Renamed because I'm going to provide the content in
-	markdown syntax.
+* Thu Mar 1 2012 Tommy Reynolds
+- (04a9c54) Ignorables
 
-2012-07-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 1 2012 Tommy Reynolds
+- (12655b4) Ignorables
 
-	* : Version 2.0.1
+* Thu Mar 1 2012 Tommy Reynolds
+- (2df60dc) Goner
 
-2012-07-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 1 2012 Tommy Reynolds
+- (4cf80e8) Ignorables
 
-	* src/post-process.c: Zeroize the entire size of the dynamic arrays.
+* Thu Mar 1 2012 Tommy Reynolds
+- (534df01) Auto tools.
 
-2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 1 2012 Tommy Reynolds
+- (fe8c849) Remove dash from name.
 
-	* src/stanzas.c: Checkpoint.
+* Thu Mar 1 2012 Tommy Reynolds
+- (4480c39) Ignorables
 
-2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Mar 1 2012 Tommy Reynolds
+- (13f2f9f) OK
 
-	* autogen.sh: '$ make dist' expects 'autogen.sh'.
+* Tue Feb 28 2012 Tommy Reynolds
+- (0b52fa4) Can't strip man(1) pages, Dolt!
 
-2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Feb 28 2012 Tommy Reynolds
+- (2fc6325) Now does everything except display chosen rule and display all rules.
 
-	* src/post-process.c, src/stanzas.c, src/stanzas.h: Recognizes the
-	cut stanza.
+* Tue Feb 28 2012 Tommy Reynolds
+- (b27c099) Ignorables
 
-2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Feb 28 2012 Tommy Reynolds
+- (70376ec) Improved, but not really working yet.
 
-	* src/stanzas.c, src/stanzas.h: Added "STANZA_CONT" to clarify
-	logic.
+* Tue Feb 28 2012 Tommy Reynolds
+- (3018c32) Primitive (aka wrong) colorization.
 
-2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Feb 28 2012 Tommy Reynolds
+- (e448dd1) Calculate internal form of timestamp.
 
-	* src/post-process.c: Simplified logic for marking stanzas.
+* Tue Feb 28 2012 Tommy Reynolds
+- (ae115e2) Make column numbers zero-based.
 
-2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Feb 28 2012 Tommy Reynolds
+- (d4e5c16) Isolate timestamp and hostname.
 
-	* src/post-process.c, src/stanzas.c, src/stanzas.h: Recognized 'call
-	trace', but not cut list.
+* Tue Feb 28 2012 Tommy Reynolds
+- (85f4d3f) Added "-y year" option; default to current year.
 
-2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Feb 26 2012 Tommy Reynolds
+- (c63703e) All preliminaries in place, ready to process files.
 
-	* {src => tests}/messages: Moved test case out of source directory.
+* Sun Feb 26 2012 Tommy Reynolds
+- (0d3e620) Handles "-a re" and "-b bulkfile" options.
 
-2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Feb 26 2012 Tommy Reynolds
+- (cf59a3a) Checkpoint
 
-	* src/stanzas.c, src/utils.c, src/utils.h, src/vlm-tool.c: 
-	Consolidated regular expression matching as well.
+* Sun Feb 26 2012 Tommy Reynolds
+- (67d2999) Ignorables
 
-2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Feb 26 2012 Tommy Reynolds
+- (8942afa) GCC-friently flags and definitions.
 
-	* src/Makefile.am: List all the files.
+* Sun Feb 26 2012 Tommy Reynolds
+- (ad3950c) Missing comma in "dlm" entry.
 
-2012-07-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Feb 26 2012 Tommy Reynolds
+- (19173dd) Skeleton for builtin rules.
 
-	* src/stanzas.c, src/utils.c, src/utils.h, src/vlm-tool.c: Isolate
-	regular expression compilation into a single place.
+* Sun Feb 26 2012 Tommy Reynolds
+- (95251b6) Must reimplement this in C to get reasonable regex behavior.
 
-2012-06-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Feb 25 2012 Tommy Reynolds
+- (d21b32c) Merge branch 'master' of github.com:megacoder/vlm-tool
 
-	* src/stanzas.c: Can now initialize itself without core dump.
+* Sat Feb 25 2012 Tommy Reynolds
+- (c7e8e48) Get the right strings; this is because 'foo(bar)' also matches the 'bar' pattern.
 
-2012-06-30  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Feb 25 2012 Tommy Reynolds
+- (76beabf) Notice kdump strings.
 
-	* INSTALL, src/post-process.c, src/post-process.h, src/stanzas.h,
-	src/vlm-tool.c, src/x-funcs.h: Reference gcc-compat.h only in header
-	files that need it.  No "*.c" file should call it directly.
+* Sat Feb 25 2012 Tommy Reynolds
+- (520d878) Catch kernel Eeek! in postprocess() routine.
 
-2012-06-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Feb 25 2012 Tommy Reynolds
+- (30eb336) Catch 'no space left'
 
-	* tests/cut-block: Remove unnecessary lines from the test case.
+* Fri Feb 24 2012 Tommy Reynolds
+- (d81fbfb) Highlight kernel's page allocation failures.  Be more conservative in matching time-out texts.
 
-2012-06-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Feb 24 2012 Tommy Reynolds
+- (6f66ace) No, use a '-' for the thumb; vi(1) treats a /^+ as looking for multiple line starts.  Sheesh.
 
-	* configure.ac: Bumped version.
+* Fri Feb 24 2012 Tommy Reynolds
+- (67e710b) Change thumb from '*' to '+' to make searching for it easier [I think].
 
-2012-06-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Feb 24 2012 Tommy Reynolds
+- (2d94831) 'line' --> 'resid'
 
-	* autogen.sh => bootstrap.sh: Change 'autogen.sh' to 'bootstrap.sh'
-	to avoid auto-complete collision.
+* Fri Feb 24 2012 Tommy Reynolds
+- (7c6ace5) Get all of 'registered'
 
-2012-06-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Feb 24 2012 Tommy Reynolds
+- (6339bfc) Use RED last, since we use that to highlight triggers.
 
-	* tests/cut-block: Cleanup
+* Fri Feb 24 2012 Tommy Reynolds
+- (ae1dbcd) Catch the proper exception.
 
-2012-06-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Feb 24 2012 Tommy Reynolds
+- (b9a4e96) Force reconstruction of compressed man(1) page.
 
-	* tests/cut-block: Added test case for cut-block
+* Fri Feb 24 2012 Tommy Reynolds
+- (d960aa6) Use python idiom to populate host colors.
 
-2012-06-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Feb 23 2012 Tommy Reynolds
+- (1469704) Colorize host names, too.
 
-	* INSTALL, src/Makefile.am, src/pool.c, src/x-funcs.h: Remove the
-	"_inline" attributes until I can ken this new GCC out.
+* Thu Feb 23 2012 Tommy Reynolds
+- (d0acfe4) Checkpoint
 
-2012-06-14  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Feb 23 2012 Tommy Reynolds
+- (5a01b41) Checkpoint
 
-	* .gitignore: Don't ignore stuff because 'git clean -d -f' can't see
-	it.
+* Thu Feb 23 2012 Tommy Reynolds
+- (083acd4) Representative line, for a model.
 
-2012-06-13  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Thu Feb 23 2012 Tommy Reynolds
+- (a2b0c80) Hardcoded
 
-	* : Archive
+* Thu Feb 23 2012 Tommy Reynolds
+- (41224f9) Install into /usr/local, including a man(1) page.
 
-2012-06-13  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Feb 22 2012 Tommy Reynolds
+- (7a428e1) Built a man(1) page.
 
-	* configure.ac: Ship it.
+* Wed Feb 22 2012 Tommy Reynolds
+- (65597f4) Doco
 
-2012-06-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Feb 22 2012 Tommy Reynolds
+- (32cf694) Doco
 
-	* configure.ac: Fancy post-processing tested.
+* Wed Feb 22 2012 Tommy Reynolds
+- (e926c4b) Dropping autotools, they are just in the way.
 
-2012-06-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Feb 22 2012 Tommy Reynolds
+- (0e10a03) How to.
 
-	* src/builtins.c: Flag "el[0-9]debug" string.  Found in debug
-	kernels.
+* Wed Feb 22 2012 Tommy Reynolds
+- (308a680) Checkpoint
 
-2012-06-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Feb 22 2012 Tommy Reynolds
+- (f27ec75) Flag 'Unknown symbol foo' entries. Flag 'disagrees about version of' entries.
 
-	* src/builtins.c: Flag "o2hb".
+* Wed Feb 22 2012 Tommy Reynolds
+- (8047d87) Try to catch both "debug" and "bug".
 
-2012-06-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Feb 22 2012 Tommy Reynolds
+- (f1d8409) More.
 
-	* configure.ac: Updated
+* Wed Feb 22 2012 Tommy Reynolds
+- (1b18122) Highlight 'power states:'
 
-2012-06-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Feb 21 2012 Tommy Reynolds
+- (0746802) The VERSION macro does propagate down to the script.
 
-	* src/builtins.c: Flag run level.
+* Tue Feb 21 2012 Tommy Reynolds
+- (7dcdfa3) Boilerplate
 
-2012-06-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Feb 21 2012 Tommy Reynolds
+- (9ef61b1) Checkpoint
 
-	* src/builtins.c: Don't match "register", it has been boring.
+* Tue Feb 21 2012 Tommy Reynolds
+- (f960a09) Me
 
-2012-05-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Feb 21 2012 Tommy Reynolds
+- (d984acb) Basic autotools configuration in place, but not working.
 
-	* src/builtins.c: Better :)
+* Tue Feb 21 2012 Tommy Reynolds
+- (fe313ff) Ignorables
 
-2012-05-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Tue Feb 21 2012 Tommy Reynolds
+- (4176364) RPM installation metadata.
 
-	* src/builtins.c: Highlight remaining path count.
+* Tue Feb 21 2012 Tommy Reynolds
+- (1c88939) Configuration file generator added
 
-2012-05-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sun Feb 19 2012 Tommy Reynolds
+- (cfcb924) Welcome to the AutoZone
 
-	* src/builtins.c: Match and capture potential PID information on
-	"shutdown:" entries.
+* Sun Feb 19 2012 Tommy Reynolds
+- (20f4b59) Expanded the epilog.  Now, if it were just formatted..
 
-2012-05-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Feb 18 2012 Tommy Reynolds
+- (ff72a2d) Drop gratuitious SGR clearing before each output line.
 
-	* src/builtins.c: Catch messages about 'shutdown:'
+* Sat Feb 18 2012 Tommy Reynolds
+- (843a805) Catch read-only.
 
-2012-05-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Feb 18 2012 Tommy Reynolds
+- (fceb095) Change 'reading' to 'injesting' in error message for unreadable file.
 
-	* configure.ac, src/builtins.c: Highlight 'redhat.com'
+* Sat Feb 18 2012 Tommy Reynolds
+- (1904374) Handle .gz and .bz2 compressed files.
 
-2012-05-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Feb 18 2012 Tommy Reynolds
+- (88c6ef2) Found a generic 'kernel: unable to handle' leadin for bugs, oops, and panics.
 
-	* release-script: Goner
+* Sat Feb 18 2012 Tommy Reynolds
+- (3617c94) Added '-t THUMB' capability.
 
-2012-05-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Feb 18 2012 Tommy Reynolds
+- (84c33fd) Dropped the rule number out of the self.lines tuples since we can backtrack to the oritinal input patten like this: mo.re.pattern
 
-	* src/post-process.c, src/stanzas.c, src/stanzas.h, src/x-funcs.h: 
-	First cut at generalized stanzas.  Marks matches, no stanzas found
-	yet.
+* Sat Feb 18 2012 Tommy Reynolds
+- (5669740) Postprocess to highlight kernel stack traces.
 
-2012-05-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Feb 18 2012 Tommy Reynolds
+- (3938836) Merge branch 'master' of github.com:megacoder/vlm-tool
 
-	* src/Makefile.am: Include stanzas in build.
+* Sat Feb 18 2012 Tommy Reynolds
+- (66356fa) Drop reference to merged file.
 
-2012-05-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Feb 18 2012 Tommy Reynolds
+- (ac61da6) First flush at marking range of a kernel stack trace.
 
-	* src/stanzas.c: Add recognition for both OOPS and Call Trace:
-	stanzas.
+* Sat Feb 18 2012 Tommy Reynolds
+- (563d7ae) Identify components of self.lines tuples correctly.
 
-2012-05-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Feb 18 2012 Tommy Reynolds
+- (4ba0c3c) Merge into one file, to make installation simpler.
 
-	* src/stanzas.c, src/stanzas.h, src/vlm-tool.h: Unified stanza
-	theory.
+* Sat Feb 18 2012 Tommy Reynolds
+- (3038297) Find 'panic', 'oom' and 'out of memory' kills
 
-2012-05-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Feb 18 2012 Tommy Reynolds
+- (3a09bd0) Don't fail if the date is poorly-formatted, just ignore the line.
 
-	* src/Makefile.am, src/post-process.c, src/post-process.h,
-	src/vlm-tool.c, src/vlm-tool.h, src/x-funcs.h: Moved post-processing
-	into its own files and stuff still works.
+* Sat Feb 18 2012 Tommy Reynolds
+- (7be4061) Check for "fence" or "fencing".
 
-2012-05-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Feb 18 2012 Tommy Reynolds
+- (ed4812e) Silently ignore badly-formatted lines.
 
-	* src/Makefile.am, src/post-process.c, src/post-process.h,
-	src/vlm-tool.c, src/vlm-tool.h: Moved post-processing into separate
-	files.
+* Sat Feb 18 2012 Tommy Reynolds
+- (53981fa) Added version string
 
-2012-05-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Feb 18 2012 Tommy Reynolds
+- (a92161d) Allow '-' to be used to read from stdin and not "/var/log/messages*"
 
-	* configure.ac: Move xprintf() to its own files.
+* Sat Feb 18 2012 Tommy Reynolds
+- (3393aad) Merge branch 'master' of github.com:megacoder/vlm-tool
 
-2012-05-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Sat Feb 18 2012 Tommy Reynolds
+- (e72f87e) Dropped idea of 'dumping' filters and just 'list' them.
 
-	* src/Makefile.am, src/vlm-tool.c, src/xprintf.c, src/xprintf.h: 
-	Split xprintf() to a separate file and forget about that hideously
-	ugly #define macro.
+* Fri Feb 17 2012 Tommy Reynolds
+- (672e2c4) Uninstall helper files, too.
 
-2012-05-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Feb 17 2012 Tommy Reynolds
+- (b36d5ba) Cleaned up output line formatting logic.
 
-	* configure.ac, src/builtins.c: Flag anything from that troublemaker
-	"setroubleshoot".
+* Fri Feb 17 2012 Tommy Reynolds
+- (c58bddc) Bugs I know of, but are not interested in fixing.
 
-2012-05-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Feb 17 2012 Tommy Reynolds
+- (a29f921) Install the helper files, too.
 
-	* : commit 1f0c71347c71111022ccc568fab2dd81c20e6f82 Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Fri May 25 12:12:01
-	2012 -0500
+* Fri Feb 17 2012 Tommy Reynolds
+- (5e0c3d5) Don't keep the original rules strings around, they're in the re object.
 
-2012-05-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Feb 17 2012 Tommy Reynolds
+- (f70a1c1) Added '-c' switch to colorize output.
 
-	* src/builtins.c: Flag kernel general protection faults.
+* Fri Feb 17 2012 Tommy Reynolds
+- (bab808f) Drop excess spaces.
 
-2012-05-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Fri Feb 17 2012 Tommy Reynolds
+- (61c6abf) Change marker from '-->' to '* '.
 
-	* src/builtins.c: Flag multipath active paths count change.
+* Thu Feb 16 2012 Tommy Reynolds
+- (9f605ea) Continue applying filters using the one that last matched; maybe helps speed identical lines.
 
-2012-05-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+* Wed Feb 15 2012 Tommy Reynolds
+- (047a993) Added tool and maintenance script.
 
-	* src/vlm-tool.1.in: Dropped extraneous dot.
-
-2012-05-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* configure.ac, src/{vlm-tool.1 => vlm-tool.1.in}: Added version
-	information to the man(1) page..
-
-2012-05-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* configure.ac, src/Makefile.am, src/vlm-tool.1, src/vlm-tool.c: 
-	Added "-N" switch to have line numbers between the thumb and the
-	matched rule.
-
-2012-05-13  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* configure.ac, src/vlm-tool.c: Didn't isolate the input basename
-	before searching for an extention, so a dot in the path fooled me.
-
-2012-05-13  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* src/vlm-tool.c: Checkpoint
-
-2012-05-13  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* INSTALL, configure.ac: Complain about unknown extensions.
-
-2012-05-13  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* src/vlm-tool.c: Complain about unrecognized filename extentions.
-
-2012-05-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* configure.ac: Bump for update.
-
-2012-05-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* src/vlm-tool.c: Er, ever heard of the bonny month of May?
-
-2012-05-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* configure.ac, src/vlm-tool.spec.in => vlm-tool.spec.in: Rebuild
-	using a 'src/' subdirectory.
-
-2012-05-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* gcc-compat.h => src/gcc-compat.h, messages => src/messages: 
-	Checkpoint
-
-2012-05-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile.am, src/Makefile.am, builtins.c => src/builtins.c,
-	builtins.h => src/builtins.h, pool.c => src/pool.c, pool.h =>
-	src/pool.h, vlm-tool.1 => src/vlm-tool.1, vlm-tool.c =>
-	src/vlm-tool.c, vlm-tool.spec.in => src/vlm-tool.spec.in, xprintf.h
-	=> src/xprintf.h: Isolated sources into a subdirectory.
-
-2012-04-27  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Use bright red text with dirty white background.  This
-	stands out better on transparent windows.
-
-2012-04-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Add some RAID / md triggers.
-
-2012-04-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.spec.in: Drop PCRE foolishness
-
-2012-04-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* INSTALL: Boilerplate
-
-2012-04-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* : commit ac7af56be877a7d30a60b02fe1c696b303ffb95c Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Fri Apr 20 12:53:09
-	2012 -0500
-
-2012-04-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Also pick up link-level headers for martian
-	detections.
-
-2012-04-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* m4/aclocal.m4, m4/ax_path_lib_pcre.m4: Checkpoint
-
-2012-04-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.spec.in: PCRE
-
-2012-04-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* configure.ac: PCRE
-
-2012-04-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* autogen.sh: Use an m4/ subdirectory.
-
-2012-04-20  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* : commit d1a942a7fa9b2fe709187b04981433b519d6142a Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Fri Apr 20 12:19:32
-	2012 -0500
-
-2012-04-06  Tommy Reynolds <Tommy.Reynolds@Oracle.com>
-
-	* vlm-tool.spec.in: Claim all our man pages.
-
-2012-04-06  Tommy Reynolds <Tommy.Reynolds@Oracle.com>
-
-	* INSTALL, configure.ac, pool.c: Nowadays, perror() is in stdio, not
-	errno.h
-
-2012-03-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile.am, vlm-tool.c: Drop PCRE for now.  Probably want to make
-	it optional later.
-
-2012-03-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Flag "invalid" extended content.
-
-2012-03-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Hilight all of stack trace line.
-
-2012-03-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Capture more of "failed:" lines.
-
-2012-03-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* : commit 43decd9d0c7678fbbe8f0f13acb10d259b9b9c50 Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Thu Mar 29 08:27:45
-	2012 -0500
-
-2012-03-29  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Better hilighting of o2cb/o2net messages
-
-2012-03-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Flag "machine check event" (mce) messages.
-
-2012-03-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile.am, vlm-tool.c: Would we rather use PCRE regular
-	expressions?
-
-2012-03-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Flag the kernel command line.
-
-2012-03-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Start host colors at red+1
-
-2012-03-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.1, vlm-tool.c: Allow bulk loading of ignore patterns,
-	too.
-
-2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.1, vlm-tool.c: No stats!
-
-2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Implemented "-l" switch to display known triggers.
-
-2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.1: Truth in lending... er, sorting.
-
-2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.1: Brought documentation up to date.
-
-2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Try to catch bad kdump setup.
-
-2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Initialize the pool, fool!
-
-2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.1: Documented '-i re' switch.
-
-2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Added '-i pattern' to ignore a line.
-
-2012-03-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Recognize 'rds:' as well as 'rds/ib'.
-
-2012-03-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* : commit f1bb157acc451557c2dffcfb63b43340b7de94ca Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Sat Mar 17 14:31:44
-	2012 -0500
-
-2012-03-16  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Added note about not re-ordering; order matters when
-	using regular expressions.
-
-2012-03-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Gobble up VLAN bonds, too.
-
-2012-03-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Highlight "bond", "bonding", "bond0"...
-
-2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Recognize a 'call trace' block using the [<hex>]
-	pattern.
-
-2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c, builtins.h, pool.c, pool.h, vlm-tool.c: Added block
-	recognition to the post-processing step.
-
-2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile.am, pool.c: Initialize the chain->next to NULL to prevent
-	running off into the weeds.
-
-2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile.am, vlm-tool.c, xprintf.h: Added multi-level debug for
-	undocumented "-X" switch.
-
-2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* xprintf.h: Logger
-
-2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Complain if we can't read default files
-	"/var/log/messages*".
-
-2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* release-script: Added script to build release delta.
-
-2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Re-derived "entries.h", which I managed to lose.
-
-2012-03-12  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* pool.c: Correct uninitialized variable warning.
-
-2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Defer computing the colorization until just before we
-	print the entry.
-
-2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Can't sort 'em until you've counted 'em.
-
-2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile.am, vlm-tool.c: Use the pool facilities.
-
-2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* messages: Reorder so that timestamps are not monotonic.
-
-2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* pool.c, pool.h, vlm-tool.c: Use segmented list instead of all
-	those nasty realloc's.
-
-2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Use the saved string for matching.
-
-2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* pool.h, vlm-tool.c: Clean compile
-
-2012-03-11  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile.am, pool.c, pool.h: Object manipulation routines.
-
-2012-03-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Added scaffolding for post-processing() step.
-
-2012-03-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Refactored trigger actioning routine.
-
-2012-03-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Recognize ".xz" files as well, while we're at it.
-
-2012-03-08  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Recognize ".bz2" and ".gz" file extentions and handle
-	properly.
-
-2012-03-03  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Also "killing".
-
-2012-03-03  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Also detect "bonding".
-
-2012-03-03  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Notice "qla...LOOP UP" and "qla...LOOP DOWN"
-
-2012-03-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Match full name of ocfs2.
-
-2012-03-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c, vlm-tool.c: Have "-r" imply also using "-m".
-
-2012-03-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Oops: "erro" not "error".
-
-2012-03-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.spec.in: Fleshed out the RPM description.  I don't like
-	the formatting, but it's late.
-
-2012-03-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile.am: Include man page.
-
-2012-03-02  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.spec.in: Can now build as RPM.
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.1: Documented "-v" switch.
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile.am, autogen.sh, configure.ac, vlm-tool.c: Get the program
-	versioning right.
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Added '-v' switch to display the version.
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c: Catch all of 'fail' permutations.
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile.am, configure.ac, vlm_tool.1 => vlm-tool.1, vlm_tool.c
-	=> vlm-tool.c, vlm_tool.spec.in => vlm-tool.spec.in: Move back to
-	'vlm-tool'.
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm_tool.c: Display first 15 characters of matching trigger.
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm_tool.c: Odd, didn't really load default triggers (blush).
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlmtool.c: Goner
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Don't use python version.
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* .gitignore: Ignorables
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* .gitignore: Ignorables
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* .gitignore: Ignorables
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile: Goner
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* .gitignore: Ignorables
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile.am, autogen.sh, configure.ac, vlm-tool.1 => vlm_tool.1,
-	vlm-tool.spec => vlm_tool.spec.in, vlm-tool.c => vlmtool.c: Auto
-	tools.
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm_tool.c: Remove dash from name.
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* .gitignore: Ignorables
-
-2012-03-01  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile: OK
-
-2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile: Can't strip man(1) pages, Dolt!
-
-2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile, messages, vlm-tool.c: Now does everything except display
-	chosen rule and display all rules.
-
-2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* .gitignore: Ignorables
-
-2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Improved, but not really working yet.
-
-2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Primitive (aka wrong) colorization.
-
-2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Calculate internal form of timestamp.
-
-2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* messages: Make column numbers zero-based.
-
-2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Isolate timestamp and hostname.
-
-2012-02-28  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Added "-y year" option; default to current year.
-
-2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: All preliminaries in place, ready to process files.
-
-2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.c: Handles "-a re" and "-b bulkfile" options.
-
-2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* builtins.c, builtins.h, vlm-tool.c: Checkpoint
-
-2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* .gitignore: Ignorables
-
-2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* gcc-compat.h: GCC-friently flags and definitions.
-
-2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Missing comma in "dlm" entry.
-
-2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile, builtins.c, builtins.h, messages: Skeleton for builtin
-	rules.
-
-2012-02-26  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile, vlm-tool.c: Must reimplement this in C to get reasonable
-	regex behavior.
-
-2012-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* : commit c7e8e48aeb8341cf7a6a75d34c67fec3bfc6f4cf Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Sat Feb 25 18:51:24
-	2012 -0600
-
-2012-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Notice kdump strings.
-
-2012-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Catch kernel Eeek! in postprocess() routine.
-
-2012-02-25  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Catch 'no space left'
-
-2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Highlight kernel's page allocation failures.  Be more
-	conservative in matching time-out texts.
-
-2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.1, vlm-tool.py: No, use a '-' for the thumb; vi(1) treats
-	a /^+ as looking for multiple line starts.  Sheesh.
-
-2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.1, vlm-tool.py: Change thumb from '*' to '+' to make
-	searching for it easier [I think].
-
-2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: 'line' --> 'resid'
-
-2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Get all of 'registered'
-
-2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Use RED last, since we use that to highlight
-	triggers.
-
-2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Catch the proper exception.
-
-2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile: Force reconstruction of compressed man(1) page.
-
-2012-02-24  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Use python idiom to populate host colors.
-
-2012-02-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.1, vlm-tool.py: Colorize host names, too.
-
-2012-02-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Checkpoint
-
-2012-02-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Checkpoint
-
-2012-02-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* messages: Representative line, for a model.
-
-2012-02-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile, vlm-tool.spec.in => vlm-tool.spec: Hardcoded
-
-2012-02-23  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile: Install into /usr/local, including a man(1) page.
-
-2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.1: Built a man(1) page.
-
-2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.1: Doco
-
-2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.1: Doco
-
-2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile.am, autogen.sh, configure.ac, vlm-tool.py.in =>
-	vlm-tool.py: Dropping autotools, they are just in the way.
-
-2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile: How to.
-
-2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py.in: Checkpoint
-
-2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py.in: Flag 'Unknown symbol foo' entries.  Flag
-	'disagrees about version of' entries.
-
-2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py.in: Try to catch both "debug" and "bug".
-
-2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py.in: More.
-
-2012-02-22  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py.in: Highlight 'power states:'
-
-2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile.am, autogen.sh, configure.ac, vlm-tool.py =>
-	vlm-tool.py.in, vlm-tool.spec.in: The VERSION macro does propagate
-	down to the script.
-
-2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* COPYING, INSTALL, NEWS, README: Boilerplate
-
-2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* COPYING, INSTALL, Makefile.am, NEWS, README, configure.ac,
-	vlm-tool.py: Checkpoint
-
-2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* AUTHORS: Me
-
-2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* AUTHORS, COPYING, ChangeLog, INSTALL, NEWS: Basic autotools
-	configuration in place, but not working.
-
-2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* .gitignore: Ignorables
-
-2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.spec.in: RPM installation metadata.
-
-2012-02-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* autogen.sh: Configuration file generator added
-
-2012-02-19  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile, Makefile.am, configure.ac: Welcome to the AutoZone
-
-2012-02-19  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Expanded the epilog.  Now, if it were just
-	formatted..
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Drop gratuitious SGR clearing before each output
-	line.
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Catch read-only.
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Change 'reading' to 'injesting' in error message for
-	unreadable file.
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Handle .gz and .bz2 compressed files.
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Found a generic 'kernel: unable to handle' leadin for
-	bugs, oops, and panics.
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Added '-t THUMB' capability.
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Dropped the rule number out of the self.lines tuples
-	since we can backtrack to the oritinal input patten like this:
-	mo.re.pattern
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Postprocess to highlight kernel stack traces.
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* : commit 66356fa50f056091646a29b87c5a5b5d6edd2043 Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Sat Feb 18 15:17:35
-	2012 -0600
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: First flush at marking range of a kernel stack trace.
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Identify components of self.lines tuples correctly.
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile, ansicolors.py, vlm-tool.py: Merge into one file, to make
-	installation simpler.
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Find 'panic', 'oom' and 'out of memory' kills
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Don't fail if the date is poorly-formatted, just
-	ignore the line.
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Check for "fence" or "fencing".
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Silently ignore badly-formatted lines.
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Added version string
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Allow '-' to be used to read from stdin and not
-	"/var/log/messages*"
-
-2012-02-18  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* : commit e72f87ea93868d6864bdc0d9bda5d16fdbd65d07 Author: Tommy
-	Reynolds <Tommy.Reynolds@MegaCoder.com> Date:   Sat Feb 18 11:07:33
-	2012 -0600
-
-2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile: Uninstall helper files, too.
-
-2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Cleaned up output line formatting logic.
-
-2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* TODO: Bugs I know of, but are not interested in fixing.
-
-2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile, vlm-tool.py: Install the helper files, too.
-
-2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Don't keep the original rules strings around, they're
-	in the re object.
-
-2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* ansicolors.py, vlm-tool.py: Added '-c' switch to colorize output.
-
-2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Drop excess spaces.
-
-2012-02-17  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Change marker from '-->' to '* '.
-
-2012-02-16  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* vlm-tool.py: Continue applying filters using the one that last
-	matched; maybe helps speed identical lines.
-
-2012-02-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* Makefile, vlm-tool.py: Added tool and maintenance script.
-
-2012-02-15  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
-
-	* First commit.
+* Wed Feb 15 2012 Tommy Reynolds
+- (0b53f9a) First commit.
 
