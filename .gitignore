@@ -36,3 +36,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# Added from https://raw.githubusercontent.com/github/gitignore/master/C.gitignore
+*.i*86
+*.mod*
