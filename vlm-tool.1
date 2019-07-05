@@ -7,7 +7,7 @@ vlm-tool \- intelligent grep(1) for /var/log/messages files
 .SH DESCRIPTION
 .PP
 This man(1) page gives only the command-line usage.
-I know these are a log of options; see the \fIREADME\fP file for full details.
+I know these are a lot of options; see the \fIREADME\fP file for full details.
 .TP
 \fB\-X\fP
 increase level of debug output.
@@ -31,6 +31,9 @@ Region \fIISO\fP attempts to decode using the ISO 8601 standard and most of its 
 .TP
 \fB\-G\fP \fIsecs\fP
 Recognize a time gap if two log entries for this host are \fIsecs\fP apart.
+.PP
+Gaps are calculated after uninteresting lines have be dropped.
+The intent is to prevent flooding log entries from obscuring the intervals between interesting lines.
 .TP
 \fB\-g\fP
 Flag gaps in the log files.
@@ -50,6 +53,9 @@ No other switches are honored if \fB-l\fP is used.
 \fB\-m\fP
 Output all log entries.
 Entries matching a trigger pattern will be marked with the \fIthumb\P.
+.PP
+Some log entries consist of multiple lines and form a \fIstanza\fP.
+For example, the string \fBCall Trace:\fP marks a register dump and stack trace.
 .TP
 \fB\-n\fP
 Do not load the table of built-in trigger rules.
@@ -101,9 +107,6 @@ Written by Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
 Copyright \(co 2013 Tommy Reynolds; all rights reserved; international copyright secured.
 .PP
 This code is licensed under the GPL v2, and no other.
-.PP
-Some log entries consist of multiple lines and form a \fIstanza\fP.
-For example, the string \fBCall Trace:\fP marks a register dump and stack trace.
 \fBvlm-tool\fP detects several typs of the stanzas and tries to mark the entire set of lines.
 .SH "SEE ALSO"
 .PP
