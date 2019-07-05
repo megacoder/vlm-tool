@@ -75,3 +75,8 @@ vlm-tool
 vlm-tool.spec
 README
 README.html
+INSTALL
+confg.h
+rpms/
+/config.h
+/vlm-tool-*.tar.gz
