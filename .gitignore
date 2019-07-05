@@ -70,3 +70,8 @@ m4/ltversion.m4
 m4/lt~obsolete.m4
 vlm-tool.1
 .deps
+Makefile
+vlm-tool
+vlm-tool.spec
+README
+README.html
