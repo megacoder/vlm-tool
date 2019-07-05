@@ -14,7 +14,7 @@ In its most basic usage, vlm-tool(1) works much like grep(1) in that there is a 
 # vlm-tool /var/log/messages
 </pre>
 
-Suppose you have the message logs from two cluster nodes:
+Suppose there are message logs from two cluster nodes:
 
 <pre>
 $ vlm-tool node1-messages node2-messages
@@ -23,6 +23,18 @@ $ vlm-tool node1-messages node2-messages
 The content of all input files will be merged, using the timestamps conveniently placed on each log entry.
 All the log files should be for the same calendar year since the log timestamps do not include a year.
 The algorithm tries to keep the lines for each host clumped together if many lines share the same timestamp.
+
+## Not for just /var/log/messages but /var/log/secure as well
+
+By luck or good design, both the */var/log/messages* and the */var/log/secure* use the same log layout scheme.  Mention both on the command line:
+
+<pre>
+$ vlm-tool /var/log/messages /var/log/secure
+</pre>
+
+to coordinate entries in one file with the other.
+
+This scheme will work with any log conforming to the layout used by the *syslog(3)* interface.
 
 ## Flooded Logs
 
@@ -132,7 +144,7 @@ $ vlm-tool -o for_later messages messages.1
 
 ## Recognizing Compressed Files
 
-Frequently, part of the log rotation includes compressing the older log files.
+Frequently, part of log rotation includes compressing the older log files.
 No need to uncompress them before using vlm-tool(1) because files compressed using gzip (*.gz*), bzip2 (*.bz2*), compress (*.Z*), and xz (*.xz*) are recognized by their filename extensions.
 
 ## When In Doubt
