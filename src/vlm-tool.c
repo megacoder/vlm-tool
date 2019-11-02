@@ -340,6 +340,10 @@ process(
 		in_lineno += 1;
 		/* Count this line					 */
 		log_stats.read += 1;
+		/* Vet the line: the first character must be an alpha	 */
+		if( ! isalpha( buf[ 0 ] ) )	{
+			continue;
+		}
 		/* Drop trailing whitespace				 */
 		for( bp = buf + l; (bp > buf) && isspace(bp[-1]); --bp ) {
 			bp[-1] = '\0';
