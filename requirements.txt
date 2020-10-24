@@ -1,2 +1,2 @@
 lynx
-python2-markdown
+python3-markdown2
