@@ -1,11 +1,26 @@
-* Sat Nov 2 2019 Tommy Reynolds
-- (648ec6b) Bumped revision. (HEAD -> master)
+* Fri Dec 11 2020 Tommy Reynolds
+- (7918caa) Ship "README.md" and forget the silly plaintext or HTML version. (HEAD, master, markdown)
+
+* Fri Jun 19 2020 Tommy Reynolds
+- (97258a7) First cut at super-linter rules. (origin/master, origin/HEAD)
+
+* Sat May 30 2020 Tommy Reynolds
+- (b87f9c0) Stuff we need but may not have installed yet.
+
+* Sat May 30 2020 Tommy Reynolds
+- (070873c) RPM packages we might not have installed already.
 
 * Sat Nov 2 2019 Tommy Reynolds
-- (28891d0) Discard any line not starting with alpha; catch some partial lines and trash. (devel)
+- (96d4202) Changes (tag: v2.2.27)
+
+* Sat Nov 2 2019 Tommy Reynolds
+- (648ec6b) Bumped revision.
+
+* Sat Nov 2 2019 Tommy Reynolds
+- (28891d0) Discard any line not starting with alpha; catch some partial lines and trash.
 
 * Fri Jul 5 2019 Tommy Reynolds
-- (45794c7) Basked of Ignorables (origin/master, origin/HEAD)
+- (45794c7) Basked of Ignorables
 
 * Fri Jul 5 2019 Tommy Reynolds
 - (2b89be8) Basket of Ignorables
@@ -631,7 +646,7 @@
 * Sun May 27 2012 Tommy Reynolds
 - (84f5a96) Add recognition for both OOPS and Call Trace: stanzas.
 
-* Sat May 26 2012 Tommy Reynolds
+* Sun May 27 2012 Tommy Reynolds
 - (77374df) Unified stanza theory.
 
 * Fri May 25 2012 Tommy Reynolds
@@ -658,7 +673,7 @@
 * Fri May 25 2012 Tommy Reynolds
 - (b0792d6) Flag kernel general protection faults.
 
-* Thu May 24 2012 Tommy Reynolds
+* Fri May 25 2012 Tommy Reynolds
 - (313fcc8) Flag multipath active paths count change.
 
 * Tue May 15 2012 Tommy Reynolds
@@ -667,7 +682,7 @@
 * Tue May 15 2012 Tommy Reynolds
 - (06383d0) Added version information to the man(1) page..
 
-* Mon May 14 2012 Tommy Reynolds
+* Tue May 15 2012 Tommy Reynolds
 - (08264a5) Added "-N" switch to have line numbers between the thumb and the matched rule.
 
 * Sun May 13 2012 Tommy Reynolds
@@ -838,13 +853,13 @@
 * Mon Mar 12 2012 Tommy Reynolds
 - (d1fece0) Complain if we can't read default files "/var/log/messages*".
 
-* Sun Mar 11 2012 Tommy Reynolds
+* Mon Mar 12 2012 Tommy Reynolds
 - (7dd327c) Added script to build release delta.
 
-* Sun Mar 11 2012 Tommy Reynolds
+* Mon Mar 12 2012 Tommy Reynolds
 - (fa4af58) Re-derived "entries.h", which I managed to lose.
 
-* Sun Mar 11 2012 Tommy Reynolds
+* Mon Mar 12 2012 Tommy Reynolds
 - (bbcbd9f) Correct uninitialized variable warning.
 
 * Sun Mar 11 2012 Tommy Reynolds
@@ -868,7 +883,7 @@
 * Sun Mar 11 2012 Tommy Reynolds
 - (66211a9) Clean compile
 
-* Sat Mar 10 2012 Tommy Reynolds
+* Sun Mar 11 2012 Tommy Reynolds
 - (c70b92e) Object manipulation routines.
 
 * Sat Mar 10 2012 Tommy Reynolds
@@ -892,22 +907,22 @@
 * Sat Mar 3 2012 Tommy Reynolds
 - (9816a7a) Notice "qla...LOOP UP" and "qla...LOOP DOWN"
 
-* Thu Mar 1 2012 Tommy Reynolds
+* Fri Mar 2 2012 Tommy Reynolds
 - (2ed7ae6) Match full name of ocfs2.
 
-* Thu Mar 1 2012 Tommy Reynolds
+* Fri Mar 2 2012 Tommy Reynolds
 - (63bd3b8) Have "-r" imply also using "-m".
 
-* Thu Mar 1 2012 Tommy Reynolds
+* Fri Mar 2 2012 Tommy Reynolds
 - (f2d79c0) Oops: "erro" not "error".
 
-* Thu Mar 1 2012 Tommy Reynolds
+* Fri Mar 2 2012 Tommy Reynolds
 - (585f682) Fleshed out the RPM description.  I don't like the formatting, but it's late.
 
-* Thu Mar 1 2012 Tommy Reynolds
+* Fri Mar 2 2012 Tommy Reynolds
 - (8085f0f) Include man page.
 
-* Thu Mar 1 2012 Tommy Reynolds
+* Fri Mar 2 2012 Tommy Reynolds
 - (83507c8) Can now build as RPM.
 
 * Thu Mar 1 2012 Tommy Reynolds
@@ -964,7 +979,7 @@
 * Thu Mar 1 2012 Tommy Reynolds
 - (13f2f9f) OK
 
-* Tue Feb 28 2012 Tommy Reynolds
+* Wed Feb 29 2012 Tommy Reynolds
 - (0b52fa4) Can't strip man(1) pages, Dolt!
 
 * Tue Feb 28 2012 Tommy Reynolds
@@ -1105,28 +1120,28 @@
 * Wed Feb 22 2012 Tommy Reynolds
 - (1b18122) Highlight 'power states:'
 
-* Mon Feb 20 2012 Tommy Reynolds
+* Tue Feb 21 2012 Tommy Reynolds
 - (0746802) The VERSION macro does propagate down to the script.
 
-* Mon Feb 20 2012 Tommy Reynolds
+* Tue Feb 21 2012 Tommy Reynolds
 - (7dcdfa3) Boilerplate
 
-* Mon Feb 20 2012 Tommy Reynolds
+* Tue Feb 21 2012 Tommy Reynolds
 - (9ef61b1) Checkpoint
 
-* Mon Feb 20 2012 Tommy Reynolds
+* Tue Feb 21 2012 Tommy Reynolds
 - (f960a09) Me
 
-* Mon Feb 20 2012 Tommy Reynolds
+* Tue Feb 21 2012 Tommy Reynolds
 - (d984acb) Basic autotools configuration in place, but not working.
 
-* Mon Feb 20 2012 Tommy Reynolds
+* Tue Feb 21 2012 Tommy Reynolds
 - (fe313ff) Ignorables
 
-* Mon Feb 20 2012 Tommy Reynolds
+* Tue Feb 21 2012 Tommy Reynolds
 - (4176364) RPM installation metadata.
 
-* Mon Feb 20 2012 Tommy Reynolds
+* Tue Feb 21 2012 Tommy Reynolds
 - (1c88939) Configuration file generator added
 
 * Sun Feb 19 2012 Tommy Reynolds
