@@ -1,12 +1,14 @@
 SUBDIRS=src
 
-EXTRA_DIST=AUTHORS COPYING ChangeLog INSTALL NEWS README README.md	\
-	 README.html TODO autogen.sh configure.ac install-sh missing	\
+EXTRA_DIST=AUTHORS COPYING ChangeLog INSTALL NEWS			\
+	README README.html  README.md					\
+	 TODO autogen.sh configure.ac install-sh missing		\
 	 vlm-tool.1 vlm-tool.spec
 
-.PHONY:	.FORCE
+README: README.md
+	pandoc -o README.txt README.md && mv README.txt README
 
-README README.html: README.md .FORCE
-	markdown_py <README.md | tee README.html | lynx -dump -stdin >README
+README.html: README.md
+	pandoc -o README.html README.md
 
 man_MANS = vlm-tool.1

@@ -4,11 +4,6 @@ if [ -d .git ]; then
 else
 	rm -f Makefile Makefile.in  vlm-tool.spec configure
 fi
-(
-	markdown2 README.md	||
-	markdown README.md	||
-	echo "Can't find a markdown renderer."
-) 2>/dev/null	| tee README.html | lynx -dump -stdin >README
 autoreconf -vfim -I m4
 ./configure
 make dist
