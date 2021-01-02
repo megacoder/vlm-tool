@@ -510,8 +510,10 @@ print_one_entry(
 	static const char	fmt[] = "%-*s ";
 	timekind_t const * const tk = timekinds + date_kind;
 	struct tm *		tm;
+	size_t			indent;
 	char			when[ 80 ];
 
+	indent = 0;
 	/* Count it							 */
 	log_stats.output += 1;
 	/* Mind the gap							 */
@@ -567,6 +569,7 @@ print_one_entry(
 			"%s",
 			e->trigger == NULL ? no_thumb : thumb
 		);
+		indent += strlen( thumb );
 	}
 	/* Output a line number if we were asked nicely			 */
 	if( want_lineno )	{
@@ -577,6 +580,7 @@ print_one_entry(
 			width = (unsigned int) log10( entries_qty );
 		}
 		printf( "%*lu ", width, ++lineno );
+		indent += width;
 	}
 	/* Special case: show rule if asked				 */
 	if( show_rules )	{
@@ -584,6 +588,7 @@ print_one_entry(
 			"%-15.15s ",
 			e->trigger ? e->trigger->s : ""
 		);
+		indent += 16;
 	}
 	/* Second, the date						 */
 	tm = localtime( &e->timestamp );
@@ -597,6 +602,7 @@ print_one_entry(
 		"%s ",
 		when
 	);
+	indent += strlen( when ) + 1;
 	/* Third, the host name					 */
 	if( colorize )	{
 		sgr_host( e->host_id );
@@ -605,6 +611,7 @@ print_one_entry(
 	} else	{
 		printf( fmt, (int) hlen, hosts[e->host_id] );
 	}
+	indent += hlen;
 	/* Now, the remainder of the text			 */
 	if( colorize && (e->trigger != NULL) )	{
 		regmatch_t		matches[10];
@@ -636,7 +643,19 @@ print_one_entry(
 			}
 		}
 	}
-	printf( "%s\n", e->resid );
+printf( "e->resid=|%s|\n", e->resid );
+	while( e->resid && e->resid[0] )	{
+		char const	needle[] = "\\n";
+		char *		eos = strstr( e->resid, needle );
+		if( eos )	{
+			*eos = '\0';
+			printf( "-->> %s\n", e->resid );
+			e->resid = eos + strlen( needle );
+		} else	{
+			printf( "%s\n", e->resid );
+			e->resid = NULL;
+		}
+	}
 }
 
 static	void
