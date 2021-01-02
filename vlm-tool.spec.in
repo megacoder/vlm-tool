@@ -30,8 +30,6 @@ For example, suppose one node of a five-server cluster starts having I/O issues 
 	[ -f configure ] || ./autogen.sh
 	./configure --prefix=$RPM_BUILD_ROOT%{prefix}
 	make
-	rm -f README
-	make README
 
 %install
 	rm -rf %{buildroot}
@@ -47,7 +45,7 @@ For example, suppose one node of a five-server cluster starts having I/O issues 
 %doc ChangeLog
 %doc INSTALL
 %doc NEWS
-%doc README README.md README.html
+%doc README.md
 %{_bindir}/vlm-tool
 %{_mandir}/man1/vlm-tool.1.gz
 
