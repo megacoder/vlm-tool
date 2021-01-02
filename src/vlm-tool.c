@@ -644,16 +644,25 @@ print_one_entry(
 		}
 	}
 printf( "e->resid=|%s|\n", e->resid );
-	while( e->resid && e->resid[0] )	{
-		char const	needle[] = "\\n";
-		char *		eos = strstr( e->resid, needle );
-		if( eos )	{
-			*eos = '\0';
-			printf( "-->> %s\n", e->resid );
-			e->resid = eos + strlen( needle );
-		} else	{
-			printf( "%s\n", e->resid );
-			e->resid = NULL;
+	{
+		char *	bp;
+
+		for( bp = e->resid; bp && *bp; )	{
+			char const	needle[] = "\\n";
+			size_t const	lNeedle = sizeof( needle ) - 1;
+			char *		eos;
+
+			eos = strstr( bp, needle );
+			if( eos )	{
+				/* Found another line separator */
+				int const	stride = eos - bp;
+				printf( "%*s\n", stride, bp );
+				bp = eos + lNeedle;
+			} else	{
+				/* No more sub-lines, so print what we got */
+				printf( "%s\n", bp );
+				break;
+			}
 		}
 	}
 }
