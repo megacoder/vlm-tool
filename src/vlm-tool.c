@@ -45,6 +45,8 @@
 
 typedef	struct	log_stats_s	{
 	unsigned long	read;
+	unsigned long	outside_window;
+	unsigned long	unvetted;
 	unsigned long	dropped;
 	unsigned long	flattened;
 	unsigned long	output;
@@ -342,6 +344,7 @@ process(
 		log_stats.read += 1;
 		/* Vet the line: the first character must be an alpha	 */
 		if( ! isalpha( buf[ 0 ] ) )	{
+			log_stats.unvetted += 1;
 			continue;
 		}
 		/* Drop trailing whitespace				 */
@@ -358,8 +361,9 @@ process(
 		}
 		xprintf(
 			3,
-			"when=%lu, incident=%lu, window=%lu",
+			"when=%lu, future=%lu, incident=%lu, window=%lu",
 			when,
+			future,
 			incident,
 			window
 		);
@@ -379,6 +383,7 @@ process(
 			continue;
 		}
 		if( window && (abs(when - incident) > window) )	{
+			log_stats.outside_window += 1;
 			continue;
 		}
 		for( resid = host; *resid && !isspace( *resid ); ++resid );
@@ -643,7 +648,6 @@ print_one_entry(
 			}
 		}
 	}
-printf( "e->resid=|%s|\n", e->resid );
 	{
 		char *	bp;
 
@@ -1197,11 +1201,13 @@ main(
 	if( do_stats )	{
 		static char const	fmt[] = "%15lu %s.\n";
 
-		fprintf( stderr, fmt, log_stats.read,	"entries read" );
-		fprintf( stderr, fmt, log_stats.poorly_formed, "poorly-formed entries" );
-		fprintf( stderr, fmt, log_stats.dropped, "entries dropped" );
-		fprintf( stderr, fmt, log_stats.flattened, "entries kept" );
-		fprintf( stderr, fmt, log_stats.output,	"entries output" );
+		fprintf( stderr, fmt, log_stats.read,		"entries read" );
+		fprintf( stderr, fmt, log_stats.poorly_formed,	"poorly-formed entries" );
+		fprintf( stderr, fmt, log_stats.unvetted,	"unvetted line" );
+		fprintf( stderr, fmt, log_stats.outside_window,	"outside consideration window" );
+		fprintf( stderr, fmt, log_stats.dropped,	"entries dropped" );
+		fprintf( stderr, fmt, log_stats.flattened,	"entries kept" );
+		fprintf( stderr, fmt, log_stats.output,		"entries output" );
 	}
 	/* Get out of Dodge						 */
 	return( nonfatal ? 1 : 0 );
