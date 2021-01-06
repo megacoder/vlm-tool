@@ -15,12 +15,9 @@ BuildRoot     : %{_tmppath}/%{name}-%{version}-root
 BuildRequires : pandoc
 
 %description
-The vlm-tool(1) reads one or more system log files (/var/log/messages) from
-one or more systems.  The entries are filtered against a known set of trigger
-patterns.  Those entries which are matched, are then sorted and printed.
+The vlm-tool(1) reads one or more system log files (/var/log/messages) from one or more systems.  The entries are filtered against a known set of trigger patterns.  Those entries which are matched, are then sorted and printed.
 
-Using this tool should make browsing many log files from many systems more
-palatable by highlighting entries which could indicate an issue.
+Using this tool should make browsing many log files from many systems more palatable by highlighting entries which could indicate an issue.
 
 For example, suppose one node of a five-server cluster starts having I/O issues to external storage and reboots.  Was this an isolated event or was the reboot simply the proper reaction to a non-fatal event on another node?  Now, expand this scenario to a huge cluster with hundreds of virtual guest machines.  The vlm-tool(1) can merge all their log files, highlight suspicious log entries, and mark simultaneous event before displaying the unified log file.
 %prep
