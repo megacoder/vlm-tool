@@ -1,8 +1,53 @@
+* Sat Jan 9 2021 Tommy Reynolds
+- (f88bbb5) Bumped version (HEAD -> master)
+
+* Sat Jan 9 2021 Tommy Reynolds
+- (b37d622) Split entry output on "\n" (two-character string) onto multiple lines.
+
+* Wed Jan 6 2021 Tommy Reynolds
+- (9f8a2fc) Install our carefully-generated README and README.html (origin/master, origin/HEAD)
+
+* Wed Jan 6 2021 Tommy Reynolds
+- (0220329) Turns out was problem with line's date wrap vetting
+
+* Wed Jan 6 2021 Tommy Reynolds
+- (f2ba3bd) Join split lines to allow linewrapping of the output.
+
+* Sat Jan 2 2021 Tommy Reynolds
+- (3c370f4) Dropped duplicate segmented print illogic.
+
+* Sat Jan 2 2021 Tommy Reynolds
+- (c1a980f) Merge branch 'master' of github.com:megacoder/vlm-tool
+
+* Sat Jan 2 2021 Tommy Reynolds
+- (52631a5) Don't need; handling organicly now
+
+* Sat Jan 2 2021 Tommy Reynolds
+- (0956980) Merge branch 'master' of github.com:megacoder/vlm-tool
+
+* Sat Jan 2 2021 Tommy Reynolds
+- (3beaddc) Checkpoint
+
+* Sat Jan 2 2021 Tommy Reynolds
+- (dde7ba2) Use pandoc to build README's more organiclly.
+
 * Fri Dec 11 2020 Tommy Reynolds
-- (7918caa) Ship "README.md" and forget the silly plaintext or HTML version. (HEAD, master, markdown)
+- (6850b06) Bump revision (tag: v2.2.28)
+
+* Fri Dec 11 2020 Tommy Reynolds
+- (ca557e3) History
+
+* Fri Dec 11 2020 Tommy Reynolds
+- (7918caa) Ship "README.md" and forget the silly plaintext or HTML version.
+
+* Fri Oct 23 2020 Tommy Reynolds
+- (36ef4c9) Use more modern markdown tools.
+
+* Fri Oct 23 2020 Tommy Reynolds
+- (7069403) Colorize the entire "systemd:" and "md:" tokens.
 
 * Fri Jun 19 2020 Tommy Reynolds
-- (97258a7) First cut at super-linter rules. (origin/master, origin/HEAD)
+- (97258a7) First cut at super-linter rules.
 
 * Sat May 30 2020 Tommy Reynolds
 - (b87f9c0) Stuff we need but may not have installed yet.
