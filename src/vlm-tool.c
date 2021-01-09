@@ -650,23 +650,29 @@ print_one_entry(
 	}
 	{
 		char *	bp;
+		size_t	do_indent;
 
-		for( bp = e->resid; bp && *bp; )	{
+		do_indent = 0;
+		for( bp = e->resid; bp && *bp; do_indent = indent )	{
 			char const	needle[] = "\\n";
-			size_t const	lNeedle = sizeof( needle ) - 1;
+			size_t const	len_needle = sizeof( needle ) - 1;
 			char *		eos;
+			int		stride;
 
 			eos = strstr( bp, needle );
-			if( eos )	{
-				/* Found another line separator */
-				int const	stride = eos - bp;
-				printf( "%*s\n", stride, bp );
-				bp = eos + lNeedle;
-			} else	{
-				/* No more sub-lines, so print what we got */
-				printf( "%s\n", bp );
-				break;
+			if( ! eos )	{
+				/* Did not find another line separator; point to end */
+				eos = bp + strlen( bp );
 			}
+			stride = ( eos - bp );
+			if( do_indent )	{
+				printf( "%*.*s ", (int) indent, (int) indent, "" );
+			}
+			printf( "%.*s\n", stride, bp );
+			if( *eos )	{
+				eos += len_needle;
+			}
+			bp = eos;
 		}
 	}
 }
