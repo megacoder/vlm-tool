@@ -161,6 +161,7 @@ calc_timestamp(
 
 	retval = NULL;
 	do	{
+		static struct tm last_tm;
 		timekind_t *	tk = timekinds + date_kind;
 		struct tm	tm;
 
@@ -182,8 +183,10 @@ calc_timestamp(
 				(int) tk->len,
 				timestamp
 			);
+			memcpy( &tm, &last_tm, sizeof( tm ) );
 			break;
 		}
+		memcpy( &last_tm, &tm, sizeof( tm ) );
 		/* Convert to time_t					 */
 #if	0
 		if( tm.tm_year > 1900 )	{
