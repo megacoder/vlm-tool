@@ -993,7 +993,7 @@ main(
 					"Date type not recognized: %s\n",
 						optarg
 					);
-					date_kind = 0;
+					exit( 1 );
 				}
 			}
 			break;
