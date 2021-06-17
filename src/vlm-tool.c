@@ -988,6 +988,11 @@ main(
 					}
 				}
 				if( date_kind >= Ntimekinds )	{
+					fprintf(
+						stderr,
+					"Date type not recognized: %s\n",
+						optarg
+					);
 					date_kind = 0;
 				}
 			}
