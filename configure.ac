@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.4])
-AC_INIT([vlm-tool], [2.2.30], [Oldest.Software.Guy@gmail.com])
+AC_INIT([vlm-tool], [2.2.31], [Oldest.Software.Guy@gmail.com])
 AC_CONFIG_SRCDIR([src/gcc-compat.h])
 
 # AM_GNU_GETTEXT_VERSION([0.0.0])
