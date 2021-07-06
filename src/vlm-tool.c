@@ -840,14 +840,21 @@ dump_rules(
 
 	iter = pool_iter_new( triggers );
 	do	{
+		char const	hdr_fmt[] = "%40s  %s\n";
+		char const	cnt_fmt[] = "%40s  %u\n";
 		trigger_t *	t;
 
+		printf( "\n" );
+		printf( hdr_fmt, "R U L E", "Hits" );
+		printf( hdr_fmt, "------------------", "-----" );
 		for(
 			t = pool_iter_next( iter );
 			t;
 			t = pool_iter_next( iter )
 		)	{
-			printf( "%-60s\t%u\n", t->s, t->hits );
+			if( t->hits )	{
+				printf( cnt_fmt, t->s, t->hits );
+			}
 		}
 	} while( 0 );
 	pool_iter_free( &iter );
