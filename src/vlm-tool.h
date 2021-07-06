@@ -11,6 +11,7 @@
 typedef	struct	trigger_s	{
 	char const *	s;		/* Original string		 */
 	regex_t		re;		/* Compiled regular expression	 */
+	unsigned int	hits;		/* Counts hits for this RE	 */
 } trigger_t;
 
 typedef	struct	entry_s	{

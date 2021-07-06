@@ -111,6 +111,7 @@ static	char const *	about;
 static	time_t		incident;
 static	time_t		window;
 static	time_t		delta_hours;
+static	int		want_dump;
 static	int		in_lineno;	/* Incoming linenumber		 */
 static	char const *	in_filename;	/* Filename being processes	 */
 
@@ -425,6 +426,7 @@ process(
 				fired = pool_iter_next( iter )
 			)	{
 				if( trigger_match( resid, fired, NULL ) ) {
+					fired->hits += 1;
 					keep  = 1;
 					break;
 				}
@@ -828,7 +830,7 @@ do_file(
 	}
 }
 
-#if	0
+#if	1
 static	void
 dump_rules(
 	void
@@ -845,7 +847,7 @@ dump_rules(
 			t;
 			t = pool_iter_next( iter )
 		)	{
-			printf( "%s\n", t->s );
+			printf( "%-60s\t%u\n", t->s, t->hits );
 		}
 	} while( 0 );
 	pool_iter_free( &iter );
@@ -939,7 +941,7 @@ main(
 	entries  = pool_new( sizeof(entry_t), NULL, NULL );
 	ignores  = pool_new( sizeof(trigger_t), NULL, NULL );
 	/* Process command line						 */
-	while( (c = getopt( argc, argv, "Xa:A:cd:G:gi:I:lmnNO:o:rst:w:W:vy:" )) != EOF ) {
+	while( (c = getopt( argc, argv, "Xa:A:cd:DG:gi:I:lmnNO:o:rst:w:W:vy:" )) != EOF ) {
 		switch( c )	{
 		default:
 			fprintf(
@@ -958,6 +960,9 @@ main(
 				c
 			);
 			++nonfatal;
+			break;
+		case 'D':
+			want_dump = 1;
 			break;
 		case 'X':
 			++debug;
@@ -1211,6 +1216,10 @@ main(
 	}
 	/* Print results						 */
 	print_entries();
+	/* Dump matching rules if we want stats				 */
+	if( want_dump )	{
+		dump_rules();
+	};
 	/* Want stats?							 */
 	if( do_stats )	{
 		static char const	fmt[] = "%15lu %s.\n";
