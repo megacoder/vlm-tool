@@ -830,7 +830,6 @@ do_file(
 	}
 }
 
-#if	1
 static	void
 dump_rules(
 	void
@@ -859,7 +858,6 @@ dump_rules(
 	} while( 0 );
 	pool_iter_free( &iter );
 }
-#endif	/* NOPE */
 
 static	int
 only_messages(
